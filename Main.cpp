@@ -2,7 +2,6 @@
 #include <windows.h>
 #include "include/BebidasDAO.h"
 
-
 using namespace std;
 
 int main() {
@@ -12,9 +11,8 @@ int main() {
 
     bebidas.carregarBebidas();
 
-    cout << bebidas.getBebidaByID(3);
+    for(Bebida bebida : bebidas.getAllBebidas()){
+        cout << bebida << endl;
+    }
 
 }
-
-
-//teste

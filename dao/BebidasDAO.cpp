@@ -3,8 +3,8 @@
 #include <fstream>
 #include <string>
 
-#include "include/BebidasDAO.h"
-#include "include/Bebida.h"
+#include "../include/BebidasDAO.h"
+#include "../include/Bebida.h"
 
 using namespace std;
 
