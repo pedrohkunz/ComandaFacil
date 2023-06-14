@@ -19,6 +19,7 @@ class Bebida{
 
   public:
     Bebida(unsigned long int id, string tipo, string tamanho, float valor);
+    Bebida();
 
     int getId();
 

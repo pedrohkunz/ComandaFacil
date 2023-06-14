@@ -9,7 +9,7 @@
 //Construtor vazio
 IngredienteDAO::IngredienteDAO(){};
 
-//Métodos que acessam diretamente o arquivo tamanhosPizza.txt
+//Métodos que acessam diretamente o arquivo ingredientes.txt
 
 Ingrediente IngredienteDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;

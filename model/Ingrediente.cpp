@@ -8,6 +8,8 @@ Ingrediente::Ingrediente(int id, string nome){
   this->nome = nome;
 }
 
+Ingrediente::Ingrediente(){};
+
 int Ingrediente::getId() {
   return id;
 }

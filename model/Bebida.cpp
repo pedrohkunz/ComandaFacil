@@ -11,6 +11,8 @@ Bebida::Bebida(unsigned long int id, string tipo, string tamanho, float valor){
   this->valor = valor;
 }
 
+Bebida::Bebida(){};
+
 
 int Bebida::getId() {
   return id;

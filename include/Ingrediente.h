@@ -19,6 +19,7 @@ class Ingrediente{
 
   public:
     Ingrediente(int id, string nome);
+    Ingrediente();
     int getId();
     string getNome();
     void setNome(string nome);

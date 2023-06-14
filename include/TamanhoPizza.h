@@ -21,6 +21,7 @@ class TamanhoPizza{
 
     public:
         TamanhoPizza(unsigned long int id, string tamanho, double valor);
+        TamanhoPizza();
 
         unsigned long int getId();
 
