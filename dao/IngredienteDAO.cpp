@@ -110,9 +110,6 @@ Ingrediente IngredienteDAO::getIngredienteByNome(string nome){
 }
 
 
-  Ingrediente getIngredienteByNome(string nome);
-
-
 bool IngredienteDAO::inserirIngrediente(Ingrediente ingrediente){
     listaIngredientes.push_back(ingrediente);
     salvarIngredientes();
