@@ -1,8 +1,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "sabor.h"
-#include "ingrediente.h"
+#include "../include/Sabor.h"
+#include "../include/Ingrediente.h"
 
 using namespace std;
 
