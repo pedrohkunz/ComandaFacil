@@ -10,16 +10,16 @@
 
 
 //Construtor vazio
-LoteDAO::LoteDAO(){
-    IngredienteDAO ingredientes = IngredienteDAO();
-};
+LoteDAO::LoteDAO(){};
 
+IngredienteDAO ingredientes = IngredienteDAO();
 
 //Métodos que acessam diretamente o arquivo lotes.txt
 
 Lote LoteDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;
-    string idString, quantidadeString, dataDeValidade, ingredienteIDString;
+    string idString, quantidadeString, dataDeValidade, ingredienteString;
+    ingredientes.carregarIngredientes();
 
 
     for (int i = 0; i < linha.size(); i++) {
@@ -39,7 +39,7 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
         } else if (contadorSharp == 2) {
             dataDeValidade = atributo;
         } else if (contadorSharp == 3) {
-            ingredienteIDString= atributo;
+            ingredienteString= atributo;
         }
 
         contadorSharp++;
@@ -53,10 +53,10 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
     //Converte as strings para outros tipos de dados
     unsigned long int id = stoi(idString);
     unsigned long int quantidade = stoi(quantidadeString);
-    int idIngrediente = stoi(ingredienteIDString);
+    unsigned long int idIngrediente = stoi(ingredienteString);
     Ingrediente ingrediente = ingredientes.getIngredienteByID(idIngrediente);
 
-    auto novoItem = Lote(id, quantidade, dataDeValidade, Ingrediente(1, "teste"));
+    auto novoItem = Lote(id, quantidade, dataDeValidade, ingrediente);
     return novoItem;
 }
 
