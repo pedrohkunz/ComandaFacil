@@ -14,7 +14,11 @@ int main() {
     ingredientes.carregarIngredientes();
     l.carregarLotes();
 
-    l.inserirLote(Lote(10, 390, "28/01/2005", ingredientes.getIngredienteByID(4)));
+    //l.inserirLote(Lote(10, 390, "28/01/2005", ingredientes.getIngredienteByID(4)));
+
+    l.editarLote(Lote(30, 999, "30/01/2020", ingredientes.getIngredienteByID(4)), 2);
+
+
 
 
 
