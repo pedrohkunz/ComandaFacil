@@ -24,6 +24,8 @@ class IngredienteDAO {
 
         Ingrediente getIngredienteByID(unsigned long int id);
 
+        Ingrediente getIngredienteByNome(string nome);
+
         bool inserirIngrediente(Ingrediente ingrediente);
 
         bool removerIngrediente(unsigned long int id);

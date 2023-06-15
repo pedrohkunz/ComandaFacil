@@ -100,6 +100,19 @@ Ingrediente IngredienteDAO::getIngredienteByID(unsigned long int id){
 }
 
 
+Ingrediente IngredienteDAO::getIngredienteByNome(string nome){
+    for(Ingrediente ingrediente : listaIngredientes){
+        if(ingrediente.getNome() == nome){
+            return ingrediente;
+            break;
+        }
+    }
+}
+
+
+  Ingrediente getIngredienteByNome(string nome);
+
+
 bool IngredienteDAO::inserirIngrediente(Ingrediente ingrediente){
     listaIngredientes.push_back(ingrediente);
     salvarIngredientes();

@@ -16,9 +16,6 @@ int main() {
 
     //l.inserirLote(Lote(10, 390, "28/01/2005", ingredientes.getIngredienteByID(2)));
 
-    for(Lote lote : l.getAllLotes()){
-      cout << lote;
-    }
-
+    cout << ingredientes.getIngredienteByNome("Tomate");
 
 }

@@ -56,7 +56,7 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
     int idIngrediente = stoi(ingredienteIDString);
     Ingrediente ingrediente = ingredientes.getIngredienteByID(idIngrediente);
 
-    auto novoItem = Lote(id, quantidade, dataDeValidade, ingrediente);
+    auto novoItem = Lote(id, quantidade, dataDeValidade, Ingrediente(1, "teste"));
     return novoItem;
 }
 
