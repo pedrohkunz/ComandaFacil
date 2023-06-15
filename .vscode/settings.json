@@ -6,6 +6,7 @@
         "xlocale": "cpp",
         "xlocnum": "cpp",
         "iostream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp"
     }
 }

@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Lote.h"
+#include "IngredienteDAO.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ class LoteDAO {
         vector<Lote> listaLotes;
     public:
         LoteDAO();
+        IngredienteDAO ingredientes;
 
         Lote converteStringParaObjeto(string linha);
 

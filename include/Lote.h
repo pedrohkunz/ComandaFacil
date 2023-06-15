@@ -12,6 +12,14 @@ class Lote{
         unsigned long int quantidade;
         string dataDeValidade;
         Ingrediente ingrediente;
+
+        friend ostream& operator<<(ostream& os, const Lote objeto) {
+            os << objeto.id << " - ";
+            os << objeto.quantidade << " - ";
+            os << objeto.dataDeValidade << " - ";
+            os << objeto.ingrediente << " | ";
+            return os;
+        }
     public:
         Lote(unsigned long int id, unsigned long int quantidade, string dataDeValidade, Ingrediente ingrediente);
         Lote();

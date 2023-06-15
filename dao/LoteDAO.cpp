@@ -6,17 +6,21 @@
 #include "../include/LoteDAO.h"
 #include "../include/Lote.h"
 #include "../include/IngredienteDAO.h"
+#include "../include/Ingrediente.h"
 
-IngredienteDAO ingredientes = IngredienteDAO();
 
 //Construtor vazio
-LoteDAO::LoteDAO(){};
+LoteDAO::LoteDAO(){
+    IngredienteDAO ingredientes = IngredienteDAO();
+};
+
 
 //Métodos que acessam diretamente o arquivo lotes.txt
 
 Lote LoteDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;
-    string idString, quantidadeString, dataDeValidade, ingredienteString;
+    string idString, quantidadeString, dataDeValidade, ingredienteIDString;
+
 
     for (int i = 0; i < linha.size(); i++) {
         vector<char> vt;
@@ -35,7 +39,7 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
         } else if (contadorSharp == 2) {
             dataDeValidade = atributo;
         } else if (contadorSharp == 3) {
-            ingredienteString = atributo;
+            ingredienteIDString= atributo;
         }
 
         contadorSharp++;
@@ -49,15 +53,8 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
     //Converte as strings para outros tipos de dados
     unsigned long int id = stoi(idString);
     unsigned long int quantidade = stoi(quantidadeString);
-
-    //Procura o Ingrediente correspondente na lista de ingredientes
-    Ingrediente ingrediente;
-    for(Ingrediente ing : ingredientes.getAllIngredientes()){
-        if(ing.getNome() == ingredienteString){
-            ingrediente = ing;
-            break;
-        }
-    }
+    int idIngrediente = stoi(ingredienteIDString);
+    Ingrediente ingrediente = ingredientes.getIngredienteByID(idIngrediente);
 
     auto novoItem = Lote(id, quantidade, dataDeValidade, ingrediente);
     return novoItem;
@@ -66,7 +63,6 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
 
 vector<Lote> LoteDAO::carregarLotes(){
   fstream arquivo("database/lotes.txt");
-
   string linha;
 
   if (arquivo.is_open()) {
@@ -91,7 +87,7 @@ void LoteDAO::salvarLotes(){
     ofstream arquivo("database/lotes.txt");
     if (arquivo.is_open()) {
         for (Lote lote : listaLotes) {
-            arquivo << to_string(lote.getId()) << "#" << to_string(lote.getQuantidade()) << "#" << lote.getDataDeValidade() << "#" <<lote.getIngredienteLote().getNome() << endl;
+            arquivo << to_string(lote.getId()) << "#" << to_string(lote.getQuantidade()) << "#" << lote.getDataDeValidade() << "#" << to_string(lote.getIngredienteLote().getId()) << endl;
         }
         arquivo.close();
     } else {
