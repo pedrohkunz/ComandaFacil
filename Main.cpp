@@ -1,6 +1,6 @@
 #include <iostream>
 #include <windows.h>
-#include "include/LoteDAO.h"
+#include "include/SaborDAO.h"
 #include "include/IngredienteDAO.h"
 #include  <string>
 
@@ -9,16 +9,19 @@ using namespace std;
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     IngredienteDAO ingredientes = IngredienteDAO();
-    LoteDAO l = LoteDAO();
+    SaborDAO sabor = SaborDAO();
 
     ingredientes.carregarIngredientes();
-    l.carregarLotes();
-
-    //l.inserirLote(Lote(10, 390, "28/01/2005", ingredientes.getIngredienteByID(4)));
-
-    l.editarLote(Lote(30, 999, "30/01/2020", ingredientes.getIngredienteByID(4)), 2);
 
 
+   sabor.carregarSabores();
+
+   sabor.salvarSabores();
+    //for(Sabor s : sabor.getAllSabores()){
+     //   cout << s.getNome();
+    //}
+
+   //sabor.salvarSabores();
 
 
 

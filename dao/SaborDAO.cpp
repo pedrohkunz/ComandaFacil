@@ -48,6 +48,7 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
       }
     }
 
+
     //Converte o idString para id inteiro
     unsigned long int id = stoi(idString);
 
@@ -59,7 +60,7 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
         vector<char> vti;
         while (count < ingredientes.size() && ingredientes[count] != '%') {
             vti.push_back(ingredientes[contador]);
-            contador++;
+            count++;
         }
 
         string ingString(vti.data(), vti.size());
@@ -109,11 +110,18 @@ void SaborDAO::salvarSabores(){
         for (Sabor sabor : listaSabores) {
             //Transforma o vetor de ingredientes em linha
             string ingredientesEmLinha;
-            for(Ingrediente ing : sabor.getIngredientes()){
-                //concatenar a string aqui
-            }
+            for(int i = 0; i<sabor.getIngredientes().size(); i++){
+                ingredientesEmLinha = ingredientesEmLinha + sabor.getIngredientes()[i].getNome();
 
-            arquivo << to_string(sabor.getId()) << "#" << sabor.getNome() <<  << endl;
+                if(i != sabor.getIngredientes().size()-1){
+                    ingredientesEmLinha += "%";
+                }
+            }
+            //for(Ingrediente ing : sabor.getIngredientes()){
+              //  ingredientesEmLinha = ing.getNome() + "%";
+            //}
+
+            arquivo << to_string(sabor.getId()) << "#" << sabor.getNome() << "#" << ingredientesEmLinha << endl;
         }
         arquivo.close();
     } else {
