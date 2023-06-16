@@ -16,9 +16,10 @@ int main() {
 
    sabor.carregarSabores();
 
-    for(Sabor s : sabor.getAllSabores()){
-        cout << s.getNome();
-    }
+   sabor.salvarSabores();
+    //for(Sabor s : sabor.getAllSabores()){
+     //   cout << s.getNome();
+    //}
 
    //sabor.salvarSabores();
 
