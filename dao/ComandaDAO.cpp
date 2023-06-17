@@ -115,7 +115,7 @@ vector<Comanda> ComandaDAO::carregarComandas(){
 
 
 void ComandaDAO::salvarComandas(){
-    ofstream arquivo("database/comanda.txt");
+    ofstream arquivo("database/comandas.txt");
     if (arquivo.is_open()) {
         for (Comanda comanda : listaComandas) {
             arquivo << to_string(comanda.getId()) << "#" 

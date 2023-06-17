@@ -79,7 +79,8 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
     }
 
     //Transforma a string bebidas em um vetor novamente
-    int count = 0, contadorPorcentagem = 0;
+    count = 0;
+    contadorPorcentagem = 0;
     vector<Bebida> vetorBebidas;
 
     for (int i = 0; i < bebidas.size(); i++) {

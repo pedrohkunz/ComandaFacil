@@ -2,7 +2,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Pizza.h"
+#include "../include/Pizza.h"
+#include "../include/TamanhoPizza.h"
+#include "../include/Sabor.h"
 
 using namespace std;
 
