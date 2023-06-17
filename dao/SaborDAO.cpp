@@ -59,7 +59,7 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
     for (int i = 0; i < ingredientes.size(); i++) {
         vector<char> vti;
         while (count < ingredientes.size() && ingredientes[count] != '%') {
-            vti.push_back(ingredientes[contador]);
+            vti.push_back(ingredientes[count]);
             count++;
         }
 
@@ -121,7 +121,9 @@ void SaborDAO::salvarSabores(){
               //  ingredientesEmLinha = ing.getNome() + "%";
             //}
 
-            arquivo << to_string(sabor.getId()) << "#" << sabor.getNome() << "#" << ingredientesEmLinha << endl;
+            arquivo << to_string(sabor.getId()) << "#" 
+                    << sabor.getNome() << "#" 
+                    << ingredientesEmLinha << endl;
         }
         arquivo.close();
     } else {

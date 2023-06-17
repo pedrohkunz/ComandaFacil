@@ -87,7 +87,10 @@ void LoteDAO::salvarLotes(){
     ofstream arquivo("database/lotes.txt");
     if (arquivo.is_open()) {
         for (Lote lote : listaLotes) {
-            arquivo << to_string(lote.getId()) << "#" << to_string(lote.getQuantidade()) << "#" << lote.getDataDeValidade() << "#" << to_string(lote.getIngredienteLote().getId()) << endl;
+            arquivo << to_string(lote.getId()) << "#" 
+                    << to_string(lote.getQuantidade()) << "#" 
+                    << lote.getDataDeValidade() << "#" 
+                    << to_string(lote.getIngredienteLote().getId()) << endl;
         }
         arquivo.close();
     } else {

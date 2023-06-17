@@ -77,7 +77,9 @@ void TamanhoPizzaDAO::salvarTamanhos(){
     ofstream arquivo("database/tamanhosPizza.txt");
     if (arquivo.is_open()) {
         for (TamanhoPizza tamanho : listaTamanhos) {
-            arquivo << to_string(tamanho.getId()) << "#" << tamanho.getTamanho() << "#" << to_string(tamanho.getValor()) << endl;
+            arquivo << to_string(tamanho.getId()) << "#" 
+                    << tamanho.getTamanho() << "#" 
+                    << to_string(tamanho.getValor()) << endl;
         }
         arquivo.close();
     } else {

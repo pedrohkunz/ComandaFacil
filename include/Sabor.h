@@ -17,6 +17,7 @@ class Sabor{
 
   public:
     Sabor(unsigned long int id, string nome,vector<Ingrediente> ingredientes);
+    Sabor();
 
     unsigned long int getId();
 

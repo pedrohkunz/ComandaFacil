@@ -74,7 +74,8 @@ void IngredienteDAO::salvarIngredientes(){
     ofstream arquivo("database/ingredientes.txt");
     if (arquivo.is_open()) {
         for (Ingrediente ingrediente : listaIngredientes) {
-            arquivo << to_string(ingrediente.getId()) << "#" << ingrediente.getNome() << endl;
+            arquivo << to_string(ingrediente.getId()) << "#" 
+                    << ingrediente.getNome() << endl;
         }
         arquivo.close();
     } else {

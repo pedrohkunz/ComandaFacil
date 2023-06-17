@@ -81,7 +81,10 @@ void BebidasDAO::salvarBebidas(){
     ofstream arquivo("database/bebidas.txt");
     if (arquivo.is_open()) {
         for (Bebida bebida : listaBebidas) {
-            arquivo << to_string(bebida.getId()) << "#" << bebida.getTipo() << "#" << bebida.getTamanho() << "#" << to_string(bebida.getValor()) << endl;
+            arquivo << to_string(bebida.getId()) << "#" 
+                    << bebida.getTipo() << "#" 
+                    << bebida.getTamanho() << "#" 
+                    << to_string(bebida.getValor()) << endl;
         }
         arquivo.close();
     } else {

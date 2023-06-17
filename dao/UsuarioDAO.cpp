@@ -77,7 +77,9 @@ void UsuarioDAO::salvarUsuarios(){
     ofstream arquivo("database/usuarios.txt");
     if (arquivo.is_open()) {
         for (Usuario usuario : listaUsuarios) 
-            arquivo << to_string(usuario.getId()) << "#" << usuario.getEmail() << "#" << usuario.getSenha() << endl;
+            arquivo << to_string(usuario.getId()) << "#" 
+                    << usuario.getEmail() << "#" 
+                    << usuario.getSenha() << endl;
         
         arquivo.close();
 

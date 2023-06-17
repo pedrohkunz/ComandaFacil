@@ -12,6 +12,8 @@ Sabor::Sabor(unsigned long int id, string nome, vector<Ingrediente> ingredientes
   this->ingredientes = ingredientes;
 }
 
+Sabor::Sabor(){};
+
 unsigned long int Sabor::getId() {
   return id;
 }
