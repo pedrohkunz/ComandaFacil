@@ -12,7 +12,7 @@ class Ingrediente{
     string nome;
 
     friend ostream& operator<<(ostream& os, const Ingrediente& objeto) {
-        os << objeto.nome;
+        os << objeto.id << " | " << objeto.nome;
         return os;
     }
 

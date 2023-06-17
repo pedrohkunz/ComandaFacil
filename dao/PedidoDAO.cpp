@@ -85,9 +85,9 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
 
     for (int i = 0; i < bebidas.size(); i++) {
         vector<char> vti;
-        while (countBebidas < bebidas.size() && bebidas[countBebidas] != '%') {
-            vti.push_back(bebidas[countBebidas]);
-            countBebidas++;
+        while (count < bebidas.size() && bebidas[count] != '%') {
+            vti.push_back(bebidas[count]);
+            count++;
         }
 
         string bebString(vti.data(), vti.size());
@@ -133,7 +133,7 @@ vector<Pedido> PedidoDAO::carregarPedidos(){
 
 
 void PedidoDAO::salvarPedidos(){
-    ofstream arquivo("database/pedido.txt");
+    ofstream arquivo("database/pedidos.txt");
     if (arquivo.is_open()) {
         for (Pedido pedido : listaPedidos) {
             arquivo << to_string(pedido.getId()) << "#";

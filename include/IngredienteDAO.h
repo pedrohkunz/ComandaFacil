@@ -20,6 +20,8 @@ class IngredienteDAO {
 
         void salvarIngredientes();
 
+        void imprimirIngredientes();
+
         vector<Ingrediente> getAllIngredientes();
 
         Ingrediente getIngredienteByID(unsigned long int id);

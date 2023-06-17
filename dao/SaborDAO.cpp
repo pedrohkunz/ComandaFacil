@@ -139,17 +139,27 @@ vector<Sabor> SaborDAO::getAllSabores(){
 
 
 Sabor SaborDAO::getSaborByID(unsigned long int id){
-    for(Sabor ingrediente : listaSabores){
-        if(ingrediente.getId() == id){
-            return ingrediente;
+    for(Sabor sabor : listaSabores){
+        if(sabor.getId() == id){
+            return sabor;
             break;
         }
     }
 }
 
 
-bool SaborDAO::inserirSabor(Sabor ingrediente){
-    listaSabores.push_back(ingrediente);
+Sabor SaborDAO::getSaborByNome(string nome){
+    for(Sabor sabor : listaSabores){
+        if(sabor.getNome() == nome){
+            return sabor;
+            break;
+        }
+    }
+}
+
+
+bool SaborDAO::inserirSabor(Sabor sabor){
+    listaSabores.push_back(sabor);
     salvarSabores();
     return true;
 };
@@ -174,11 +184,11 @@ bool SaborDAO::removerSabor(unsigned long int id){
 }
 
 
-bool SaborDAO::editarSabor(Sabor ingrediente, unsigned long int id){
+bool SaborDAO::editarSabor(Sabor sabor, unsigned long int id){
     bool encontrou = false;
-    for(Sabor& i : listaSabores){
-        if(i.getId() == id){
-            i = ingrediente;
+    for(Sabor& s : listaSabores){
+        if(s.getId() == id){
+            s = sabor;
             encontrou = true;
             break;
         }

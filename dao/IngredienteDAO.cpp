@@ -91,6 +91,14 @@ vector<Ingrediente> IngredienteDAO::getAllIngredientes(){
 };
 
 
+void IngredienteDAO::imprimirIngredientes(){
+    cout << "ID | Nome" << endl;
+    for (const auto& objeto : listaIngredientes) {
+        cout << objeto << endl;
+    }
+};
+
+
 Ingrediente IngredienteDAO::getIngredienteByID(unsigned long int id){
     for(Ingrediente ingrediente : listaIngredientes){
         if(ingrediente.getId() == id){

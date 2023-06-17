@@ -25,6 +25,8 @@ class SaborDAO{
 
         Sabor getSaborByID(unsigned long int id);
 
+        Sabor getSaborByNome(string nome);
+
         bool inserirSabor(Sabor sabor);
 
         bool removerSabor(unsigned long int id);

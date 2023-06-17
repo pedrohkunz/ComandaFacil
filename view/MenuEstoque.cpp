@@ -12,13 +12,13 @@ using namespace std;
 void menuEstoque() {
   unsigned short resposta;
 
-  cout << "\n1- Ver todos os itens  |  2- Buscar  |  3- Adicionar lote";
-  cout << "\n* Qual atividade você deseja realizar? ";
+  cout << "1- Ver todos os itens  |  2- Buscar  |  3- Adicionar lote" << endl;
+  cout << "Qual atividade você deseja realizar? " << endl;
   cin >> resposta;
 
   // Validação da resposta
   while (resposta != 1 && resposta != 2 && resposta != 3) {
-    cout << "\nOpção inválida, por favor tente novamente: ";
+    cout << "Opção inválida, por favor tente novamente: " << endl;
     cin >> resposta;
   }
 

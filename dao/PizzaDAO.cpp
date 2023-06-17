@@ -87,7 +87,7 @@ Pizza PizzaDAO::converteStringParaObjeto(string linha){
 
 
 vector<Pizza> PizzaDAO::carregarPizzas(){
-  fstream arquivo("database/pizza.txt");
+  fstream arquivo("database/pizzas.txt");
 
   string linha;
 
@@ -110,7 +110,7 @@ vector<Pizza> PizzaDAO::carregarPizzas(){
 
 
 void PizzaDAO::salvarPizzas(){
-    ofstream arquivo("database/pizzasPizza.txt");
+    ofstream arquivo("database/pizzas.txt");
     if (arquivo.is_open()) {
         for (Pizza pizza : listaPizzas) {
             arquivo << to_string(pizza.getId()) << "#" 

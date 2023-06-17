@@ -2,6 +2,9 @@
 #include <windows.h>
 #include "include/SaborDAO.h"
 #include "include/IngredienteDAO.h"
+#include "include/PizzaDAO.h"
+#include "include/TamanhoPizza.h"
+#include "include/TamanhoPizzaDAO.h"
 #include "include/MenuPrincipal.h"
 #include  <string>
 
@@ -14,12 +17,22 @@ int main() {
     MenuPrincipal menuPrincipal = MenuPrincipal();
 
     ingredientes.carregarIngredientes();
-    sabor.carregarSabores();
+    auto i = new Ingrediente(5, "Orégano");
+    ingredientes.inserirIngrediente(*i);
+    ingredientes.salvarIngredientes();
+    ingredientes.imprimirIngredientes();
+   // cout << i->getId() << " | " << i->getNome() << endl;    sabor.carregarSabores();
 
-    menuPrincipal.menu();
+   sabor.salvarSabores();
+    //for(Sabor s : sabor.getAllSabores()){
+     //   cout << s.getNome();
+    //}
 
 
+    //PizzaDAO pizzas = PizzaDAO();
+    //pizzas.carregarPizzas();
 
-
+    //PizzaDAO pizzas = PizzaDAO();
+    //pizzas.carregarPizzas();
 
 }
