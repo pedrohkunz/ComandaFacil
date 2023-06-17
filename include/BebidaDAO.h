@@ -1,5 +1,5 @@
-#ifndef BEBIDASDAO_H_
-#define BEBIDASDAO_H_
+#ifndef BEBIDADAO_H_
+#define BEBIDADAO_H_
 
 #include <iostream>
 #include <vector>
@@ -8,11 +8,11 @@
 
 using namespace std;
 
-class BebidasDAO {
+class BebidaDAO {
     private:
         vector<Bebida> listaBebidas;
     public:
-        BebidasDAO();
+        BebidaDAO();
 
         Bebida converteStringParaObjeto(string linha);
 

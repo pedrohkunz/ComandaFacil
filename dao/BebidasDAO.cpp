@@ -3,17 +3,17 @@
 #include <fstream>
 #include <string>
 
-#include "../include/BebidasDAO.h"
+#include "../include/BebidaDAO.h"
 #include "../include/Bebida.h"
 
 using namespace std;
 
 //Construtor vazio
-BebidasDAO::BebidasDAO(){};
+BebidaDAO::BebidaDAO(){};
 
 //Métodos que acessam diretamente o arquivo bebidas.txt
 
-Bebida BebidasDAO::converteStringParaObjeto(string linha){
+Bebida BebidaDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;
     string idString, tipo, tamanho, valorString;
 
@@ -54,7 +54,7 @@ Bebida BebidasDAO::converteStringParaObjeto(string linha){
 };
 
 
-vector<Bebida> BebidasDAO::carregarBebidas(){
+vector<Bebida> BebidaDAO::carregarBebidas(){
   fstream arquivo("database/bebidas.txt");
 
   string linha;
@@ -77,7 +77,7 @@ vector<Bebida> BebidasDAO::carregarBebidas(){
 };
 
 
-void BebidasDAO::salvarBebidas(){
+void BebidaDAO::salvarBebidas(){
     ofstream arquivo("database/bebidas.txt");
     if (arquivo.is_open()) {
         for (Bebida bebida : listaBebidas) {
@@ -95,12 +95,12 @@ void BebidasDAO::salvarBebidas(){
 
 //Métodos de manipulação de dados
 
-vector<Bebida> BebidasDAO::getAllBebidas(){
+vector<Bebida> BebidaDAO::getAllBebidas(){
     return listaBebidas;
 };
 
 
-Bebida BebidasDAO::getBebidaByID(unsigned long int id){
+Bebida BebidaDAO::getBebidaByID(unsigned long int id){
     for(Bebida bebida : listaBebidas){
         if(bebida.getId() == id){
             return bebida;
@@ -110,23 +110,23 @@ Bebida BebidasDAO::getBebidaByID(unsigned long int id){
 }
 
 
-bool BebidasDAO::inserirBebida(Bebida bebida){
+bool BebidaDAO::inserirBebida(Bebida bebida){
     listaBebidas.push_back(bebida);
     salvarBebidas();
     return true;
 };
 
 
-bool BebidasDAO::removerBebida(unsigned long int id){
-    auto i = listaBebidas.begin();
+bool BebidaDAO::removerBebida(unsigned long int id){
+    auto b = listaBebidas.begin();
     bool apagou = false;
-    while (i != listaBebidas.end()) {
-        if (i->getId() == id) {
-            i = listaBebidas.erase(i);
+    while (b != listaBebidas.end()) {
+        if (b->getId() == id) {
+            b = listaBebidas.erase(b);
             apagou = true;
             break;
         } else {
-            i++;
+            b++;
         }
     }
 
@@ -136,7 +136,7 @@ bool BebidasDAO::removerBebida(unsigned long int id){
 }
 
 
-bool BebidasDAO::editarBebida(Bebida bebida, unsigned long int id){
+bool BebidaDAO::editarBebida(Bebida bebida, unsigned long int id){
     bool encontrou = false;
     for(Bebida& b : listaBebidas){
         if(b.getId() == id){
