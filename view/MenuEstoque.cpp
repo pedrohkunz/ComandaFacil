@@ -1,6 +1,6 @@
-#include "lote.h"
-#include "loteDAO.h"
-#include "ingredienteDAO.h"
+#include "../include/Lote.h"
+#include "../include/LoteDAO.h"
+#include "../include/IngredienteDAO.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -24,7 +24,7 @@ void menuEstoque() {
 
   switch (resposta) {
   case 1:
-    
+
     break;
 
   case 2:

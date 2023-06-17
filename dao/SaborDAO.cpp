@@ -56,7 +56,7 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
     int count = 0, contadorPorcentagem = 0;
     vector<Ingrediente> vetorIngredientes;
 
-    for (int i = 0; i < ingredientes.size(); i++) {
+    while (count < ingredientes.size()) {
         vector<char> vti;
         while (count < ingredientes.size() && ingredientes[count] != '%') {
             vti.push_back(ingredientes[count]);
@@ -66,14 +66,17 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
         string ingString(vti.data(), vti.size());
         Ingrediente ing;
 
-        for(Ingrediente ingrediente : ingredientesDAO.getAllIngredientes()){
-            if(ingString == ingrediente.getNome()){
+        // Percorre o vetor de ingredientes e procura o ingrediente com o nome correspondente ao ingString, se encontrado, o ingrediente é armazenado na variável ing
+        for (Ingrediente ingrediente : ingredientesDAO.getAllIngredientes()) {
+            if (ingString == ingrediente.getNome()) {
                 ing = ingrediente;
                 break;
             }
-        };
+        }
 
         vetorIngredientes.push_back(ing);
+
+        count++;
     }
 
     auto x = Sabor(id, nome, vetorIngredientes);
@@ -104,32 +107,28 @@ vector<Sabor> SaborDAO::carregarSabores(){
 };
 
 
-void SaborDAO::salvarSabores(){
+void SaborDAO::salvarSabores() {
     ofstream arquivo("database/sabores.txt");
     if (arquivo.is_open()) {
         for (Sabor sabor : listaSabores) {
-            //Transforma o vetor de ingredientes em linha
+            // Transforma o vetor de ingredientes em linha
             string ingredientesEmLinha;
-            for(int i = 0; i<sabor.getIngredientes().size(); i++){
-                ingredientesEmLinha = ingredientesEmLinha + sabor.getIngredientes()[i].getNome();
+            vector<Ingrediente> ingredientes = sabor.getIngredientes();
+            for (int i = 0; i < ingredientes.size(); i++) {
+                ingredientesEmLinha = ingredientesEmLinha + ingredientes[i].getNome();
 
-                if(i != sabor.getIngredientes().size()-1){
+                if (i != sabor.getIngredientes().size() - 1) {
                     ingredientesEmLinha += "%";
                 }
             }
-            //for(Ingrediente ing : sabor.getIngredientes()){
-              //  ingredientesEmLinha = ing.getNome() + "%";
-            //}
 
-            arquivo << to_string(sabor.getId()) << "#" 
-                    << sabor.getNome() << "#" 
-                    << ingredientesEmLinha << endl;
+            arquivo << to_string(sabor.getId()) << "#" << sabor.getNome() << "#" << ingredientesEmLinha << endl;
         }
         arquivo.close();
     } else {
         cout << "Erro ao abrir o arquivo." << endl;
     }
-};
+}
 
 
 //Métodos de manipulação de dados

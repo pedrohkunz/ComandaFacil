@@ -15,7 +15,7 @@ class Pizza{
     unsigned long int id;
     TamanhoPizza tamanho;
     vector<Sabor> sabor;
-    
+
   public:
     Pizza(unsigned long int id, TamanhoPizza tamanho, vector<Sabor> sabor);
     Pizza();
@@ -27,4 +27,4 @@ class Pizza{
 };
 
 
-#endif 
+#endif
