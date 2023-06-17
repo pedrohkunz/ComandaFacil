@@ -121,7 +121,7 @@ void SaborDAO::salvarSabores() {
                     ingredientesEmLinha += "%";
                 }
             }
-            
+
             arquivo << to_string(sabor.getId()) << "#" << sabor.getNome() << "#" << ingredientesEmLinha << endl;
         }
         arquivo.close();

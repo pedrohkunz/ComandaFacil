@@ -25,7 +25,7 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
-      
+
       while (contador < a.size() && a[contador] != '#') {
         vt.push_back(a[contador]);
         contador++;
@@ -79,14 +79,14 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
     }
 
     //Transforma a string bebidas em um vetor novamente
-    int count = 0, contadorPorcentagem = 0;
+    int countBebidas = 0, contadorPorcentagembebidas = 0;
     vector<Bebida> vetorBebidas;
 
     for (int i = 0; i < bebidas.size(); i++) {
         vector<char> vti;
-        while (count < bebidas.size() && bebidas[count] != '%') {
-            vti.push_back(bebidas[count]);
-            count++;
+        while (countBebidas < bebidas.size() && bebidas[countBebidas] != '%') {
+            vti.push_back(bebidas[countBebidas]);
+            countBebidas++;
         }
 
         string bebString(vti.data(), vti.size());
@@ -197,7 +197,7 @@ bool PedidoDAO::editarPedido(Pedido pedido, unsigned long int id){
             break;
         }
     }
-  
+
     salvarPedidos();
     return encontrou;
 };

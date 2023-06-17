@@ -14,10 +14,4 @@ int main() {
     ingredientes.carregarIngredientes();
     sabor.carregarSabores();
 
-    sabor.salvarSabores();
-
-
-
-
-
 }
