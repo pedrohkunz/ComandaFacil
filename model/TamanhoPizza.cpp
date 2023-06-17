@@ -12,6 +12,8 @@ TamanhoPizza::TamanhoPizza(unsigned long int id, string tamanho, double valor){
     this->valor = valor;
 }
 
+TamanhoPizza::TamanhoPizza(){}
+
 
 unsigned long int TamanhoPizza::getId(){
     return id;

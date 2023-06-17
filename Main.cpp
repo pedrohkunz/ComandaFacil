@@ -12,16 +12,11 @@ int main() {
     SaborDAO sabor = SaborDAO();
 
     ingredientes.carregarIngredientes();
+    sabor.carregarSabores();
+
+    sabor.salvarSabores();
 
 
-   sabor.carregarSabores();
-
-   sabor.salvarSabores();
-    //for(Sabor s : sabor.getAllSabores()){
-     //   cout << s.getNome();
-    //}
-
-   //sabor.salvarSabores();
 
 
 
