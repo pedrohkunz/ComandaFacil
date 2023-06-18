@@ -25,6 +25,7 @@ class Lote{
         Lote();
 
         unsigned long int getId();
+        void setId(unsigned long int id);
 
         unsigned long int getQuantidade();
         void setQuantidade(unsigned long int quantidade);

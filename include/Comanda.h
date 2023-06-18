@@ -36,6 +36,7 @@ public:
     Comanda();
 
     unsigned long int getId();
+    void setId(unsigned long int id);
 
     short int getFormaPagamento();
     void setFormaPagamento(short int formaPagamento);

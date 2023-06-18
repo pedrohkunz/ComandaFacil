@@ -11,25 +11,28 @@ TamanhoPizza::TamanhoPizza(unsigned long int id, string tamanho, double valor){
     this->tamanho = tamanho;
     this->valor = valor;
 }
-
 TamanhoPizza::TamanhoPizza(){};
+
 
 unsigned long int TamanhoPizza::getId(){
     return id;
 }
+void TamanhoPizza::setId(unsigned long int id) {
+  this->id = id;
+}
+
 
 string TamanhoPizza::getTamanho(){
     return tamanho;
 }
-
 void TamanhoPizza::setTamanho(string tamanho){
     this->tamanho = tamanho;
 }
 
+
 double TamanhoPizza::getValor(){
     return valor;
 }
-
 void TamanhoPizza::setValor(double valor){
     this->valor = valor;
 }

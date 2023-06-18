@@ -17,11 +17,14 @@ Comanda::Comanda(unsigned long int id, short int formaPagamento, Usuario usuario
     this->pedidos = pedidos;
  
 }
-
 Comanda::Comanda(){};
+
 
 unsigned long int Comanda::getId(){
   return id;
+}
+void Comanda::setId(unsigned long int id) {
+  this->id = id;
 }
 
 

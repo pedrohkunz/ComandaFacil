@@ -12,12 +12,14 @@
 using namespace std;
 
 MenuEstoque::MenuEstoque(){};
-MenuPrincipal menuPrincipal = MenuPrincipal();
+MenuPrincipal menuPrincipalMenuEstoque = MenuPrincipal();
+IngredienteDAO ingredientesMenuEstoque = IngredienteDAO();
+LoteDAO loteMenuEstoque = LoteDAO();
+
 
 void MenuEstoque::menuEstoque() {
   unsigned short resposta;
-  LoteDAO lote = LoteDAO();
-  lote.carregarLotes();
+  loteMenuEstoque.carregarLotes();
   MenuEstoqueBuscar buscar = MenuEstoqueBuscar();
 
   cout <<"///////////////////////////////////////////// Menu Estoque ////////////////////////////////////////////////" << endl;
@@ -39,7 +41,7 @@ void MenuEstoque::menuEstoque() {
 
   switch (resposta) {
   case 1:
-    lote.imprimirLotes();
+    loteMenuEstoque.imprimirLotes();
     cout << endl;
     this->menuEstoque();
     break;
@@ -51,12 +53,107 @@ void MenuEstoque::menuEstoque() {
     break;
 
   case 3:
-    cout << "Adicionar lote" << endl;
+    this->adicionarLote();
     this->menuEstoque();
     break;
 
   case 4:
-    menuPrincipal.menu();
+    menuPrincipalMenuEstoque.menu();
     break;
   }
+}
+
+void MenuEstoque::adicionarLote() {
+  unsigned long int idAddLote, quantidadeAddLote, respostaAddLote;
+  string dataDeValidadeAddLote;
+  Ingrediente ingredienteAddLote;
+  Lote loteAddLote;
+  ingredientesMenuEstoque.carregarIngredientes();
+
+  cout <<"//////////////////////////////////// Menu Estoque | Adicionar Lote ///////////////////////////////////////" << endl;
+  
+  cout << "Digite o ID: " << endl;
+  cin >> idAddLote;
+  cout << endl;
+
+  cout << "Digite a quantidade: " << endl;
+  cin >> quantidadeAddLote;
+  cout << endl;
+
+  cout << "Digite a data de validade: " << endl;
+  cin >> dataDeValidadeAddLote;
+  cout << endl;
+
+  ingredienteAddLote = this->adicionarLoteIngrediente();
+  
+  loteAddLote.setId(idAddLote);
+  loteAddLote.setQuantidade(quantidadeAddLote);
+  loteAddLote.setDataDeValidade(dataDeValidadeAddLote);
+  loteAddLote.setIngredienteLote(ingredienteAddLote);
+  
+  if(loteMenuEstoque.inserirLote(loteAddLote)){
+    cout << "Lote adicionado com sucesso." << endl;
+  } else {
+    cout << "Erro ao adicionar lote." << endl;
+    adicionarLote();
+  }
+  
+}
+
+Ingrediente MenuEstoque::adicionarLoteIngrediente() {
+  unsigned long int respostaAddLote, idIngredienteAddLote;
+  string nomeIngredienteAddLote;
+  Ingrediente ingredienteAddLoteIngrediente;
+
+  cout << "Ingrediente:" << endl
+       << "1- Buscar por nome do ingrediente  |  "
+       << "2- Buscar por ID  do ingrediente  |  "
+       << "3- Adicionar novo ingrediente" << endl;
+       cin >> respostaAddLote;
+       cout << endl;
+
+  // Validação da resposta
+    while (respostaAddLote != 1 && respostaAddLote != 2 && respostaAddLote != 3) {
+      cout << "Opção inválida, por favor tente novamente: " << endl;
+      cin >> respostaAddLote;
+      cout << endl;
+      }
+
+      switch (respostaAddLote) {
+      case 1:
+        cout << "Digite o nome do ingrediente: " << endl;
+        cin >> nomeIngredienteAddLote;
+        cout << endl;
+        ingredienteAddLoteIngrediente = ingredientesMenuEstoque.getIngredienteByNome(nomeIngredienteAddLote);
+        return ingredienteAddLoteIngrediente;
+
+      case 2:
+        cout << "Digite o id do ingrediente: " << endl;
+        cin >> idIngredienteAddLote;
+        cout << endl;
+        ingredienteAddLoteIngrediente = ingredientesMenuEstoque.getIngredienteByID(idIngredienteAddLote);
+        return ingredienteAddLoteIngrediente;
+
+      case 3:
+        cout <<"//////////////////////// Menu Estoque | Adicionar Lote | Adicionar ingrediente ///////////////////////////" << endl;
+
+        cout << "Digite o id do ingrediente: " << endl;
+        cin >> idIngredienteAddLote;
+        cout << "Digite o nome do ingrediente: " << endl;
+        cin >> nomeIngredienteAddLote;
+        cout << endl;
+        ingredienteAddLoteIngrediente.setId(idIngredienteAddLote);
+        ingredienteAddLoteIngrediente.setNome(nomeIngredienteAddLote);
+
+        if(ingredientesMenuEstoque.inserirIngrediente(ingredienteAddLoteIngrediente)){
+          cout << "Ingrediente adicionado com sucesso." << endl;
+        } else {
+          cout << "Erro ao adicionar ingrediente."<< endl;
+          this->adicionarLoteIngrediente();
+        };
+        return ingredienteAddLoteIngrediente;
+
+      }
+  
+
 }

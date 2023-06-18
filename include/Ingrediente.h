@@ -8,7 +8,7 @@ using namespace std;
 
 class Ingrediente{
   private:
-    int id;
+    unsigned long int id;
     string nome;
 
     friend ostream& operator<<(ostream& os, const Ingrediente& objeto) {
@@ -20,7 +20,10 @@ class Ingrediente{
   public:
     Ingrediente(int id, string nome);
     Ingrediente();
+
     int getId();
+    void setId(unsigned long int id);
+    
     string getNome() const;
     void setNome(string nome);
 

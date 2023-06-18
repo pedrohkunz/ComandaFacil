@@ -24,6 +24,7 @@ class TamanhoPizza{
         TamanhoPizza();
 
         unsigned long int getId();
+        void setId(unsigned long int id);
 
         string getTamanho();
         void setTamanho(string tamanho);

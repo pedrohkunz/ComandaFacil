@@ -30,9 +30,13 @@ class Pizza{
   public:
     Pizza(unsigned long int id, TamanhoPizza tamanho, vector<Sabor> sabores);
     Pizza();
+
     unsigned long int getId();
+    void setId(unsigned long int id);
+
     TamanhoPizza getTamanho();
     void setTamanho(TamanhoPizza tamanho);
+    
     vector<Sabor> getSabores();
     void setSabores(vector<Sabor> sabores);
 };

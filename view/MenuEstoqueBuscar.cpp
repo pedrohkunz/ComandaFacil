@@ -11,7 +11,7 @@ using namespace std;
 
 MenuEstoqueBuscar::MenuEstoqueBuscar(){};
 IngredienteDAO ingredientesMenuEstoqueBuscar = IngredienteDAO();
-LoteDAO lote = LoteDAO();
+LoteDAO loteMenuEstoqueBuscar = LoteDAO();
 
 void MenuEstoqueBuscar::menuEstoqueBuscar(){
   unsigned short resposta;
@@ -64,27 +64,27 @@ void MenuEstoqueBuscar::filtrar(){
 
 
 void MenuEstoqueBuscar::buscarPorId(){
-    lote.carregarLotes();
+    loteMenuEstoqueBuscar.carregarLotes();
     unsigned long int id;
     cout << "Digite o ID: " << endl;
     cin >> id;
-    cout << move(lote.getLoteByID(id)) << endl;
+    cout << move(loteMenuEstoqueBuscar.getLoteByID(id)) << endl;
     
 };
 
 
 void MenuEstoqueBuscar::buscarPorDataValidade(){
-    lote.carregarLotes();
+    loteMenuEstoqueBuscar.carregarLotes();
     string data;
     cout << "Digite a data de validade: " << endl;
     cin >> data;
-    cout << move(lote.getLoteByDataValidade(data)) << endl;
+    cout << move(loteMenuEstoqueBuscar.getLoteByDataValidade(data)) << endl;
 
 };
 
 
 void MenuEstoqueBuscar::buscarPorIngrediente(){
-    lote.carregarLotes();
+    loteMenuEstoqueBuscar.carregarLotes();
     ingredientesMenuEstoqueBuscar.carregarIngredientes();
     Ingrediente ingrediente;
     string nome;

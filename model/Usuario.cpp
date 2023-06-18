@@ -10,11 +10,14 @@ Usuario::Usuario(unsigned long int id, string nome, string email, string senha){
   this->email = email;
   this->senha = senha;
 }
-
 Usuario::Usuario(){};
+
 
 int Usuario::getId() {
   return id;
+}
+void Usuario::setId(unsigned long int id) {
+  this->id = id;
 }
 
 

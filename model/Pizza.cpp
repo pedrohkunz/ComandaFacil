@@ -13,12 +13,16 @@ Pizza::Pizza(unsigned long int id, TamanhoPizza tamanho, vector<Sabor> sabores){
   this->tamanho = tamanho;
   this->sabores = sabores;
 }
-
 Pizza::Pizza(){};
+
 
 unsigned long int Pizza::getId() {
   return id;
 }
+void Pizza::setId(unsigned long int id) {
+  this->id = id;
+}
+
 
 TamanhoPizza Pizza::getTamanho() {
   return tamanho;
@@ -26,6 +30,7 @@ TamanhoPizza Pizza::getTamanho() {
 void Pizza::setTamanho(TamanhoPizza tamanho){
   this->tamanho = tamanho;
 }
+
 
 vector<Sabor> Pizza::getSabores(){
   return sabores;

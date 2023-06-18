@@ -13,12 +13,16 @@ Pedido::Pedido(unsigned long int id, vector<Pizza> pizzas, vector<Bebida> bebida
   this->pizzas = pizzas;
   this->bebidas = bebidas;
 }
-
 Pedido::Pedido(){};
+
 
 unsigned long int Pedido::getId(){
   return id;
 }
+void Pedido::setId(unsigned long int id) {
+  this->id = id;
+}
+
 
 vector<Pizza> Pedido::getPizzas(){
   return pizzas;
@@ -26,6 +30,7 @@ vector<Pizza> Pedido::getPizzas(){
 void Pedido::setPizzas(vector<Pizza> pizzas){
   this->pizzas = pizzas;
 }
+
 
 vector<Bebida> Pedido::getBebidas(){
   return bebidas;

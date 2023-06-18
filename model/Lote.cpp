@@ -9,33 +9,36 @@ Lote::Lote(unsigned long int id, unsigned long int quantidade, string dataDeVali
     this->dataDeValidade = dataDeValidade;
     this->ingrediente = ingrediente;
 }
-
 Lote::Lote(){};
+
 
 unsigned long int Lote::getId(){
     return id;
 }
+void Lote::setId(unsigned long int id) {
+  this->id = id;
+}
+
 
 unsigned long int Lote::getQuantidade(){
     return quantidade;
 }
-
 void Lote::setQuantidade(unsigned long int quantidade){
     this->quantidade = quantidade;
 }
 
+
 string Lote::getDataDeValidade(){
     return dataDeValidade;
 }
-
 void Lote::setDataDeValidade(string dataDeValidade){
     this->dataDeValidade = dataDeValidade;
 }
 
+
 Ingrediente Lote::getIngredienteLote(){
     return ingrediente;
 }
-
 void Lote::setIngredienteLote(Ingrediente ingrediente){
     this->ingrediente = ingrediente;
 }

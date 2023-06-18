@@ -26,6 +26,7 @@ class Usuario {
         Usuario();
 
         int getId();
+        void setId(unsigned long int id);
 
         string getNome();
         void setNome(string nome);

@@ -6,7 +6,7 @@
 using namespace std;
 
 MenuPrincipal::MenuPrincipal(){};
-MenuEstoque menuEstoque = MenuEstoque();
+MenuEstoque menuEstoqueMenuPrincipal = MenuEstoque();
 MenuNovoPedido menuNovoPedido = MenuNovoPedido();
 
 void MenuPrincipal::menu(){
@@ -17,7 +17,7 @@ void MenuPrincipal::menu(){
     cout <<"//////////////////////////////////////////// Menu Principal ///////////////////////////////////////////////" << endl;
 
     cout << endl
-         <<"1- Novo pedido  |  "
+         << "1- Novo pedido  |  "
          << "2- Pedidos em processamento  |  "
          << "3- Histórico de pedidos  |  "
          << "4- Estoque  |  "
@@ -38,18 +38,22 @@ void MenuPrincipal::menu(){
     {
     case 1:
         menuNovoPedido.menu();
+        this->menu();
         break;
 
     case 2:
         cout << "Pedidos em processamento" << endl;
+        this->menu();
         break;
 
     case 3:
         cout << "Histórico de pedidos" << endl;
+        this->menu();
         break;
 
     case 4:
-        menuEstoque.menuEstoque();
+        menuEstoqueMenuPrincipal.menuEstoque();
+        this->menu();
         break;
 
     case 5:

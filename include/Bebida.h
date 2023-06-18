@@ -25,6 +25,7 @@ class Bebida{
     Bebida();
 
     int getId();
+    void setId(unsigned long int id);
 
     string getTipo();
     void setTipo(string tipo);

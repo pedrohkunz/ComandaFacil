@@ -45,6 +45,7 @@ class Pedido{
     Pedido();
 
     unsigned long int getId();
+    void setId(unsigned long int id);
 
     vector<Pizza> getPizzas();
     void setPizzas(vector<Pizza> pizzas);

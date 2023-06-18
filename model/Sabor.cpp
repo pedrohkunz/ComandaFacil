@@ -11,25 +11,28 @@ Sabor::Sabor(unsigned long int id, string nome, vector<Ingrediente> ingredientes
   this->nome = nome;
   this->ingredientes = ingredientes;
 }
-
 Sabor::Sabor(){};
+
 
 unsigned long int Sabor::getId() {
   return id;
 }
+void Sabor::setId(unsigned long int id) {
+  this->id = id;
+}
+
 
 string Sabor::getNome(){
   return nome;
 }
-
 void Sabor::setNome(string nome){
   this->nome = nome;
 }
 
+
 vector<Ingrediente> Sabor::getIngredientes(){
     return ingredientes;
 }
-
 void Sabor::setIngredientes(vector<Ingrediente> Ingredientes){
   this->ingredientes = ingredientes;
 }
