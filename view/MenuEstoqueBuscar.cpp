@@ -6,7 +6,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <utility>
 
 using namespace std;
 
@@ -108,14 +107,14 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
             cout << "Digite o nome do ingrediente: " << endl;
             cin >> nome;
             ingrediente = ingredientesMenuEstoqueBuscar.getIngredienteByNome(nome);
-            cout << (lote.getLoteByIngrediente(ingrediente)) << endl;
+            cout << (loteMenuEstoqueBuscar.getLoteByIngrediente(ingrediente)) << endl;
             break;
 
         case 2:
             cout << "Digite o id do ingrediente: " << endl;
             cin >> id;
             ingrediente = ingredientesMenuEstoqueBuscar.getIngredienteByID(id);
-            cout << (lote.getLoteByIngrediente(ingrediente)) << endl;
+            cout << (loteMenuEstoqueBuscar.getLoteByIngrediente(ingrediente)) << endl;
             break;
 
         }
