@@ -1,11 +1,13 @@
 #include <iostream>
 #include "../include/MenuPrincipal.h"
 #include "../include/MenuEstoque.h"
+#include "../include/MenuNovoPedido.h"
 
 using namespace std;
 
 MenuPrincipal::MenuPrincipal(){};
 MenuEstoque menuEstoque = MenuEstoque();
+MenuNovoPedido menuNovoPedido = MenuNovoPedido();
 
 void MenuPrincipal::menu(){
     unsigned short resposta;
@@ -20,7 +22,8 @@ void MenuPrincipal::menu(){
          << "3- Histórico de pedidos  |  "
          << "4- Estoque  |  "
          << "5- Sair" << endl;
-    cout <<"Qual atividade você deseja realizar? " << endl;
+         
+    cout <<"Qual atividade você deseja realizar? ";
     cin >> resposta;
     cout << endl;
 
@@ -34,7 +37,7 @@ void MenuPrincipal::menu(){
     switch (resposta)
     {
     case 1:
-        cout << "Novo pedido aqui" << endl;
+        menuNovoPedido.menu();
         break;
 
     case 2:
