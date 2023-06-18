@@ -66,7 +66,8 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
         string ingString(vti.data(), vti.size());
         Ingrediente ing;
 
-        // Percorre o vetor de ingredientes e procura o ingrediente com o nome correspondente ao ingString, se encontrado, o ingrediente é armazenado na variável ing
+        // Percorre o vetor de ingredientes e procura o ingrediente com o nome correspondente ao ingString
+        // Se encontrado, o ingrediente é armazenado na variável ing
         for (Ingrediente ingrediente : ingredientesDAO.getAllIngredientes()) {
             if (ingString == ingrediente.getNome()) {
                 ing = ingrediente;
@@ -115,14 +116,16 @@ void SaborDAO::salvarSabores() {
             string ingredientesEmLinha;
             vector<Ingrediente> ingredientes = sabor.getIngredientes();
             for (int i = 0; i < ingredientes.size(); i++) {
-                ingredientesEmLinha = ingredientesEmLinha + ingredientes[i].getNome();
+                ingredientesEmLinha += ingredientes[i].getNome();
 
                 if (i != sabor.getIngredientes().size() - 1) {
                     ingredientesEmLinha += "%";
                 }
             }
 
-            arquivo << to_string(sabor.getId()) << "#" << sabor.getNome() << "#" << ingredientesEmLinha << endl;
+            arquivo << to_string(sabor.getId()) << "#" 
+                    << sabor.getNome() << "#" 
+                    << ingredientesEmLinha << endl;
         }
         arquivo.close();
     } else {
@@ -135,6 +138,14 @@ void SaborDAO::salvarSabores() {
 
 vector<Sabor> SaborDAO::getAllSabores(){
     return listaSabores;
+};
+
+
+void SaborDAO::imprimirSabores(){
+    cout << "ID | Nome | Ingredientes" << endl;
+    for (const auto& objeto : listaSabores) {
+        cout << objeto << endl;
+    }
 };
 
 

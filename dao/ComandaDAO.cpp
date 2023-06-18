@@ -65,7 +65,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     int count = 0, contadorPorcentagem = 0;
     vector<Pedido> vetorPedidos;
 
-    for (int i = 0; i < pedidos.size(); i++) {
+    while (count < pedidos.size()) {
         vector<char> vti;
         while (count < pedidos.size() && pedidos[count] != '%') {
             vti.push_back(pedidos[count]);
@@ -73,17 +73,21 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
         }
 
         string pedString(vti.data(), vti.size());
-        int pedId = stoi(pedString);
+        unsigned long int pedId = stoi(pedString);
         Pedido ped;
 
-        for(Pedido pedido : pedidosDAO.getAllPedidos()){
-            if(pedId == pedido.getId()){
+        // Percorre o vetor de pedidos e procura o pedido com o id correspondente ao pedId
+        // Se encontrado, o pedido é armazenado na variável ped
+        for (Pedido pedido : pedidosDAO.getAllPedidos()) {
+            if (pedId == pedido.getId()) {
                 ped = pedido;
                 break;
             }
-        };
+        }
 
         vetorPedidos.push_back(ped);
+
+        count++;
     }
 
     auto x = Comanda(id, formaPagamento, usuario, vetorPedidos);
@@ -92,7 +96,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
 
 
 vector<Comanda> ComandaDAO::carregarComandas(){
-  fstream arquivo("database/comanda.txt");
+  fstream arquivo("database/comandas.txt");
 
   string linha;
 
@@ -118,10 +122,22 @@ void ComandaDAO::salvarComandas(){
     ofstream arquivo("database/comandas.txt");
     if (arquivo.is_open()) {
         for (Comanda comanda : listaComandas) {
+            // Transforma o vetor de pedidos em linha
+            string pedidosEmLinha;
+            vector<Pedido> pedidos = comanda.getPedidos();
+            for (int i = 0; i < pedidos.size(); i++) {
+                pedidosEmLinha += to_string(pedidos[i].getId());
+
+                if (i != comanda.getPedidos().size() - 1) {
+                    pedidosEmLinha += "%";
+                }
+            }
+
             arquivo << to_string(comanda.getId()) << "#" 
-                    << to_string(comanda.getFormaPagamento()) <<  "#"
-                    << to_string(comanda.getUsuario().getId()) << endl;
-                    //salvar vetor de pedidos
+                    << to_string(comanda.getFormaPagamento()) << "#"
+                    << to_string(comanda.getUsuario().getId()) << "#"
+                    << pedidosEmLinha;
+                    
         }
         arquivo.close();
     } else {
@@ -134,6 +150,14 @@ void ComandaDAO::salvarComandas(){
 
 vector<Comanda> ComandaDAO::getAllComandas(){
     return listaComandas;
+};
+
+
+void ComandaDAO::imprimirComandas(){
+    cout << "ID | Forma de Pagamento | Usuário | Pedidos (ID, Pizzas, Bebidas)" << endl;
+    for (auto& objeto : listaComandas) {
+        cout << objeto << endl;
+    }
 };
 
 

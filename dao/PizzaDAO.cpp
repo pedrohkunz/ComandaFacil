@@ -56,7 +56,7 @@ Pizza PizzaDAO::converteStringParaObjeto(string linha){
     int count = 0, contadorPorcentagem = 0;
     vector<Sabor> vetorSabores;
 
-    for (int i = 0; i < sabores.size(); i++) {
+    while (count < sabores.size()) {
         vector<char> vti;
         while (count < sabores.size() && sabores[count] != '%') {
             vti.push_back(sabores[count]);
@@ -66,14 +66,17 @@ Pizza PizzaDAO::converteStringParaObjeto(string linha){
         string sabString(vti.data(), vti.size());
         Sabor sab;
 
-        for(Sabor sabor : saboresDAO.getAllSabores()){
-            if(sabString == sabor.getNome()){
+        // Percorre o vetor de sabores e procura o sabor com o nome correspondente ao sabString, se encontrado, o sabor é armazenado na variável ing
+        for (Sabor sabor : saboresDAO.getAllSabores()) {
+            if (sabString == sabor.getNome()) {
                 sab = sabor;
                 break;
             }
-        };
+        }
 
         vetorSabores.push_back(sab);
+
+        count++;
     }
   
     //Converte as strings para outros tipos de dados
@@ -113,9 +116,20 @@ void PizzaDAO::salvarPizzas(){
     ofstream arquivo("database/pizzas.txt");
     if (arquivo.is_open()) {
         for (Pizza pizza : listaPizzas) {
+            // Transforma o vetor de sabores em linha
+            string saboresEmLinha;
+            vector<Sabor> sabores = pizza.getSabores();
+            for (int i = 0; i < sabores.size(); i++) {
+                saboresEmLinha += sabores[i].getNome();
+
+                if (i != pizza.getSabores().size() - 1) {
+                    saboresEmLinha += "%";
+                }
+            }
+
             arquivo << to_string(pizza.getId()) << "#" 
-                    << to_string(pizza.getTamanho().getId()) 
-                    << endl;
+                    << to_string(pizza.getTamanho().getId()) << "#"
+                    << saboresEmLinha << endl;
         }
         arquivo.close();
     } else {
@@ -129,6 +143,15 @@ void PizzaDAO::salvarPizzas(){
 vector<Pizza> PizzaDAO::getAllPizzas(){
     return listaPizzas;
 };
+
+
+void PizzaDAO::imprimirPizzas(){
+    cout << "ID | Tamanho | Sabores" << endl;
+    for (auto& objeto : listaPizzas) {
+        cout << objeto << endl;
+    }
+};
+
 
 Pizza PizzaDAO::getPizzaByID(unsigned long int id){
     for(Pizza pizza : listaPizzas){

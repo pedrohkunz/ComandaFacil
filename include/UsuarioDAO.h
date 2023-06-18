@@ -22,6 +22,8 @@ class UsuarioDAO {
 
         vector<Usuario> getAllUsuarios();
 
+        void imprimirUsuarios();
+
         Usuario getUsuarioByID(unsigned long int id);
 
         bool criarUsuario(Usuario usuario);

@@ -94,6 +94,15 @@ vector<TamanhoPizza> TamanhoPizzaDAO::getAllTamanhos(){
     return listaTamanhos;
 };
 
+
+void TamanhoPizzaDAO::imprimirTamanhos(){
+    cout << "ID | Tamanho | Valor" << endl;
+    for (const auto& objeto : listaTamanhos) {
+        cout << objeto << endl;
+    }
+};
+
+
 TamanhoPizza TamanhoPizzaDAO::getTamanhoByID(unsigned long int id){
     for(TamanhoPizza tamanho : listaTamanhos){
         if(tamanho.getId() == id){

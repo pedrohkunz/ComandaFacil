@@ -100,6 +100,14 @@ vector<Bebida> BebidaDAO::getAllBebidas(){
 };
 
 
+void BebidaDAO::imprimirBebidas(){
+    cout << "ID | Tipo | Tamanho | Valor" << endl;
+    for (const auto& objeto : listaBebidas) {
+        cout << objeto << endl;
+    }
+};
+
+
 Bebida BebidaDAO::getBebidaByID(unsigned long int id){
     for(Bebida bebida : listaBebidas){
         if(bebida.getId() == id){

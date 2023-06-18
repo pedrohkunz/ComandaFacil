@@ -8,10 +8,10 @@
 
 using namespace std;
 
-Pizza::Pizza(unsigned long int id, TamanhoPizza tamanho, vector<Sabor> sabor){
+Pizza::Pizza(unsigned long int id, TamanhoPizza tamanho, vector<Sabor> sabores){
   this->id = id;
   this->tamanho = tamanho;
-  this->sabor = sabor;
+  this->sabores = sabores;
 }
 
 Pizza::Pizza(){};
@@ -27,9 +27,9 @@ void Pizza::setTamanho(TamanhoPizza tamanho){
   this->tamanho = tamanho;
 }
 
-vector<Sabor> Pizza::getSabor(){
-  return sabor;
+vector<Sabor> Pizza::getSabores(){
+  return sabores;
 }
-void Pizza::setSabor(vector<Sabor> sabor){
-  this->sabor = sabor;
+void Pizza::setSabores(vector<Sabor> sabores){
+  this->sabores = sabores;
 }

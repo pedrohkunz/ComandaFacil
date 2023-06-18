@@ -1,4 +1,4 @@
-2#asdfasd#20.000000
-3#asdfasd#20.000000
-4#asdfasd#20.000000
-5#asdfasd#20.000000
+1#Pequena#30
+2#Média#40
+3#Grande#60
+4#Família#75

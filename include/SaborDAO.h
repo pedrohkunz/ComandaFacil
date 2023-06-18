@@ -23,6 +23,8 @@ class SaborDAO{
 
         vector<Sabor> getAllSabores();
 
+        void imprimirSabores();
+
         Sabor getSaborByID(unsigned long int id);
 
         Sabor getSaborByNome(string nome);

@@ -23,6 +23,8 @@ class PedidoDAO{
 
         vector<Pedido> getAllPedidos();
 
+        void imprimirPedidos();
+
         Pedido getPedidoByID(unsigned long int id);
 
         bool inserirPedido(Pedido pedido);

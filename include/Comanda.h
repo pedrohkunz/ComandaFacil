@@ -17,6 +17,20 @@ private:
     Usuario usuario;
     vector<Pedido> pedidos;
 
+    friend ostream& operator<<(ostream& os, Comanda& objeto) {
+        os << objeto.id << " | " 
+           << objeto.formaPagamento << " | "
+           << objeto.usuario.getNome() << ": " << endl;
+           
+        int j = 1;
+        for (Pedido i : objeto.pedidos){
+            os << "Pedido " << j << ": " << i << endl;
+            j++;
+        }
+
+        return os;
+    }
+
 public:
     Comanda(unsigned long int id, short int formaPagamento, Usuario usuario, vector<Pedido> pedidos);
     Comanda();

@@ -4,8 +4,9 @@
 
 using namespace std;
 
-Usuario::Usuario(unsigned long int id, string email, string senha){
+Usuario::Usuario(unsigned long int id, string nome, string email, string senha){
   this->id = id;
+  this->nome = nome;
   this->email = email;
   this->senha = senha;
 }
@@ -16,18 +17,26 @@ int Usuario::getId() {
   return id;
 }
 
+
 string Usuario::getEmail() {
   return email;
 }
-
 void Usuario::setEmail(string email){
   this->email = email;
 }
 
+
+string Usuario::getNome() {
+  return nome;
+}
+void Usuario::setNome(string nome){
+  this->nome = nome;
+}
+
+
 string Usuario::getSenha() {
   return senha;
 }
-
 void Usuario::setSenha(string senha){
   this->senha = senha;
 }

@@ -22,6 +22,8 @@ class BebidaDAO {
 
         vector<Bebida> getAllBebidas();
 
+        void imprimirBebidas();
+
         Bebida getBebidaByID(unsigned long int id);
 
         bool inserirBebida(Bebida bebida);

@@ -15,6 +15,30 @@ class Pedido{
     unsigned long int id;
     vector<Pizza> pizzas;
     vector<Bebida> bebidas;
+
+    friend ostream& operator<<(ostream& os, Pedido& objeto) {
+        os << objeto.id << " | ";
+
+          for (Pizza i : objeto.pizzas){
+             os << " ( Id: " << i.getId() << ", "
+                << i.getTamanho().getTamanho() << ", "
+                << "Sabores: ";
+                for (Sabor s : i.getSabores()){
+                os << s.getNome() << " ";
+                }
+             os << ")  ";
+          }
+
+        os << " | ";
+
+          for (Bebida i : objeto.bebidas){
+             os << " ( Id: " << i.getId() << ", "
+                << i.getTipo() << ", "
+                << i.getTamanho() << " ) ";
+          }
+
+        return os;
+    }
     
   public:
     Pedido(unsigned long int id, vector<Pizza> pizzas, vector<Bebida> bebidas);

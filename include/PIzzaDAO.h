@@ -23,6 +23,8 @@ class PizzaDAO {
 
         vector<Pizza> getAllPizzas();
 
+        void imprimirPizzas();
+
         Pizza getPizzaByID(unsigned long int id);
 
         bool inserirPizza(Pizza pizza);

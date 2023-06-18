@@ -15,6 +15,15 @@ class Sabor{
     string nome;
     vector<Ingrediente> ingredientes;
 
+    friend ostream& operator<<(ostream& os, const Sabor& objeto) {
+        os << objeto.id << " | " 
+           << objeto.nome << " | ";
+        for (Ingrediente i : objeto.ingredientes){
+             os << i.getNome() << " ";
+        }
+        return os;
+    }
+
   public:
     Sabor(unsigned long int id, string nome,vector<Ingrediente> ingredientes);
     Sabor();

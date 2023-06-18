@@ -13,7 +13,10 @@ class Bebida{
     float valor;
 
     friend ostream& operator<<(ostream& os, const Bebida& objeto) {
-        os << objeto.tipo;
+        os << objeto.id << " | " 
+           << objeto.tipo << " | "
+           << objeto.tamanho << " | " 
+           << "R$ " << objeto.valor;
         return os;
     }
 

@@ -24,6 +24,8 @@ class ComandaDAO{
 
         vector<Comanda> getAllComandas();
 
+        void imprimirComandas();
+
         Comanda getComandaByID(unsigned long int id);
 
         bool inserirComanda(Comanda comanda);

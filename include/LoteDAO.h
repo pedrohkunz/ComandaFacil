@@ -24,6 +24,8 @@ class LoteDAO {
 
         vector<Lote> getAllLotes();
 
+        void imprimirLotes();
+
         Lote getLoteByID(unsigned long int id);
 
         bool inserirLote(Lote lote);

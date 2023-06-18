@@ -106,6 +106,14 @@ vector<Lote> LoteDAO::getAllLotes(){
 };
 
 
+void LoteDAO::imprimirLotes(){
+    cout << "ID | Quantidade | Data de Validade | Ingrediente" << endl;
+    for (auto& objeto : listaLotes) {
+        cout << objeto << endl;
+    }
+};
+
+
 Lote LoteDAO::getLoteByID(unsigned long int id){
     for(Lote lote : listaLotes){
         if(lote.getId() == id){

@@ -21,6 +21,8 @@ class TamanhoPizzaDAO {
         void salvarTamanhos();
 
         vector<TamanhoPizza> getAllTamanhos();
+        
+        void imprimirTamanhos();
 
         TamanhoPizza getTamanhoByID(unsigned long int id);
 

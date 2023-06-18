@@ -12,7 +12,8 @@ class Ingrediente{
     string nome;
 
     friend ostream& operator<<(ostream& os, const Ingrediente& objeto) {
-        os << objeto.id << " | " << objeto.nome;
+        os << objeto.id << " | " 
+           << objeto.nome;
         return os;
     }
 

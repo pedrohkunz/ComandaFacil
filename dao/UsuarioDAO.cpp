@@ -14,7 +14,7 @@ UsuarioDAO::UsuarioDAO(){};
 //Métodos que acessam diretamente o arquivo bebidas.txt
 Usuario UsuarioDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;
-    string idString, email, senha;
+    string idString, nome, email, senha;
 
     for (int i = 0; i < linha.size(); i++) {
         vector<char> vt;
@@ -29,15 +29,18 @@ Usuario UsuarioDAO::converteStringParaObjeto(string linha){
         if (contadorSharp == 0) {
             idString = atributo;
         } else if (contadorSharp == 1) {
-            email = atributo;
+            nome = atributo;
         } else if(contadorSharp == 2){
+            email = atributo;
+        } else if(contadorSharp == 3){
             senha = atributo;
         } 
+ 
 
         contadorSharp++;
         contador++;
 
-        if (contadorSharp >= 3) {
+        if (contadorSharp >= 4) {
             break;
         }
     }
@@ -45,7 +48,7 @@ Usuario UsuarioDAO::converteStringParaObjeto(string linha){
     //Converte as strings para outros tipos de dados
     unsigned long int id = stoi(idString);
 
-    auto novoItem = Usuario(id, email, senha);
+    auto novoItem = Usuario(id, nome, email, senha);
     return novoItem;
 };
 
@@ -78,6 +81,7 @@ void UsuarioDAO::salvarUsuarios(){
     if (arquivo.is_open()) {
         for (Usuario usuario : listaUsuarios) 
             arquivo << to_string(usuario.getId()) << "#" 
+                    << usuario.getNome() << "#"
                     << usuario.getEmail() << "#" 
                     << usuario.getSenha() << endl;
         
@@ -93,6 +97,14 @@ void UsuarioDAO::salvarUsuarios(){
 
 vector<Usuario> UsuarioDAO::getAllUsuarios(){
     return listaUsuarios;
+};
+
+
+void UsuarioDAO::imprimirUsuarios(){
+    cout << "ID | Nome | E-mail" << endl;
+    for (const auto& objeto : listaUsuarios) {
+        cout << objeto << endl;
+    }
 };
 
 

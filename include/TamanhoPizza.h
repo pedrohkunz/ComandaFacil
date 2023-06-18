@@ -13,10 +13,10 @@ class TamanhoPizza{
         double valor;
 
         friend ostream& operator<<(ostream& os, const TamanhoPizza& objeto) {
-        os << objeto.id << " - ";
-        os << objeto.tamanho << " - ";
-        os << "R$ " << objeto.valor << " | ";
-        return os;
+            os << objeto.id << " | ";
+            os << objeto.tamanho << " | ";
+            os << "R$ " << objeto.valor;
+            return os;
     }
 
     public:
