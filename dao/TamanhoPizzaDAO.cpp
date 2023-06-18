@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 #include "../include/TamanhoPizzaDAO.h"
 #include "../include/TamanhoPizza.h"
@@ -77,8 +78,8 @@ void TamanhoPizzaDAO::salvarTamanhos(){
     ofstream arquivo("database/tamanhosPizza.txt");
     if (arquivo.is_open()) {
         for (TamanhoPizza tamanho : listaTamanhos) {
-            arquivo << to_string(tamanho.getId()) << "#" 
-                    << tamanho.getTamanho() << "#" 
+            arquivo << to_string(tamanho.getId()) << "#"
+                    << tamanho.getTamanho() << "#"
                     << to_string(tamanho.getValor()) << endl;
         }
         arquivo.close();
@@ -95,12 +96,14 @@ vector<TamanhoPizza> TamanhoPizzaDAO::getAllTamanhos(){
 };
 
 
-void TamanhoPizzaDAO::imprimirTamanhos(){
-    cout << "ID | Tamanho | Valor" << endl;
-    for (const auto& objeto : listaTamanhos) {
-        cout << objeto << endl;
+void TamanhoPizzaDAO::imprimirTamanhos() {
+    cout << "ID  | Tamanho  | Preço" << endl;
+    cout << "-------------------------" << endl;
+
+    for (TamanhoPizza tamanho : listaTamanhos) {
+        cout << left << setw(3) << tamanho.getId() << " | " << setw(8) << tamanho.getTamanho() << " | R$ " << fixed << setprecision(2) << tamanho.getValor() << endl;
     }
-};
+}
 
 
 TamanhoPizza TamanhoPizzaDAO::getTamanhoByID(unsigned long int id){
