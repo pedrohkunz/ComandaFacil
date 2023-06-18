@@ -28,6 +28,10 @@ class LoteDAO {
 
         Lote getLoteByID(unsigned long int id);
 
+        Lote getLoteByDataValidade(string dataValidade);
+
+        Lote getLoteByIngrediente(Ingrediente ingrediente);
+
         bool inserirLote(Lote lote);
 
         bool removerLote(unsigned long int id);

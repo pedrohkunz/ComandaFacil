@@ -13,7 +13,7 @@ class Lote{
         string dataDeValidade;
         Ingrediente ingrediente;
 
-        friend ostream& operator<<(ostream& os, Lote& objeto) {
+        friend ostream& operator<<(ostream& os, const Lote& objeto) {
             os << objeto.id << " | "
                << objeto.quantidade << " | "
                << objeto.dataDeValidade << " | "

@@ -14,7 +14,7 @@ int Ingrediente::getId() {
   return id;
 }
 
-string Ingrediente::getNome() {
+string Ingrediente::getNome() const {
   return nome;
 }
 

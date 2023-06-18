@@ -21,9 +21,19 @@ class Ingrediente{
     Ingrediente(int id, string nome);
     Ingrediente();
     int getId();
-    string getNome();
+    string getNome() const;
     void setNome(string nome);
 
+    bool operator==(const Ingrediente& ing) const {
+        if (this-> id == ing.id && this->nome == ing.nome){
+          return true;
+        } else {
+          return false;
+        }
+        // Defina sua lógica de comparação aqui.
+        // Compare os atributos relevantes dos objetos Ingrediente.
+        // Retorne true se os objetos forem iguais e false caso contrário.
+    }
 };
 
 #endif

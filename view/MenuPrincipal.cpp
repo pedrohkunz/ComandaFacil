@@ -1,23 +1,34 @@
 #include <iostream>
 #include "../include/MenuPrincipal.h"
+#include "../include/MenuEstoque.h"
 
 using namespace std;
 
 MenuPrincipal::MenuPrincipal(){};
+MenuEstoque menuEstoque = MenuEstoque();
 
 void MenuPrincipal::menu(){
     unsigned short resposta;
 
-    cout <<"/////////////////////////////////// Bem-vindo(a) à pizzaria LaPizza /////////////////////////////////////" << endl;
+    cout << endl;
+    cout <<"///////////////////////////////////// Bem-vindo(a) à pizzaria LaPizza /////////////////////////////////////" << endl;
+    cout <<"//////////////////////////////////////////// Menu Principal ///////////////////////////////////////////////" << endl;
 
-    cout <<"1- Novo pedido  |  2- Pedidos em processamento  |  3- Histórico de pedidos  |  4- Estoque" << endl;
+    cout << endl
+         <<"1- Novo pedido  |  "
+         << "2- Pedidos em processamento  |  "
+         << "3- Histórico de pedidos  |  "
+         << "4- Estoque  |  "
+         << "5- Sair" << endl;
     cout <<"Qual atividade você deseja realizar? " << endl;
     cin >> resposta;
+    cout << endl;
 
     //Validação da resposta
-    while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4){
+    while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5){
         cout <<"Opção inválida, por favor tente novamente: " << endl;
         cin >> resposta;
+        cout << endl;
     }
 
     switch (resposta)
@@ -35,8 +46,11 @@ void MenuPrincipal::menu(){
         break;
 
     case 4:
-        cout << "Estoque" << endl;
+        menuEstoque.menuEstoque();
         break;
 
+    case 5:
+        break;
     }
+
 }
