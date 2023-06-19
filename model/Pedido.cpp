@@ -8,8 +8,9 @@
 
 using namespace std;
 
-Pedido::Pedido(unsigned long int id, vector<Pizza> pizzas, vector<Bebida> bebidas){
+Pedido::Pedido(unsigned long int id, Status status, vector<Pizza> pizzas, vector<Bebida> bebidas){
   this->id = id;
+  this->status = status;
   this->pizzas = pizzas;
   this->bebidas = bebidas;
 }
@@ -21,6 +22,14 @@ unsigned long int Pedido::getId(){
 }
 void Pedido::setId(unsigned long int id) {
   this->id = id;
+}
+
+
+Status Pedido::getStatus(){
+  return status;
+}
+void Pedido::setStatus(Status status) {
+  this->status = status;
 }
 
 

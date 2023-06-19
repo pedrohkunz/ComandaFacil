@@ -113,6 +113,19 @@ Usuario UsuarioDAO::getUsuarioByID(unsigned long int id){
         if(usuario.getId() == id){
             return usuario;
             break;
+        } else {
+            cout << "Erro: ID Usuario não encontrado." << endl;
+        }
+    }
+}
+
+Usuario UsuarioDAO::getUsuarioByNome(string nome){
+    for(Usuario usuario : listaUsuarios){
+        if(usuario.getNome() == nome){
+            return usuario;
+            break;
+        } else {
+            cout << "Erro: Nome Usuario não encontrado." << endl;
         }
     }
 }

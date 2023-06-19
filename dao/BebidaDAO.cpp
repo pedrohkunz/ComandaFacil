@@ -113,6 +113,8 @@ Bebida BebidaDAO::getBebidaByID(unsigned long int id){
         if(bebida.getId() == id){
             return bebida;
             break;
+        } else {
+            cout << "Erro: ID Bebida não encontrado." << endl;
         }
     }
 }

@@ -158,6 +158,8 @@ Pizza PizzaDAO::getPizzaByID(unsigned long int id){
         if(pizza.getId() == id){
             return pizza;
             break;
+        } else {
+            cout << "Erro: ID Pizza não encontrado." << endl;
         }
     }
 }

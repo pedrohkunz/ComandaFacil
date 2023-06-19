@@ -12,15 +12,19 @@
 using namespace std;
 
 MenuEstoque::MenuEstoque(){};
-MenuPrincipal menuPrincipalMenuEstoque = MenuPrincipal();
+MenuPrincipal menuPrincipal = MenuPrincipal();
 IngredienteDAO ingredientesMenuEstoque = IngredienteDAO();
 LoteDAO loteMenuEstoque = LoteDAO();
-
+// contadores utilizados para carregar os lotes e os ingredientes apenas uma vez
+int i = 0, j = 0;
 
 void MenuEstoque::menuEstoque() {
   unsigned short resposta;
-  loteMenuEstoque.carregarLotes();
   MenuEstoqueBuscar buscar = MenuEstoqueBuscar();
+  while(i < 1){
+    loteMenuEstoque.carregarLotes();
+    i++;
+  }
 
   cout <<"///////////////////////////////////////////// Menu Estoque ////////////////////////////////////////////////" << endl;
 
@@ -58,17 +62,19 @@ void MenuEstoque::menuEstoque() {
     break;
 
   case 4:
-    menuPrincipalMenuEstoque.menu();
+    menuPrincipal.menu();
     break;
   }
 }
-
 void MenuEstoque::adicionarLote() {
   unsigned long int idAddLote, quantidadeAddLote, respostaAddLote;
   string dataDeValidadeAddLote;
   Ingrediente ingredienteAddLote;
   Lote loteAddLote;
-  ingredientesMenuEstoque.carregarIngredientes();
+  while(j < 1){
+    ingredientesMenuEstoque.carregarIngredientes();
+    j++;
+  }
 
   cout <<"//////////////////////////////////// Menu Estoque | Adicionar Lote ///////////////////////////////////////" << endl;
   

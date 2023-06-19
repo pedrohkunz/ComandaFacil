@@ -23,8 +23,8 @@ void MenuPrincipal::menu(){
          << "4- Estoque  |  "
          << "5- Sair" << endl;
          
-    cout <<"Qual atividade você deseja realizar? ";
-    cin >> resposta;
+    cout <<"Qual atividade você deseja realizar? " << endl;
+    cin >> resposta;                                                                                     
     cout << endl;
 
     //Validação da resposta
@@ -57,6 +57,7 @@ void MenuPrincipal::menu(){
         break;
 
     case 5:
+        cout << "Saindo..." << endl;
         break;
     }
 

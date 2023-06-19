@@ -26,6 +26,8 @@ class UsuarioDAO {
 
         Usuario getUsuarioByID(unsigned long int id);
 
+        Usuario getUsuarioByNome(string nome);
+
         bool criarUsuario(Usuario usuario);
 
         bool removerUsuario(unsigned long int id);

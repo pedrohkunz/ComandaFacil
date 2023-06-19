@@ -26,6 +26,8 @@ class TamanhoPizzaDAO {
 
         TamanhoPizza getTamanhoByID(unsigned long int id);
 
+        TamanhoPizza getTamanhoByTamanho(string tamanho);
+
         bool inserirTamanho(TamanhoPizza tamanho);
 
         bool removerTamanho(unsigned long int id);

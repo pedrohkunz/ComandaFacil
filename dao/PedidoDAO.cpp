@@ -9,10 +9,13 @@
 #include "../include/Pizza.h"
 #include "../include/BebidaDAO.h"
 #include "../include/Bebida.h"
+#include "../include/StatusDAO.h"
+#include "../include/Status.h"
 
 
 PizzaDAO pizzasDAO = PizzaDAO();
 BebidaDAO bebidasDAO = BebidaDAO();
+StatusDAO statusDAO = StatusDAO();
 
 //Construtor vazio
 PedidoDAO::PedidoDAO(){};
@@ -21,9 +24,10 @@ PedidoDAO::PedidoDAO(){};
 
 Pedido PedidoDAO::converteStringParaObjeto(string a){
    int contador = 0, contadorSharp = 0;
-    string idString, pizzas, bebidas;
+    string idString, statusString, pizzas, bebidas;
     pizzasDAO.carregarPizzas();
     bebidasDAO.carregarBebidas();
+    statusDAO.carregarStatus();
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
@@ -39,21 +43,25 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
       if (contadorSharp == 0) {
             idString = atributo;
       } else if (contadorSharp == 1) {
-            pizzas = atributo;
+            statusString = atributo;
       } else if (contadorSharp == 2) {
+            pizzas = atributo;
+      } else if (contadorSharp == 3) {
             bebidas = atributo;
       }
 
       contadorSharp++;
       contador++;
 
-      if (contadorSharp >= 3) {
+      if (contadorSharp >= 4) {
         break;
       }
     }
 
     //Converte o idString para id inteiro
     unsigned long int id = stoi(idString);
+    unsigned long int idStatus = stoi(statusString);
+    Status status = statusDAO.getStatusByID(idStatus);
 
     //Transforma a string pizzas em um vetor novamente
     int count = 0, contadorPorcentagem = 0;
@@ -113,7 +121,7 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
         count++;
     }
 
-    auto x = Pedido(id, vetorPizzas, vetorBebidas);
+    auto x = Pedido(id, status, vetorPizzas, vetorBebidas);
     return x;
 };
 
@@ -167,6 +175,7 @@ void PedidoDAO::salvarPedidos(){
             }
 
             arquivo << to_string(pedido.getId()) << "#"
+                    << to_string(pedido.getStatus().getId()) << "#"
                     << pizzasEmLinha << "#"
                     << bebidasEmLinha;
         }
@@ -185,7 +194,7 @@ vector<Pedido> PedidoDAO::getAllPedidos(){
 
 
 void PedidoDAO::imprimirPedidos(){
-    cout << "ID | Pizzas | Bebidas" << endl;
+    cout << "ID | Status | Pizzas | Bebidas" << endl;
     for (auto& objeto : listaPedidos) {
         cout << objeto << endl;
     }
@@ -197,6 +206,20 @@ Pedido PedidoDAO::getPedidoByID(unsigned long int id){
         if(pedido.getId() == id){
             return pedido;
             break;
+        } else {
+            cout << "Erro: ID Pedido não encontrado." << endl;
+        }
+    }
+}
+
+
+Pedido PedidoDAO::getPedidoByStatus(Status status){
+    for(Pedido pedido : listaPedidos){
+        if(pedido.getStatus() == status){
+            return pedido;
+            break;
+        } else {
+            cout << "Erro: Status não encontrado." << endl;
         }
     }
 }

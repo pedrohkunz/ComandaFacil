@@ -104,6 +104,8 @@ Ingrediente IngredienteDAO::getIngredienteByID(unsigned long int id){
         if(ingrediente.getId() == id){
             return ingrediente;
             break;
+        } else {
+            cout << "Erro: ID Ingrediente não encontrado." << endl;
         }
     }
 }
@@ -114,6 +116,8 @@ Ingrediente IngredienteDAO::getIngredienteByNome(string nome){
         if(ingrediente.getNome() == nome){
             return ingrediente;
             break;
+        } else {
+            cout << "Erro: Nome Ingrediente não encontrado." << endl;
         }
     }
 }

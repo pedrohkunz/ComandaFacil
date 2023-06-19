@@ -27,6 +27,8 @@ class PedidoDAO{
 
         Pedido getPedidoByID(unsigned long int id);
 
+        Pedido getPedidoByStatus(Status status);
+
         bool inserirPedido(Pedido pedido);
 
         bool removerPedido(unsigned long int id);

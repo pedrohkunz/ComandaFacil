@@ -154,6 +154,8 @@ Sabor SaborDAO::getSaborByID(unsigned long int id){
         if(sabor.getId() == id){
             return sabor;
             break;
+        } else {
+            cout << "Erro: ID Sabor não encontrado." << endl;
         }
     }
 }
@@ -164,6 +166,8 @@ Sabor SaborDAO::getSaborByNome(string nome){
         if(sabor.getNome() == nome){
             return sabor;
             break;
+        } else {
+            cout << "Erro: Nome Sabor não encontrado." << endl;
         }
     }
 }

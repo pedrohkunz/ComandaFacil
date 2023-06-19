@@ -120,7 +120,7 @@ Lote LoteDAO::getLoteByID(unsigned long int id){
             return lote;
             break;
         } else {
-            cout << "Lote não encontrado" << endl;
+            cout << "Erro: ID Lote não encontrado." << endl;
         }
     }
 };
@@ -131,6 +131,8 @@ Lote LoteDAO::getLoteByDataValidade(string dataValidade){
         if(lote.getDataDeValidade() == dataValidade){
             return lote;
             break;
+        } else {
+            cout << "Erro: Data de validade Lote não encontrada." << endl;
         }
     }
 };
@@ -141,6 +143,8 @@ Lote LoteDAO::getLoteByIngrediente(Ingrediente ingrediente){
         if(lote.getIngredienteLote() == ingrediente){
             return lote;
             break;
+        } else {
+            cout << "Erro: Ingrediente Lote não encontrado." << endl;
         }
     }
 };

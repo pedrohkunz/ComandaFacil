@@ -11,7 +11,7 @@
 #include "include/PizzaDAO.h"
 #include "include/BebidaDAO.h"
 #include "include/ComandaDAO.h"
-
+#include "include/StatusDAO.h"
 #include "include/PedidoDAO.h"
 
 
@@ -21,7 +21,11 @@ using namespace std;
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    MenuPrincipal menuPrincipal = MenuPrincipal();
-    menuPrincipal.menu();
-
+    //MenuPrincipal menuPrincipal = MenuPrincipal();
+    //menuPrincipal.menu();
+    PedidoDAO pedido = PedidoDAO();
+    pedido.carregarPedidos();
+    pedido.imprimirPedidos();
+    
+    
 }

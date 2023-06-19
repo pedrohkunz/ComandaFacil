@@ -166,6 +166,8 @@ Comanda ComandaDAO::getComandaByID(unsigned long int id){
         if(comanda.getId() == id){
             return comanda;
             break;
+        } else {
+            cout << "Erro: ID Comanda não encontrado." << endl;
         }
     }
 }
