@@ -11,11 +11,17 @@
 using namespace std;
 
 MenuEstoqueBuscar::MenuEstoqueBuscar(){};
-IngredienteDAO ingredientesMenuEstoqueBuscar = IngredienteDAO();
-LoteDAO loteMenuEstoqueBuscar = LoteDAO();
+IngredienteDAO ingredientesMenuEB = IngredienteDAO();
+LoteDAO loteMenuEB = LoteDAO();
+int iMEB = 0;
 
 void MenuEstoqueBuscar::menuEstoqueBuscar(){
   unsigned short resposta;
+  while(iMEB < 1) {
+    loteMenuEB.carregarLotes();
+    ingredientesMenuEB.carregarIngredientes();
+    iMEB++;
+  }
 
   cout <<"//////////////////////////////////////// Menu Estoque | Buscar ////////////////////////////////////////////" << endl;
 
@@ -65,28 +71,24 @@ void MenuEstoqueBuscar::filtrar(){
 
 
 void MenuEstoqueBuscar::buscarPorId(){
-    loteMenuEstoqueBuscar.carregarLotes();
     unsigned long int id;
     cout << "Digite o ID: " << endl;
     cin >> id;
-    cout << move(loteMenuEstoqueBuscar.getLoteByID(id)) << endl;
+    cout << move(loteMenuEB.getLoteByID(id)) << endl;
     
 };
 
 
 void MenuEstoqueBuscar::buscarPorDataValidade(){
-    loteMenuEstoqueBuscar.carregarLotes();
     string data;
     cout << "Digite a data de validade: " << endl;
     cin >> data;
-    cout << move(loteMenuEstoqueBuscar.getLoteByDataValidade(data)) << endl;
+    cout << move(loteMenuEB.getLoteByDataValidade(data)) << endl;
 
 };
 
 
 void MenuEstoqueBuscar::buscarPorIngrediente(){
-    loteMenuEstoqueBuscar.carregarLotes();
-    ingredientesMenuEstoqueBuscar.carregarIngredientes();
     Ingrediente ingrediente;
     string nome;
     unsigned long int id;
@@ -107,15 +109,15 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
         case 1:
             cout << "Digite o nome do ingrediente: " << endl;
             cin >> nome;
-            ingrediente = ingredientesMenuEstoqueBuscar.getIngredienteByNome(nome);
-            cout << (loteMenuEstoqueBuscar.getLoteByIngrediente(ingrediente)) << endl;
+            ingrediente = ingredientesMenuEB.getIngredienteByNome(nome);
+            cout << (loteMenuEB.getLoteByIngrediente(ingrediente)) << endl;
             break;
 
         case 2:
             cout << "Digite o id do ingrediente: " << endl;
             cin >> id;
-            ingrediente = ingredientesMenuEstoqueBuscar.getIngredienteByID(id);
-            cout << (loteMenuEstoqueBuscar.getLoteByIngrediente(ingrediente)) << endl;
+            ingrediente = ingredientesMenuEB.getIngredienteByID(id);
+            cout << (loteMenuEB.getLoteByIngrediente(ingrediente)) << endl;
             break;
 
         }

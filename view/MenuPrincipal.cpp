@@ -1,13 +1,19 @@
 #include <iostream>
 #include "../include/MenuPrincipal.h"
 #include "../include/MenuEstoque.h"
+#include "../include/MenuHistoricoPedidos.h"
+#include "../include/MenuPedidosProcessamento.h"
 #include "../include/MenuNovoPedido.h"
+#include "../include/PedidoDAO.h"
 
 using namespace std;
 
 MenuPrincipal::MenuPrincipal(){};
 MenuEstoque menuEstoqueMenuPrincipal = MenuEstoque();
 MenuNovoPedido menuNovoPedido = MenuNovoPedido();
+MenuHistoricoPedidos menuHistoricoPedidosMenuPrincipal= MenuHistoricoPedidos();
+MenuPedidosProcessamento menuPedidosProcessamentoMenuPrincipal= MenuPedidosProcessamento();
+PedidoDAO pedidoDaoMenuPrincipal = PedidoDAO();
 
 void MenuPrincipal::menu(){
     unsigned short resposta;
@@ -42,18 +48,16 @@ void MenuPrincipal::menu(){
         break;
 
     case 2:
-        cout << "Pedidos em processamento" << endl;
-        this->menu();
+        menuPedidosProcessamentoMenuPrincipal.menuPedidosProcessamento();
         break;
 
     case 3:
-        cout << "Histórico de pedidos" << endl;
+        menuHistoricoPedidosMenuPrincipal.menuHistoricoPedidos();
         this->menu();
         break;
 
     case 4:
         menuEstoqueMenuPrincipal.menuEstoque();
-        this->menu();
         break;
 
     case 5:

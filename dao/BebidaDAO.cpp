@@ -109,13 +109,16 @@ void BebidaDAO::imprimirBebidas(){
 
 
 Bebida BebidaDAO::getBebidaByID(unsigned long int id){
+    bool encontrou = false;
     for(Bebida bebida : listaBebidas){
         if(bebida.getId() == id){
+            encontrou = true;
             return bebida;
             break;
-        } else {
-            cout << "Erro: ID Bebida não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Bebida não encontrado." << endl;
     }
 }
 

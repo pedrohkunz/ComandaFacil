@@ -202,25 +202,31 @@ void PedidoDAO::imprimirPedidos(){
 
 
 Pedido PedidoDAO::getPedidoByID(unsigned long int id){
+    bool encontrou = false;
     for(Pedido pedido : listaPedidos){
         if(pedido.getId() == id){
+            encontrou = true;
             return pedido;
             break;
-        } else {
-            cout << "Erro: ID Pedido não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Pedido não encontrado." << endl;
     }
 }
 
 
 Pedido PedidoDAO::getPedidoByStatus(Status status){
+    bool encontrou = false;
     for(Pedido pedido : listaPedidos){
         if(pedido.getStatus() == status){
+            encontrou = true;
             return pedido;
             break;
-        } else {
-            cout << "Erro: Status não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Status não encontrado." << endl;
     }
 }
 

@@ -100,25 +100,31 @@ void StatusDAO::imprimirStatus(){
 
 
 Status StatusDAO::getStatusByID(unsigned long int id){
+    bool encontrou = false;
     for(Status status : listaStatus){
         if(status.getId() == id){
+            encontrou = true;
             return status;
             break;
-        } else {
-            //cout << "Erro: ID Status não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Status não encontrado." << endl;
     }
 }
 
 
 Status StatusDAO::getStatusByNome(string nome){
+    bool encontrou = false;
     for(Status status : listaStatus){
         if(status.getNome() == nome){
+            encontrou = true;
             return status;
             break;
-        } else {
-            cout << "Erro: Nome Status não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Nome Status não encontrado." << endl;
     }
 }
 

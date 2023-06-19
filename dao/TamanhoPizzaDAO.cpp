@@ -109,24 +109,30 @@ void TamanhoPizzaDAO::imprimirTamanhos() {
 
 
 TamanhoPizza TamanhoPizzaDAO::getTamanhoByID(unsigned long int id){
+    bool encontrou = false;
     for(TamanhoPizza tamanho : listaTamanhos){
         if(tamanho.getId() == id){
+            encontrou = true;
             return tamanho;
             break;
-        } else {
-            //cout << "Erro: ID TamanhoPizza não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID TamanhoPizza não encontrado." << endl;
     }
 }
 
 TamanhoPizza TamanhoPizzaDAO::getTamanhoByTamanho(string nome){
+    bool encontrou = false;
     for(TamanhoPizza tamanho : listaTamanhos){
         if(tamanho.getTamanho() == nome){
+            encontrou = true;
             return tamanho;
             break;
-        } else {
-            cout << "Erro: Tamanho TamanhoPizza não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Tamanho TamanhoPizza não encontrado." << endl;
     }
 }
 

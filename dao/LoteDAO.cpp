@@ -115,38 +115,50 @@ void LoteDAO::imprimirLotes(){
 
 
 Lote LoteDAO::getLoteByID(unsigned long int id){
+    bool encontrou = false;
     for(Lote lote : listaLotes){
         if(lote.getId() == id){
+            encontrou = true;
             return lote;
             break;
-        } else {
-            cout << "Erro: ID Lote não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Lote não encontrado." << endl;
     }
 };
 
 
 Lote LoteDAO::getLoteByDataValidade(string dataValidade){
+    bool encontrou = false;
     for(Lote lote : listaLotes){
         if(lote.getDataDeValidade() == dataValidade){
+            encontrou = true;
             return lote;
             break;
-        } else {
-            cout << "Erro: Data de validade Lote não encontrada." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Data de validade Lote não encontrado." << endl;
     }
 };
 
 
 Lote LoteDAO::getLoteByIngrediente(Ingrediente ingrediente){
+    bool encontrou = false;
     for(Lote lote : listaLotes){
+        encontrou = false;
         if(lote.getIngredienteLote() == ingrediente){
+            encontrou = true;
             return lote;
+            encontrou = true;
             break;
-        } else {
-            cout << "Erro: Ingrediente Lote não encontrado." << endl;
-        }
+        } 
     }
+    if(encontrou == false) {
+        cout << "Erro: Ingrediente Lote não encontrado." << endl;
+    }
+    
 };
 
 

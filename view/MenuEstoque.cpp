@@ -16,14 +16,14 @@ MenuPrincipal menuPrincipal = MenuPrincipal();
 IngredienteDAO ingredientesMenuEstoque = IngredienteDAO();
 LoteDAO loteMenuEstoque = LoteDAO();
 // contadores utilizados para carregar os lotes e os ingredientes apenas uma vez
-int i = 0, j = 0;
+int iME = 0, jME = 0;
 
 void MenuEstoque::menuEstoque() {
   unsigned short resposta;
   MenuEstoqueBuscar buscar = MenuEstoqueBuscar();
-  while(i < 1){
+  while(iME < 1){
     loteMenuEstoque.carregarLotes();
-    i++;
+    iME++;
   }
 
   cout <<"///////////////////////////////////////////// Menu Estoque ////////////////////////////////////////////////" << endl;
@@ -71,9 +71,9 @@ void MenuEstoque::adicionarLote() {
   string dataDeValidadeAddLote;
   Ingrediente ingredienteAddLote;
   Lote loteAddLote;
-  while(j < 1){
+  while(jME < 1){
     ingredientesMenuEstoque.carregarIngredientes();
-    j++;
+    jME++;
   }
 
   cout <<"//////////////////////////////////// Menu Estoque | Adicionar Lote ///////////////////////////////////////" << endl;

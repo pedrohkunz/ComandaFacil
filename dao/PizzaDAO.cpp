@@ -154,13 +154,16 @@ void PizzaDAO::imprimirPizzas(){
 
 
 Pizza PizzaDAO::getPizzaByID(unsigned long int id){
+    bool encontrou = false;
     for(Pizza pizza : listaPizzas){
         if(pizza.getId() == id){
+            encontrou = true;
             return pizza;
             break;
-        } else {
-            cout << "Erro: ID Pizza não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Pizza não encontrado." << endl;
     }
 }
 

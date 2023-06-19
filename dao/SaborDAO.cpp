@@ -150,25 +150,31 @@ void SaborDAO::imprimirSabores(){
 
 
 Sabor SaborDAO::getSaborByID(unsigned long int id){
+    bool encontrou = false;
     for(Sabor sabor : listaSabores){
         if(sabor.getId() == id){
+            encontrou = true;
             return sabor;
             break;
-        } else {
-            cout << "Erro: ID Sabor não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Sabor não encontrado." << endl;
     }
 }
 
 
 Sabor SaborDAO::getSaborByNome(string nome){
+    bool encontrou = false;
     for(Sabor sabor : listaSabores){
         if(sabor.getNome() == nome){
+            encontrou = true;
             return sabor;
             break;
-        } else {
-            cout << "Erro: Nome Sabor não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Nome Sabor não encontrado." << endl;
     }
 }
 

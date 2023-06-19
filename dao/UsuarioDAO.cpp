@@ -109,24 +109,30 @@ void UsuarioDAO::imprimirUsuarios(){
 
 
 Usuario UsuarioDAO::getUsuarioByID(unsigned long int id){
+    bool encontrou = false;
     for(Usuario usuario : listaUsuarios){
         if(usuario.getId() == id){
+            encontrou = true;
             return usuario;
             break;
-        } else {
-            cout << "Erro: ID Usuario não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Usuario não encontrado." << endl;
     }
 }
 
 Usuario UsuarioDAO::getUsuarioByNome(string nome){
+    bool encontrou = false;
     for(Usuario usuario : listaUsuarios){
         if(usuario.getNome() == nome){
+            encontrou = true;
             return usuario;
             break;
-        } else {
-            cout << "Erro: Nome Usuario não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Nome Usuario não encontrado." << endl;
     }
 }
 

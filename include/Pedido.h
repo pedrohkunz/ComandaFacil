@@ -18,7 +18,7 @@ class Pedido{
     vector<Pizza> pizzas;
     vector<Bebida> bebidas;
 
-    friend ostream& operator<<(ostream& os, Pedido& objeto) {
+    friend ostream& operator<<(ostream& os, const Pedido& objeto) {
         os << objeto.id << " | "
            << objeto.status.getNome() << " | " ;
 

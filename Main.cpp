@@ -21,11 +21,20 @@ using namespace std;
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    //MenuPrincipal menuPrincipal = MenuPrincipal();
-    //menuPrincipal.menu();
-    PedidoDAO pedido = PedidoDAO();
-    pedido.carregarPedidos();
-    pedido.imprimirPedidos();
-    
+    MenuPrincipal menuPrincipal = MenuPrincipal();
+    menuPrincipal.menu();
+    /*PedidoDAO pedidoMP = PedidoDAO();
+    pedidoMP.carregarPedidos();
+    StatusDAO statusMP = StatusDAO();
+    statusMP.carregarStatus();
+    Status statusMP2 = statusMP.getStatusByID(1);
+    cout << statusMP2;
+    Pedido pedido = pedidoMP.getPedidoByID(1);
+    cout << pedido;
+    IngredienteDAO ingredienteDAOMP = IngredienteDAO();
+    ingredienteDAOMP.carregarIngredientes();
+    Ingrediente ingred = ingredienteDAOMP.getIngredienteByID(2);
+    cout << ingred;*/
+
     
 }

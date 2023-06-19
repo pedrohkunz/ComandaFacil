@@ -100,25 +100,31 @@ void IngredienteDAO::imprimirIngredientes(){
 
 
 Ingrediente IngredienteDAO::getIngredienteByID(unsigned long int id){
+    bool encontrou = false;
     for(Ingrediente ingrediente : listaIngredientes){
         if(ingrediente.getId() == id){
+            encontrou = true;
             return ingrediente;
             break;
-        } else {
-            cout << "Erro: ID Ingrediente não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Ingrediente não encontrado." << endl;
     }
 }
 
 
 Ingrediente IngredienteDAO::getIngredienteByNome(string nome){
+    bool encontrou = false;
     for(Ingrediente ingrediente : listaIngredientes){
         if(ingrediente.getNome() == nome){
+            encontrou = true;
             return ingrediente;
             break;
-        } else {
-            cout << "Erro: Nome Ingrediente não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Ingrediente não encontrado." << endl;
     }
 }
 

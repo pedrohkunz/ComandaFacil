@@ -162,13 +162,16 @@ void ComandaDAO::imprimirComandas(){
 
 
 Comanda ComandaDAO::getComandaByID(unsigned long int id){
+    bool encontrou = false;
     for(Comanda comanda : listaComandas){
         if(comanda.getId() == id){
+            encontrou = true;
             return comanda;
             break;
-        } else {
-            cout << "Erro: ID Comanda não encontrado." << endl;
         }
+    }
+    if(encontrou == false) {
+        cout << "Erro: ID Comanda não encontrado." << endl;
     }
 }
 
