@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 #include "../include/BebidaDAO.h"
 #include "../include/Bebida.h"
@@ -81,9 +82,9 @@ void BebidaDAO::salvarBebidas(){
     ofstream arquivo("database/bebidas.txt");
     if (arquivo.is_open()) {
         for (Bebida bebida : listaBebidas) {
-            arquivo << to_string(bebida.getId()) << "#" 
-                    << bebida.getTipo() << "#" 
-                    << bebida.getTamanho() << "#" 
+            arquivo << to_string(bebida.getId()) << "#"
+                    << bebida.getTipo() << "#"
+                    << bebida.getTamanho() << "#"
                     << to_string(bebida.getValor()) << endl;
         }
         arquivo.close();
@@ -102,10 +103,13 @@ vector<Bebida> BebidaDAO::getAllBebidas(){
 
 
 void BebidaDAO::imprimirBebidas(){
-    carregarBebidas();
-    cout << "ID | Tipo | Tamanho | Valor" << endl;
-    for (const auto& objeto : listaBebidas) {
-        cout << objeto << endl;
+    cout << "ID | Tipo           | Tamanho  | Valor" << endl;
+    cout << "------------------------------------" << endl;
+    for (Bebida bebida : listaBebidas) {
+        cout << left << setw(2) << bebida.getId() << " | "
+             << setw(14) << bebida.getTipo() << " | "
+             << setw(8) << bebida.getTamanho() << " | "
+             << setw(2) << "R$ " << fixed << setprecision(2) << bebida.getValor() << endl;
     }
 };
 

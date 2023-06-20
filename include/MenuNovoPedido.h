@@ -14,7 +14,7 @@ using namespace std;
 class MenuNovoPedido {
     private:
         string nomeCliente();
-        string numeroDaMesa();
+        unsigned short numeroDaMesa();
         string escolherCPF();
         TamanhoPizza escolherTamanhoDaPizza();
         vector<Sabor> escolherSabores();

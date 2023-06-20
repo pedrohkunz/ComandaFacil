@@ -1,3 +1,3 @@
 1#Coca#600mL#8
-2#Suco Natural#500mL#10
-3#Água#500mL#4
+2#Suco Natural#500mL#25
+3#Agua#500mL#4

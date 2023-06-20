@@ -28,9 +28,9 @@ void MenuPrincipal::menu(){
          << "3- Histórico de pedidos  |  "
          << "4- Estoque  |  "
          << "5- Sair" << endl;
-         
+
     cout <<"Qual atividade você deseja realizar? " << endl;
-    cin >> resposta;                                                                                     
+    cin >> resposta;
     cout << endl;
 
     //Validação da resposta
@@ -40,8 +40,7 @@ void MenuPrincipal::menu(){
         cout << endl;
     }
 
-    switch (resposta)
-    {
+    switch (resposta){
     case 1:
         menuNovoPedido.menu();
         break;

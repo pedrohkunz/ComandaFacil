@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 #include "../include/SaborDAO.h"
 #include "../include/Sabor.h"
@@ -122,8 +123,8 @@ void SaborDAO::salvarSabores() {
                 }
             }
 
-            arquivo << to_string(sabor.getId()) << "#" 
-                    << sabor.getNome() << "#" 
+            arquivo << to_string(sabor.getId()) << "#"
+                    << sabor.getNome() << "#"
                     << ingredientesEmLinha << endl;
         }
         arquivo.close();
@@ -141,13 +142,14 @@ vector<Sabor> SaborDAO::getAllSabores(){
 };
 
 
-void SaborDAO::imprimirSabores(){
-    carregarSabores();
-    cout << "ID | Nome | Ingredientes" << endl;
-    for (const auto& objeto : listaSabores) {
-        cout << objeto << endl;
+void SaborDAO::imprimirSabores() {
+    cout <<"ID  | Nome" << endl;;
+    cout << "-----------------" << endl;
+    for (Sabor sabor : listaSabores) {
+        cout << left << setw(3) << sabor.getId() << " | "
+             << setw(8) << sabor.getNome() << endl;
     }
-};
+}
 
 
 Sabor SaborDAO::getSaborByID(unsigned long int id){
@@ -193,16 +195,16 @@ vector<Sabor> SaborDAO::getSaboresByIngrediente(unsigned long int idIngrediente)
                 encontrou = true;
                 sabores.push_back(s);
             }
-        } 
+        }
     }
 
     return sabores;
     cout << endl;
-    
+
     if(encontrou == false) {
         cout << "Erro: Pedido Comanda não encontrado." << endl;
     }
-    
+
 };
 
 bool SaborDAO::inserirSabor(Sabor sabor){

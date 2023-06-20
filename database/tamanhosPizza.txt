@@ -1,4 +1,4 @@
-1#Pequena#30
-2#Média#40
-3#Grande#60
-4#Família#75
+1#Pequena#30.00
+2#Media#40.00
+3#Grande#60.00
+4#Familia#75.00
