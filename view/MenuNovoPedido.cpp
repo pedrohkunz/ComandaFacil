@@ -99,7 +99,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
     unsigned short tamanhoPizza;
     TamanhoPizzaDAO tamanhoPizzaDAO = TamanhoPizzaDAO();
 
-    //tamanhoPizzaDAO.carregarTamanhos();
+    tamanhoPizzaDAO.carregarTamanhos();
 
     cout <<"\n/////////////////////////////////// Escolha o tamanho da pizza /////////////////////////////////////\n";
 
@@ -284,11 +284,11 @@ vector<Bebida> MenuNovoPedido::escolherBebidas(){
 
 
 void MenuNovoPedido::menu(){
-    //nomeCliente();
-    //numeroDaMesa();
-    //escolherCPF();
-    //escolherTamanhoDaPizza();
-    //escolherSabores();
-    //escolherBebidas();
+    nomeCliente();
+    numeroDaMesa();
+    escolherCPF();
+    escolherTamanhoDaPizza();
+    escolherSabores();
+    escolherBebidas();
 
 }
