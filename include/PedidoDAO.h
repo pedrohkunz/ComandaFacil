@@ -27,7 +27,11 @@ class PedidoDAO{
 
         Pedido getPedidoByID(unsigned long int id);
 
-        Pedido getPedidoByStatus(Status status);
+        vector<Pedido> getPedidosByStatus(Status status);
+
+        vector<Pedido> getPedidosByPizza(unsigned long int idPizza);
+
+        vector<Pedido> getPedidosByBebida(unsigned long int idBebida);
 
         bool inserirPedido(Pedido pedido);
 

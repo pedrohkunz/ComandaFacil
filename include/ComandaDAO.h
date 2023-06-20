@@ -28,6 +28,10 @@ class ComandaDAO{
 
         Comanda getComandaByID(unsigned long int id);
 
+        vector<Comanda> getComandasByUsuario(unsigned long int idUsuario);
+
+        Comanda getComandaByPedido(unsigned long int idPedido);
+
         bool inserirComanda(Comanda comanda);
 
         bool removerComanda(unsigned long int id);

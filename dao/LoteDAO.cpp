@@ -12,14 +12,14 @@
 //Construtor vazio
 LoteDAO::LoteDAO(){};
 
-IngredienteDAO ingredientes = IngredienteDAO();
+IngredienteDAO ingredientesDAOlot = IngredienteDAO();
 
 //Métodos que acessam diretamente o arquivo lotes.txt
 
 Lote LoteDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;
     string idString, quantidadeString, dataDeValidade, ingredienteString;
-    ingredientes.carregarIngredientes();
+    //ingredientes.carregarIngredientes();
 
 
     for (int i = 0; i < linha.size(); i++) {
@@ -54,7 +54,7 @@ Lote LoteDAO::converteStringParaObjeto(string linha){
     unsigned long int id = stoi(idString);
     unsigned long int quantidade = stoi(quantidadeString);
     unsigned long int idIngrediente = stoi(ingredienteString);
-    Ingrediente ingrediente = ingredientes.getIngredienteByID(idIngrediente);
+    Ingrediente ingrediente = ingredientesDAOlot.getIngredienteByID(idIngrediente);
 
     auto novoItem = Lote(id, quantidade, dataDeValidade, ingrediente);
     return novoItem;
@@ -102,11 +102,13 @@ void LoteDAO::salvarLotes(){
 //Métodos de manipulação de dados
 
 vector<Lote> LoteDAO::getAllLotes(){
+    carregarLotes();
     return listaLotes;
 };
 
 
 void LoteDAO::imprimirLotes(){
+    carregarLotes();
     cout << "ID | Quantidade | Data de Validade | Ingrediente" << endl;
     for (const auto& objeto : listaLotes) {
         cout << objeto << endl;
@@ -115,6 +117,7 @@ void LoteDAO::imprimirLotes(){
 
 
 Lote LoteDAO::getLoteByID(unsigned long int id){
+    carregarLotes();
     bool encontrou = false;
     for(Lote lote : listaLotes){
         if(lote.getId() == id){
@@ -129,32 +132,44 @@ Lote LoteDAO::getLoteByID(unsigned long int id){
 };
 
 
-Lote LoteDAO::getLoteByDataValidade(string dataValidade){
+vector<Lote> LoteDAO::getLotesByDataValidade(string dataValidade){
+    carregarLotes();
     bool encontrou = false;
-    for(Lote lote : listaLotes){
-        if(lote.getDataDeValidade() == dataValidade){
+    vector<Lote> lotes;
+
+    for(Lote l : listaLotes){
+        if(l.getDataDeValidade() == dataValidade){
             encontrou = true;
-            return lote;
-            break;
+            lotes.push_back(l);
         }
     }
+
+    return lotes;
+    cout << endl;
+
     if(encontrou == false) {
-        cout << "Erro: Data de validade Lote não encontrado." << endl;
+        cout << "Erro: Data de validade Lote não encontrada." << endl;
     }
 };
 
 
-Lote LoteDAO::getLoteByIngrediente(Ingrediente ingrediente){
+vector<Lote> LoteDAO::getLotesByIngrediente(unsigned long int idIngrediente){
+    carregarLotes();
     bool encontrou = false;
-    for(Lote lote : listaLotes){
-        encontrou = false;
-        if(lote.getIngredienteLote() == ingrediente){
+    vector<Lote> lotes;
+    Ingrediente ingrediente = ingredientesDAOlot.getIngredienteByID(idIngrediente);
+
+    for(Lote l : listaLotes){
+        if (l.getIngredienteLote() == ingrediente){
             encontrou = true;
-            return lote;
-            encontrou = true;
-            break;
+            lotes.push_back(l);
+            
         } 
     }
+
+    return lotes;
+    cout << endl;
+
     if(encontrou == false) {
         cout << "Erro: Ingrediente Lote não encontrado." << endl;
     }
@@ -163,6 +178,7 @@ Lote LoteDAO::getLoteByIngrediente(Ingrediente ingrediente){
 
 
 bool LoteDAO::inserirLote(Lote lote){
+    carregarLotes();
     listaLotes.push_back(lote);
     salvarLotes();
     return true;
@@ -170,6 +186,7 @@ bool LoteDAO::inserirLote(Lote lote){
 
 
 bool LoteDAO::removerLote(unsigned long int id){
+    carregarLotes();
     auto i = listaLotes.begin();
     bool apagou = false;
     while (i != listaLotes.end()) {
@@ -189,6 +206,7 @@ bool LoteDAO::removerLote(unsigned long int id){
 
 
 bool LoteDAO::editarLote(Lote lote, unsigned long int id){
+    carregarLotes();
     bool encontrou = false;
     for(Lote& i : listaLotes){
         if(i.getId() == id){

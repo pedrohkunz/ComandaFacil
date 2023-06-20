@@ -18,8 +18,8 @@ int iMEB = 0;
 void MenuEstoqueBuscar::menuEstoqueBuscar(){
   unsigned short resposta;
   while(iMEB < 1) {
-    loteMenuEB.carregarLotes();
-    ingredientesMenuEB.carregarIngredientes();
+   // loteMenuEB.carregarLotes();
+    //ingredientesMenuEB.carregarIngredientes();
     iMEB++;
   }
 
@@ -74,6 +74,7 @@ void MenuEstoqueBuscar::buscarPorId(){
     unsigned long int id;
     cout << "Digite o ID: " << endl;
     cin >> id;
+    cout << endl;
     cout << move(loteMenuEB.getLoteByID(id)) << endl;
     
 };
@@ -83,7 +84,11 @@ void MenuEstoqueBuscar::buscarPorDataValidade(){
     string data;
     cout << "Digite a data de validade: " << endl;
     cin >> data;
-    cout << move(loteMenuEB.getLoteByDataValidade(data)) << endl;
+    cout << endl;
+    
+    for (Lote l : loteMenuEB.getLotesByDataValidade(data)){
+      cout << l << endl;
+    } 
 
 };
 
@@ -109,15 +114,25 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
         case 1:
             cout << "Digite o nome do ingrediente: " << endl;
             cin >> nome;
+            cout << endl;
+            
             ingrediente = ingredientesMenuEB.getIngredienteByNome(nome);
-            cout << (loteMenuEB.getLoteByIngrediente(ingrediente)) << endl;
+
+            for (Lote l : loteMenuEB.getLotesByIngrediente(ingrediente.getId())){
+                cout << l << endl;
+            }
+
             break;
 
         case 2:
             cout << "Digite o id do ingrediente: " << endl;
             cin >> id;
-            ingrediente = ingredientesMenuEB.getIngredienteByID(id);
-            cout << (loteMenuEB.getLoteByIngrediente(ingrediente)) << endl;
+            cout << endl;
+            
+            for (Lote l : loteMenuEB.getLotesByIngrediente(id)){
+                cout << l << endl;
+            }
+
             break;
 
         }

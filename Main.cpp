@@ -36,5 +36,11 @@ int main() {
     Ingrediente ingred = ingredienteDAOMP.getIngredienteByID(2);
     cout << ingred;*/
 
+    /*Status status = statusDAOMenuPP.getStatusByID(1);
+    
+    for (Pedido p : pedidosMenuPP.getPedidosByStatus(status)){
+        cout << p << endl;
+    }*/
+    
     
 }

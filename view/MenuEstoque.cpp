@@ -22,7 +22,7 @@ void MenuEstoque::menuEstoque() {
   unsigned short resposta;
   MenuEstoqueBuscar buscar = MenuEstoqueBuscar();
   while(iME < 1){
-    loteMenuEstoque.carregarLotes();
+    //loteMenuEstoque.carregarLotes();
     iME++;
   }
 
@@ -72,7 +72,7 @@ void MenuEstoque::adicionarLote() {
   Ingrediente ingredienteAddLote;
   Lote loteAddLote;
   while(jME < 1){
-    ingredientesMenuEstoque.carregarIngredientes();
+    //ingredientesMenuEstoque.carregarIngredientes();
     jME++;
   }
 

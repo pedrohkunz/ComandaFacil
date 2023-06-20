@@ -9,7 +9,7 @@
 #include "../include/Ingrediente.h"
 
 
-IngredienteDAO ingredientesDAO = IngredienteDAO();
+IngredienteDAO ingredientesDAOsab = IngredienteDAO();
 
 //Construtor vazio
 SaborDAO::SaborDAO(){};
@@ -19,7 +19,6 @@ SaborDAO::SaborDAO(){};
 Sabor SaborDAO::converteStringParaObjeto(string a){
    int contador = 0, contadorSharp = 0;
     string idString, nome, ingredientes;
-    ingredientesDAO.carregarIngredientes();
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
@@ -68,7 +67,7 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
 
         // Percorre o vetor de ingredientes e procura o ingrediente com o nome correspondente ao ingString
         // Se encontrado, o ingrediente é armazenado na variável ing
-        for (Ingrediente ingrediente : ingredientesDAO.getAllIngredientes()) {
+        for (Ingrediente ingrediente : ingredientesDAOsab.getAllIngredientes()) {
             if (ingString == ingrediente.getNome()) {
                 ing = ingrediente;
                 break;
@@ -137,11 +136,13 @@ void SaborDAO::salvarSabores() {
 //Métodos de manipulação de dados
 
 vector<Sabor> SaborDAO::getAllSabores(){
+    carregarSabores();
     return listaSabores;
 };
 
 
 void SaborDAO::imprimirSabores(){
+    carregarSabores();
     cout << "ID | Nome | Ingredientes" << endl;
     for (const auto& objeto : listaSabores) {
         cout << objeto << endl;
@@ -150,6 +151,7 @@ void SaborDAO::imprimirSabores(){
 
 
 Sabor SaborDAO::getSaborByID(unsigned long int id){
+    carregarSabores();
     bool encontrou = false;
     for(Sabor sabor : listaSabores){
         if(sabor.getId() == id){
@@ -165,6 +167,7 @@ Sabor SaborDAO::getSaborByID(unsigned long int id){
 
 
 Sabor SaborDAO::getSaborByNome(string nome){
+    carregarSabores();
     bool encontrou = false;
     for(Sabor sabor : listaSabores){
         if(sabor.getNome() == nome){
@@ -179,7 +182,31 @@ Sabor SaborDAO::getSaborByNome(string nome){
 }
 
 
+vector<Sabor> SaborDAO::getSaboresByIngrediente(unsigned long int idIngrediente){
+    carregarSabores();
+    bool encontrou = false;
+    vector<Sabor> sabores;
+
+    for(Sabor s : listaSabores){
+        for (Ingrediente i : s.getIngredientes()){
+            if (i.getId() == idIngrediente){
+                encontrou = true;
+                sabores.push_back(s);
+            }
+        } 
+    }
+
+    return sabores;
+    cout << endl;
+    
+    if(encontrou == false) {
+        cout << "Erro: Pedido Comanda não encontrado." << endl;
+    }
+    
+};
+
 bool SaborDAO::inserirSabor(Sabor sabor){
+    carregarSabores();
     listaSabores.push_back(sabor);
     salvarSabores();
     return true;
@@ -187,6 +214,7 @@ bool SaborDAO::inserirSabor(Sabor sabor){
 
 
 bool SaborDAO::removerSabor(unsigned long int id){
+    carregarSabores();
     auto i = listaSabores.begin();
     bool apagou = false;
     while (i != listaSabores.end()) {
@@ -206,6 +234,7 @@ bool SaborDAO::removerSabor(unsigned long int id){
 
 
 bool SaborDAO::editarSabor(Sabor sabor, unsigned long int id){
+    carregarSabores();
     bool encontrou = false;
     for(Sabor& s : listaSabores){
         if(s.getId() == id){

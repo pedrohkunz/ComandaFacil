@@ -15,16 +15,14 @@ using namespace std;
 //Construtor vazio
 ComandaDAO::ComandaDAO(){};
 
-UsuarioDAO usuariosDAO = UsuarioDAO();
-PedidoDAO pedidosDAO = PedidoDAO();
+UsuarioDAO usuariosDAOcom = UsuarioDAO();
+PedidoDAO pedidosDAOcom = PedidoDAO();
 
 //Métodos que acessam diretamente o arquivo pedidos.txt
 
 Comanda ComandaDAO::converteStringParaObjeto(string a){
    int contador = 0, contadorSharp = 0;
     string idString, formaPagamentoString, idUsuarioString, pedidos;
-    pedidosDAO.carregarPedidos();
-    usuariosDAO.carregarUsuarios();
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
@@ -59,7 +57,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     unsigned long int id = stoi(idString);
     unsigned long int formaPagamento = stoi(formaPagamentoString);
     unsigned long int idUsuario = stoi(idUsuarioString);
-    Usuario usuario = usuariosDAO.getUsuarioByID(idUsuario);
+    Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
     //Transforma a string pedidos em um vetor novamente
     int count = 0, contadorPorcentagem = 0;
@@ -78,7 +76,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
 
         // Percorre o vetor de pedidos e procura o pedido com o id correspondente ao pedId
         // Se encontrado, o pedido é armazenado na variável ped
-        for (Pedido pedido : pedidosDAO.getAllPedidos()) {
+        for (Pedido pedido : pedidosDAOcom.getAllPedidos()) {
             if (pedId == pedido.getId()) {
                 ped = pedido;
                 break;
@@ -149,11 +147,13 @@ void ComandaDAO::salvarComandas(){
 //Métodos de manipulação de dados
 
 vector<Comanda> ComandaDAO::getAllComandas(){
+    carregarComandas();
     return listaComandas;
 };
 
 
 void ComandaDAO::imprimirComandas(){
+    carregarComandas();
     cout << "ID | Forma de Pagamento | Usuário | Pedidos (ID, Pizzas, Bebidas)" << endl;
     for (auto& objeto : listaComandas) {
         cout << objeto << endl;
@@ -162,6 +162,7 @@ void ComandaDAO::imprimirComandas(){
 
 
 Comanda ComandaDAO::getComandaByID(unsigned long int id){
+    carregarComandas();
     bool encontrou = false;
     for(Comanda comanda : listaComandas){
         if(comanda.getId() == id){
@@ -175,8 +176,50 @@ Comanda ComandaDAO::getComandaByID(unsigned long int id){
     }
 }
 
+vector<Comanda> ComandaDAO::getComandasByUsuario(unsigned long int idUsuario){
+    carregarComandas();
+    bool encontrou = false;
+    vector<Comanda> comandas;
+    Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
+
+    for (Comanda c : listaComandas){
+        if (c.getUsuario() == usuario){
+            encontrou = true;
+            comandas.push_back(c);
+        }
+    }
+
+    return comandas;
+    cout << endl;
+    if (encontrou == false) {
+        cout << "Erro: Usuário Comanda não encontrado." << endl;
+    }
+};
+
+Comanda ComandaDAO::getComandaByPedido(unsigned long int idPedido){
+    carregarComandas();
+    bool encontrou = false;
+    Pedido pedido;
+
+    for(Comanda c : listaComandas){
+        encontrou = false;
+        for (Pedido p : c.getPedidos()){
+            if (p.getId() == idPedido){
+                encontrou = true;
+                pedido = p;
+                return c;
+            }
+        } 
+    }
+    
+    if(encontrou == false) {
+        cout << "Erro: Pedido Comanda não encontrado." << endl;
+    }
+    
+};
 
 bool ComandaDAO::inserirComanda(Comanda comanda){
+    carregarComandas();
     listaComandas.push_back(comanda);
     salvarComandas();
     return true;
@@ -184,6 +227,7 @@ bool ComandaDAO::inserirComanda(Comanda comanda){
 
 
 bool ComandaDAO::removerComanda(unsigned long int id){
+    carregarComandas();
     auto c = listaComandas.begin();
     bool apagou = false;
     while (c != listaComandas.end()) {
@@ -203,6 +247,7 @@ bool ComandaDAO::removerComanda(unsigned long int id){
 
 
 bool ComandaDAO::editarComanda(Comanda comanda, unsigned long int id){
+    carregarComandas();
     bool encontrou = false;
     for(Comanda& c : listaComandas){
         if(c.getId() == id){

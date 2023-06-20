@@ -28,7 +28,7 @@ class Usuario {
         int getId();
         void setId(unsigned long int id);
 
-        string getNome();
+        string getNome() const;
         void setNome(string nome);
 
         string getEmail();
@@ -36,6 +36,17 @@ class Usuario {
 
         string getSenha();
         void setSenha(string senha);
+
+        bool operator==(const Usuario& usuario) const {
+        if (this-> id == usuario.id && this->nome == usuario.nome){
+          return true;
+        } else {
+          return false;
+        }
+        // Defina sua lógica de comparação aqui.
+        // Compare os atributos relevantes dos objetos Ingrediente.
+        // Retorne true se os objetos forem iguais e false caso contrário.
+    }
 
 };
 

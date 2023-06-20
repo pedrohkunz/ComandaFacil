@@ -96,11 +96,13 @@ void BebidaDAO::salvarBebidas(){
 //Métodos de manipulação de dados
 
 vector<Bebida> BebidaDAO::getAllBebidas(){
+    carregarBebidas();
     return listaBebidas;
 };
 
 
 void BebidaDAO::imprimirBebidas(){
+    carregarBebidas();
     cout << "ID | Tipo | Tamanho | Valor" << endl;
     for (const auto& objeto : listaBebidas) {
         cout << objeto << endl;
@@ -109,6 +111,7 @@ void BebidaDAO::imprimirBebidas(){
 
 
 Bebida BebidaDAO::getBebidaByID(unsigned long int id){
+    carregarBebidas();
     bool encontrou = false;
     for(Bebida bebida : listaBebidas){
         if(bebida.getId() == id){
@@ -124,6 +127,7 @@ Bebida BebidaDAO::getBebidaByID(unsigned long int id){
 
 
 bool BebidaDAO::inserirBebida(Bebida bebida){
+    carregarBebidas();
     listaBebidas.push_back(bebida);
     salvarBebidas();
     return true;
@@ -131,6 +135,7 @@ bool BebidaDAO::inserirBebida(Bebida bebida){
 
 
 bool BebidaDAO::removerBebida(unsigned long int id){
+    carregarBebidas();
     auto b = listaBebidas.begin();
     bool apagou = false;
     while (b != listaBebidas.end()) {
@@ -150,6 +155,7 @@ bool BebidaDAO::removerBebida(unsigned long int id){
 
 
 bool BebidaDAO::editarBebida(Bebida bebida, unsigned long int id){
+    carregarBebidas();
     bool encontrou = false;
     for(Bebida& b : listaBebidas){
         if(b.getId() == id){

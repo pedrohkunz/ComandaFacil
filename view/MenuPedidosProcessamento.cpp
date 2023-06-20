@@ -14,21 +14,29 @@ MenuPrincipal menuPrincipalMenuPP = MenuPrincipal();
 PedidoDAO pedidosMenuPP = PedidoDAO();
 StatusDAO statusDAOMenuPP = StatusDAO();
 
-void MenuPedidosProcessamento::menuPedidosProcessamento(){
-    cout <<"//////////////////////////////////// Menu Pedidos em Processamento ////////////////////////////////////////" << endl;
+int iMPP = 0;
 
-    pedidosMenuPP.carregarPedidos();
-    statusDAOMenuPP.carregarStatus();
+void MenuPedidosProcessamento::menuPedidosProcessamento(){
+    unsigned short respostaMenuPP;
+    while(iMPP < 1){
+        //pedidosMenuPP.carregarPedidos();
+        //statusDAOMenuPP.carregarStatus();
+        iMPP++;
+    }
+
+    cout <<"//////////////////////////////////// Menu Pedidos em Processamento ////////////////////////////////////////" << endl;
     
     Status status = statusDAOMenuPP.getStatusByID(1);
     
-    cout << (pedidosMenuPP.getPedidoByStatus(status)) << endl;
+    for (Pedido p : pedidosMenuPP.getPedidosByStatus(status)){
+        cout << p << endl;
+    }
     
     cout << endl
          << "1- Voltar ao menu principal  |  "
          << "2- Sair" << endl;
-    unsigned short respostaMenuPP;
     cin >> respostaMenuPP;
+    cout << endl;
 
     //Validação da resposta
     while(respostaMenuPP != 1 && respostaMenuPP != 2){

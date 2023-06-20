@@ -92,6 +92,7 @@ void TamanhoPizzaDAO::salvarTamanhos(){
 //Métodos de manipulação de dados
 
 vector<TamanhoPizza> TamanhoPizzaDAO::getAllTamanhos(){
+    carregarTamanhos();
     return listaTamanhos;
 };
 
@@ -109,6 +110,7 @@ void TamanhoPizzaDAO::imprimirTamanhos() {
 
 
 TamanhoPizza TamanhoPizzaDAO::getTamanhoByID(unsigned long int id){
+    carregarTamanhos();
     bool encontrou = false;
     for(TamanhoPizza tamanho : listaTamanhos){
         if(tamanho.getId() == id){
@@ -123,6 +125,7 @@ TamanhoPizza TamanhoPizzaDAO::getTamanhoByID(unsigned long int id){
 }
 
 TamanhoPizza TamanhoPizzaDAO::getTamanhoByTamanho(string nome){
+    carregarTamanhos();
     bool encontrou = false;
     for(TamanhoPizza tamanho : listaTamanhos){
         if(tamanho.getTamanho() == nome){
@@ -137,6 +140,7 @@ TamanhoPizza TamanhoPizzaDAO::getTamanhoByTamanho(string nome){
 }
 
 bool TamanhoPizzaDAO::inserirTamanho(TamanhoPizza tamanho){
+    carregarTamanhos();
     listaTamanhos.push_back(tamanho);
     salvarTamanhos();
     return true;
@@ -144,6 +148,7 @@ bool TamanhoPizzaDAO::inserirTamanho(TamanhoPizza tamanho){
 
 
 bool TamanhoPizzaDAO::removerTamanho(unsigned long int id){
+    carregarTamanhos();
     auto i = listaTamanhos.begin();
     bool apagou = false;
     while (i != listaTamanhos.end()) {
@@ -163,6 +168,7 @@ bool TamanhoPizzaDAO::removerTamanho(unsigned long int id){
 
 
 bool TamanhoPizzaDAO::editarTamanho(TamanhoPizza tamanho, unsigned long int id){
+    carregarTamanhos();
     bool encontrou = false;
     for(TamanhoPizza& t : listaTamanhos){
         if(t.getId() == id){

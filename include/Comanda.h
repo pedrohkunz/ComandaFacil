@@ -17,7 +17,7 @@ private:
     Usuario usuario;
     vector<Pedido> pedidos;
 
-    friend ostream& operator<<(ostream& os, Comanda& objeto) {
+    friend ostream& operator<<(ostream& os, const Comanda& objeto) {
         os << objeto.id << " | " 
            << objeto.formaPagamento << " | "
            << objeto.usuario.getNome() << ": " << endl;

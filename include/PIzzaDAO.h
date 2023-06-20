@@ -27,6 +27,10 @@ class PizzaDAO {
 
         Pizza getPizzaByID(unsigned long int id);
 
+        vector<Pizza> getPizzasByTamanho(unsigned long int idTamanho);
+
+        vector<Pizza> getPizzasBySabor(unsigned long int idSabor);
+
         bool inserirPizza(Pizza pizza);
 
         bool removerPizza(unsigned long int id);

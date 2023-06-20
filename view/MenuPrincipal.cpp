@@ -44,7 +44,6 @@ void MenuPrincipal::menu(){
     {
     case 1:
         menuNovoPedido.menu();
-        this->menu();
         break;
 
     case 2:
@@ -53,7 +52,6 @@ void MenuPrincipal::menu(){
 
     case 3:
         menuHistoricoPedidosMenuPrincipal.menuHistoricoPedidos();
-        this->menu();
         break;
 
     case 4:

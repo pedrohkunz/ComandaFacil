@@ -87,11 +87,13 @@ void StatusDAO::salvarStatus(){
 //Métodos de manipulação de dados
 
 vector<Status> StatusDAO::getAllStatus(){
+    carregarStatus();
     return listaStatus;
 };
 
 
 void StatusDAO::imprimirStatus(){
+    carregarStatus();
     cout << "ID | Nome" << endl;
     for (const auto& objeto : listaStatus) {
         cout << objeto << endl;
@@ -100,6 +102,7 @@ void StatusDAO::imprimirStatus(){
 
 
 Status StatusDAO::getStatusByID(unsigned long int id){
+    carregarStatus();
     bool encontrou = false;
     for(Status status : listaStatus){
         if(status.getId() == id){
@@ -115,6 +118,7 @@ Status StatusDAO::getStatusByID(unsigned long int id){
 
 
 Status StatusDAO::getStatusByNome(string nome){
+    carregarStatus();
     bool encontrou = false;
     for(Status status : listaStatus){
         if(status.getNome() == nome){
@@ -130,6 +134,7 @@ Status StatusDAO::getStatusByNome(string nome){
 
 
 bool StatusDAO::inserirStatus(Status Status){
+    carregarStatus();
     listaStatus.push_back(Status);
     salvarStatus();
     return true;
@@ -137,6 +142,7 @@ bool StatusDAO::inserirStatus(Status Status){
 
 
 bool StatusDAO::removerStatus(unsigned long int id){
+    carregarStatus();
     auto i = listaStatus.begin();
     bool apagou = false;
     while (i != listaStatus.end()) {
@@ -156,6 +162,7 @@ bool StatusDAO::removerStatus(unsigned long int id){
 
 
 bool StatusDAO::editarStatus(Status status, unsigned long int id){
+    carregarStatus();
     bool encontrou = false;
     for(Status& i : listaStatus){
         if(i.getId() == id){

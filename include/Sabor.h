@@ -31,11 +31,22 @@ class Sabor{
     unsigned long int getId();
     void setId(unsigned long int id);
 
-    string getNome();
+    string getNome() const;
     void setNome(string nome);
 
     vector<Ingrediente> getIngredientes();
     void setIngredientes(vector<Ingrediente> ingredientes);
+
+    bool operator==(const Sabor& s) const {
+        if (this-> id == s.id && this->nome == s.nome){
+          return true;
+        } else {
+          return false;
+        }
+        // Defina sua lógica de comparação aqui.
+        // Compare os atributos relevantes dos objetos Ingrediente.
+        // Retorne true se os objetos forem iguais e false caso contrário.
+    }
 };
 
 

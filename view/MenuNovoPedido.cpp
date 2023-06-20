@@ -17,11 +17,13 @@ string MenuNovoPedido::nomeCliente(){
 
     cout << "\nDigite o nome do cliente: ";
     cin >> nomeCliente;
+    cout << endl;
 
     //Verifica o nome do cliente
     while(nomeCliente.empty()){
         cout << "\nO nome do cliente não pode ficar vazio, insira um nome válido: ";
         cin >> nomeCliente;
+        cout << endl;
     }
 
     return nomeCliente;
@@ -33,11 +35,13 @@ string MenuNovoPedido::numeroDaMesa(){
 
     cout << "\nDigite o número da mesa: ";
     cin >> numeroMesa;
+    cout << endl;
 
     //Valida o número da mesa
     while(numeroMesa.empty()){
         cout << "\nO número da mesa não pode ficar vazio, por favor insira um novo número: ";
         cin >> numeroMesa;
+        cout << endl;
     }
 
     return numeroMesa;
@@ -51,21 +55,25 @@ string MenuNovoPedido::escolherCPF(){
     cout << "\nO cliente deseja CPF na nota?";
     cout << "\n 1- Sim | 2- Não\n";
     cin >> cpfNota;
+    cout << endl;
 
     //Verifica se a resposta em relação ao CPF está válida
     while(cpfNota != 1 && cpfNota != 2){
         cout << "\nInsira uma resposta válida: ";
         cin >> cpfNota;
+        cout << endl;
     }
 
     //Se o cliente não informar o CPF, ele será vazio
     if(cpfNota == 1){
         cout << "\nInsira o CPF do cliente: ";
         cin >> cpf;
+        cout << endl;
 
         while(cpf.length() != 11){
             cout <<"\ninsira um CPF válido: ";
             cin >> cpf;
+            cout << endl;
         }
     } else {
         cpf = "";
@@ -79,7 +87,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
     unsigned short tamanhoPizza;
     TamanhoPizzaDAO tamanhoPizzaDAO = TamanhoPizzaDAO();
 
-    tamanhoPizzaDAO.carregarTamanhos();
+    //tamanhoPizzaDAO.carregarTamanhos();
 
     cout <<"\n/////////////////////////////////// Escolha o tamanho da pizza /////////////////////////////////////\n";
 
@@ -90,13 +98,13 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
 
     cout << endl;
 
-    cout <<"Qual tamanho de pizza o cliente deseja? ";
+    cout <<"Qual tamanho de pizza o cliente deseja? " << endl;
 
     //Garante que o valor de entrada seja um inteiro
     while (!(cin >> tamanhoPizza)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida. Digite o ID de um tamanho: ";
+        cout << "Entrada inválida. Digite o ID de um tamanho: " << endl;
     }
 
     //Procura o Tamanho na base de dados com base no id
@@ -114,7 +122,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
         }
 
         if (!encontrou) {
-            cout << "O tamanho selecionado não existe, Insira o ID de tamanho válido: ";
+            cout << "O tamanho selecionado não existe, insira um ID de tamanho válido: ";
             //Garante que o valor de entrada seja um inteiro
             while (!(cin >> tamanhoPizza)) {
                 cin.clear();

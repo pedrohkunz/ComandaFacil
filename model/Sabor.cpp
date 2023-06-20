@@ -22,7 +22,7 @@ void Sabor::setId(unsigned long int id) {
 }
 
 
-string Sabor::getNome(){
+string Sabor::getNome() const {
   return nome;
 }
 void Sabor::setNome(string nome){

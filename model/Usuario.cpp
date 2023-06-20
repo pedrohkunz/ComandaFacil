@@ -29,7 +29,7 @@ void Usuario::setEmail(string email){
 }
 
 
-string Usuario::getNome() {
+string Usuario::getNome() const {
   return nome;
 }
 void Usuario::setNome(string nome){

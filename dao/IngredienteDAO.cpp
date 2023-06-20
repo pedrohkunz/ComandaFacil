@@ -87,11 +87,13 @@ void IngredienteDAO::salvarIngredientes(){
 //Métodos de manipulação de dados
 
 vector<Ingrediente> IngredienteDAO::getAllIngredientes(){
+    carregarIngredientes();
     return listaIngredientes;
 };
 
 
 void IngredienteDAO::imprimirIngredientes(){
+    carregarIngredientes();
     cout << "ID | Nome" << endl;
     for (const auto& objeto : listaIngredientes) {
         cout << objeto << endl;
@@ -100,6 +102,7 @@ void IngredienteDAO::imprimirIngredientes(){
 
 
 Ingrediente IngredienteDAO::getIngredienteByID(unsigned long int id){
+    carregarIngredientes();
     bool encontrou = false;
     for(Ingrediente ingrediente : listaIngredientes){
         if(ingrediente.getId() == id){
@@ -115,6 +118,7 @@ Ingrediente IngredienteDAO::getIngredienteByID(unsigned long int id){
 
 
 Ingrediente IngredienteDAO::getIngredienteByNome(string nome){
+    carregarIngredientes();
     bool encontrou = false;
     for(Ingrediente ingrediente : listaIngredientes){
         if(ingrediente.getNome() == nome){
@@ -130,6 +134,7 @@ Ingrediente IngredienteDAO::getIngredienteByNome(string nome){
 
 
 bool IngredienteDAO::inserirIngrediente(Ingrediente ingrediente){
+    carregarIngredientes();
     listaIngredientes.push_back(ingrediente);
     salvarIngredientes();
     return true;
@@ -137,6 +142,7 @@ bool IngredienteDAO::inserirIngrediente(Ingrediente ingrediente){
 
 
 bool IngredienteDAO::removerIngrediente(unsigned long int id){
+    carregarIngredientes();
     auto i = listaIngredientes.begin();
     bool apagou = false;
     while (i != listaIngredientes.end()) {
@@ -156,6 +162,7 @@ bool IngredienteDAO::removerIngrediente(unsigned long int id){
 
 
 bool IngredienteDAO::editarIngrediente(Ingrediente ingrediente, unsigned long int id){
+    carregarIngredientes();
     bool encontrou = false;
     for(Ingrediente& i : listaIngredientes){
         if(i.getId() == id){

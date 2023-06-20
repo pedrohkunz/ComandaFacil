@@ -15,16 +15,14 @@ using namespace std;
 //Construtor vazio
 PizzaDAO::PizzaDAO(){};
 
-SaborDAO saboresDAO = SaborDAO();
-TamanhoPizzaDAO tamanhosDAO = TamanhoPizzaDAO();
+SaborDAO saboresDAOpiz = SaborDAO();
+TamanhoPizzaDAO tamanhosDAOpiz = TamanhoPizzaDAO();
 
 //Métodos que acessam diretamente o arquivo pizzas.txt
 
 Pizza PizzaDAO::converteStringParaObjeto(string linha){
     int contador = 0, contadorSharp = 0;
     string idString, tamanhoString, sabores;
-    saboresDAO.carregarSabores();
-    tamanhosDAO.carregarTamanhos();
 
     for (int i = 0; i < linha.size(); i++) {
         vector<char> vt;
@@ -67,7 +65,7 @@ Pizza PizzaDAO::converteStringParaObjeto(string linha){
         Sabor sab;
 
         // Percorre o vetor de sabores e procura o sabor com o nome correspondente ao sabString, se encontrado, o sabor é armazenado na variável ing
-        for (Sabor sabor : saboresDAO.getAllSabores()) {
+        for (Sabor sabor : saboresDAOpiz.getAllSabores()) {
             if (sabString == sabor.getNome()) {
                 sab = sabor;
                 break;
@@ -82,7 +80,7 @@ Pizza PizzaDAO::converteStringParaObjeto(string linha){
     //Converte as strings para outros tipos de dados
     unsigned long int id = stoi(idString);
     unsigned long int idTamanho = stoi(tamanhoString);
-    TamanhoPizza tamanho = tamanhosDAO.getTamanhoByID(idTamanho);
+    TamanhoPizza tamanho = tamanhosDAOpiz.getTamanhoByID(idTamanho);
 
     auto novoItem = Pizza(id, tamanho, vetorSabores);
     return novoItem;
@@ -141,11 +139,13 @@ void PizzaDAO::salvarPizzas(){
 //Métodos de manipulação de dados
 
 vector<Pizza> PizzaDAO::getAllPizzas(){
+    carregarPizzas();
     return listaPizzas;
 };
 
 
 void PizzaDAO::imprimirPizzas(){
+    carregarPizzas();
     cout << "ID | Tamanho | Sabores" << endl;
     for (auto& objeto : listaPizzas) {
         cout << objeto << endl;
@@ -154,6 +154,7 @@ void PizzaDAO::imprimirPizzas(){
 
 
 Pizza PizzaDAO::getPizzaByID(unsigned long int id){
+    carregarPizzas();
     bool encontrou = false;
     for(Pizza pizza : listaPizzas){
         if(pizza.getId() == id){
@@ -165,10 +166,56 @@ Pizza PizzaDAO::getPizzaByID(unsigned long int id){
     if(encontrou == false) {
         cout << "Erro: ID Pizza não encontrado." << endl;
     }
-}
+};
+
+
+vector<Pizza> PizzaDAO::getPizzasByTamanho(unsigned long int idTamanho){
+    carregarPizzas();
+    bool encontrou = false;
+    vector<Pizza> pizzas;
+    TamanhoPizza tamanho = tamanhosDAOpiz.getTamanhoByID(idTamanho);
+
+    for (Pizza p : listaPizzas){
+        if (p.getTamanho() == tamanho){
+            encontrou = true;
+            pizzas.push_back(p);
+        }
+    }
+
+    return pizzas;
+    cout << endl;
+
+    if (encontrou == false) {
+        cout << "Erro: Tamanho Pizza não encontrado." << endl;
+    }
+};
+
+
+vector<Pizza> PizzaDAO::getPizzasBySabor(unsigned long int idSabor){
+    carregarPizzas();
+    bool encontrou = false;
+    vector<Pizza> pizzas;
+
+    for (Pizza p : listaPizzas){
+        for (Sabor s : p.getSabores()){
+            if (s.getId() == idSabor){
+                encontrou = true;
+                pizzas.push_back(p);
+            }
+        }
+    }
+
+    return pizzas;
+    cout << endl;
+
+    if (encontrou == false) {
+        cout << "Erro: Tamanho Pizza não encontrado." << endl;
+    }
+};
 
 
 bool PizzaDAO::inserirPizza(Pizza pizza){
+    carregarPizzas();
     listaPizzas.push_back(pizza);
     salvarPizzas();
     return true;
@@ -176,6 +223,7 @@ bool PizzaDAO::inserirPizza(Pizza pizza){
 
 
 bool PizzaDAO::removerPizza(unsigned long int id){
+    carregarPizzas();
     auto i = listaPizzas.begin();
     bool apagou = false;
     while (i != listaPizzas.end()) {
@@ -195,6 +243,7 @@ bool PizzaDAO::removerPizza(unsigned long int id){
 
 
 bool PizzaDAO::editarPizza(Pizza pizza, unsigned long int id){
+    carregarPizzas();
     bool encontrou = false;
     for(Pizza& p : listaPizzas){
         if(p.getId() == id){

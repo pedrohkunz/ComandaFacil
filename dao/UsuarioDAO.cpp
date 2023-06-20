@@ -96,11 +96,13 @@ void UsuarioDAO::salvarUsuarios(){
 //Métodos de manipulação de dados
 
 vector<Usuario> UsuarioDAO::getAllUsuarios(){
+    carregarUsuarios();
     return listaUsuarios;
 };
 
 
 void UsuarioDAO::imprimirUsuarios(){
+    carregarUsuarios();
     cout << "ID | Nome | E-mail" << endl;
     for (const auto& objeto : listaUsuarios) {
         cout << objeto << endl;
@@ -109,6 +111,7 @@ void UsuarioDAO::imprimirUsuarios(){
 
 
 Usuario UsuarioDAO::getUsuarioByID(unsigned long int id){
+    carregarUsuarios();
     bool encontrou = false;
     for(Usuario usuario : listaUsuarios){
         if(usuario.getId() == id){
@@ -123,6 +126,7 @@ Usuario UsuarioDAO::getUsuarioByID(unsigned long int id){
 }
 
 Usuario UsuarioDAO::getUsuarioByNome(string nome){
+    carregarUsuarios();
     bool encontrou = false;
     for(Usuario usuario : listaUsuarios){
         if(usuario.getNome() == nome){
@@ -138,6 +142,7 @@ Usuario UsuarioDAO::getUsuarioByNome(string nome){
 
 
 bool UsuarioDAO::criarUsuario(Usuario usuario){
+    carregarUsuarios();
     listaUsuarios.push_back(usuario);
     salvarUsuarios();
     return true;
@@ -145,6 +150,7 @@ bool UsuarioDAO::criarUsuario(Usuario usuario){
 
 
 bool UsuarioDAO::removerUsuario(unsigned long int id){
+    carregarUsuarios();
     auto i = listaUsuarios.begin();
     bool apagou = false;
     while (i != listaUsuarios.end()) {

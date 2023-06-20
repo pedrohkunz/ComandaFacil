@@ -26,11 +26,22 @@ class TamanhoPizza{
         unsigned long int getId();
         void setId(unsigned long int id);
 
-        string getTamanho();
+        string getTamanho() const;
         void setTamanho(string tamanho);
 
         double getValor();
         void setValor(double valor);
+
+        bool operator==(const TamanhoPizza& t) const {
+        if (this-> id == t.id && this->tamanho == t.tamanho){
+          return true;
+        } else {
+          return false;
+        }
+        // Defina sua lógica de comparação aqui.
+        // Compare os atributos relevantes dos objetos Ingrediente.
+        // Retorne true se os objetos forem iguais e false caso contrário.
+    }
 
 };
 

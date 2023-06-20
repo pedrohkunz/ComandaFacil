@@ -13,9 +13,9 @@
 #include "../include/Status.h"
 
 
-PizzaDAO pizzasDAO = PizzaDAO();
-BebidaDAO bebidasDAO = BebidaDAO();
-StatusDAO statusDAO = StatusDAO();
+PizzaDAO pizzasDAOped = PizzaDAO();
+BebidaDAO bebidasDAOped = BebidaDAO();
+StatusDAO statusDAOped = StatusDAO();
 
 //Construtor vazio
 PedidoDAO::PedidoDAO(){};
@@ -25,9 +25,6 @@ PedidoDAO::PedidoDAO(){};
 Pedido PedidoDAO::converteStringParaObjeto(string a){
    int contador = 0, contadorSharp = 0;
     string idString, statusString, pizzas, bebidas;
-    pizzasDAO.carregarPizzas();
-    bebidasDAO.carregarBebidas();
-    statusDAO.carregarStatus();
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
@@ -61,7 +58,7 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
     //Converte o idString para id inteiro
     unsigned long int id = stoi(idString);
     unsigned long int idStatus = stoi(statusString);
-    Status status = statusDAO.getStatusByID(idStatus);
+    Status status = statusDAOped.getStatusByID(idStatus);
 
     //Transforma a string pizzas em um vetor novamente
     int count = 0, contadorPorcentagem = 0;
@@ -80,7 +77,7 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
 
         // Percorre o vetor de pizzas e procura a pizza com o id correspondente ao pizId
         // Se encontrado, a pizza é armazenada na variável piz
-        for (Pizza pizza : pizzasDAO.getAllPizzas()) {
+        for (Pizza pizza : pizzasDAOped.getAllPizzas()) {
             if (pizId == pizza.getId()) {
                 piz = pizza;
                 break;
@@ -109,7 +106,7 @@ Pedido PedidoDAO::converteStringParaObjeto(string a){
 
         // Percorre o vetor de bebidas e procura a bebida com o id correspondente ao bebId
         // Se encontrado, a bebida é armazenada na variável beb
-        for (Bebida bebida : bebidasDAO.getAllBebidas()) {
+        for (Bebida bebida : bebidasDAOped.getAllBebidas()) {
             if (bebId == bebida.getId()) {
                 beb = bebida;
                 break;
@@ -189,11 +186,13 @@ void PedidoDAO::salvarPedidos(){
 //Métodos de manipulação de dados
 
 vector<Pedido> PedidoDAO::getAllPedidos(){
+    carregarPedidos();
     return listaPedidos;
 };
 
 
 void PedidoDAO::imprimirPedidos(){
+    carregarPedidos();
     cout << "ID | Status | Pizzas | Bebidas" << endl;
     for (auto& objeto : listaPedidos) {
         cout << objeto << endl;
@@ -202,6 +201,7 @@ void PedidoDAO::imprimirPedidos(){
 
 
 Pedido PedidoDAO::getPedidoByID(unsigned long int id){
+    carregarPedidos();
     bool encontrou = false;
     for(Pedido pedido : listaPedidos){
         if(pedido.getId() == id){
@@ -216,22 +216,72 @@ Pedido PedidoDAO::getPedidoByID(unsigned long int id){
 }
 
 
-Pedido PedidoDAO::getPedidoByStatus(Status status){
+vector<Pedido> PedidoDAO::getPedidosByStatus(Status status){
+    carregarPedidos();
     bool encontrou = false;
-    for(Pedido pedido : listaPedidos){
-        if(pedido.getStatus() == status){
+    vector<Pedido> pedidos;
+    
+    for (Pedido p : listaPedidos){
+        if (p.getStatus() == status){
             encontrou = true;
-            return pedido;
-            break;
+            pedidos.push_back(p);
         }
     }
-    if(encontrou == false) {
-        cout << "Erro: Status não encontrado." << endl;
+    
+    return pedidos;
+    cout << endl;
+    if (encontrou == false) {
+        cout << "Erro: Status Pedido não encontrado." << endl;
+    }
+}
+
+
+vector<Pedido> PedidoDAO::getPedidosByPizza(unsigned long int idPizza){
+    carregarPedidos();
+    bool encontrou = false;
+    vector<Pedido> pedidos;
+    
+    for (Pedido p : listaPedidos){
+        for (Pizza pz : p.getPizzas()){
+            if (pz.getId() == idPizza){
+                encontrou = true;
+                pedidos.push_back(p);
+            }
+        }
+    }
+
+    return pedidos;
+    cout << endl;
+    
+    if (encontrou == false) {
+        cout << "Erro: Pizza Pedido não encontrado." << endl;
+    }
+}
+
+
+vector<Pedido> PedidoDAO::getPedidosByBebida(unsigned long int idBebida){
+    carregarPedidos();
+    bool encontrou = false;
+    vector<Pedido> pedidos;
+    
+    for (Pedido p : listaPedidos){
+        for (Bebida b : p.getBebidas()){
+            if (b.getId() == idBebida){
+                encontrou = true;
+                pedidos.push_back(p);
+            }
+        }
+    }
+    return pedidos;
+    cout << endl;
+    if (encontrou == false) {
+        cout << "Erro: Bebida Pedido não encontrada." << endl;
     }
 }
 
 
 bool PedidoDAO::inserirPedido(Pedido pedido){
+    carregarPedidos();
     listaPedidos.push_back(pedido);
     salvarPedidos();
     return true;
@@ -239,6 +289,7 @@ bool PedidoDAO::inserirPedido(Pedido pedido){
 
 
 bool PedidoDAO::removerPedido(unsigned long int id){
+    carregarPedidos();
     auto i = listaPedidos.begin();
     bool apagou = false;
     while (i != listaPedidos.end()) {
@@ -258,6 +309,7 @@ bool PedidoDAO::removerPedido(unsigned long int id){
 
 
 bool PedidoDAO::editarPedido(Pedido pedido, unsigned long int id){
+    carregarPedidos();
     bool encontrou = false;
     for(Pedido& i : listaPedidos){
         if(i.getId() == id){

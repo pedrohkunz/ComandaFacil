@@ -29,6 +29,8 @@ class SaborDAO{
 
         Sabor getSaborByNome(string nome);
 
+        vector<Sabor> getSaboresByIngrediente(unsigned long int idIngrediente);
+
         bool inserirSabor(Sabor sabor);
 
         bool removerSabor(unsigned long int id);

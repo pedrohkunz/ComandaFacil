@@ -22,7 +22,7 @@ void TamanhoPizza::setId(unsigned long int id) {
 }
 
 
-string TamanhoPizza::getTamanho(){
+string TamanhoPizza::getTamanho() const {
     return tamanho;
 }
 void TamanhoPizza::setTamanho(string tamanho){
