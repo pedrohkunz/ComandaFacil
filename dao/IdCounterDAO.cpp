@@ -88,7 +88,7 @@ unsigned long int IdCounterDAO::gerarID(string nomeDoObjeto){
     unsigned long int idIncrementado;
     bool encontrado = false;
     while(!encontrado){
-        for(IdCounter idCounter : listaContadores){
+        for(IdCounter& idCounter : listaContadores){
             if(idCounter.getNomeDoObjeto() == nomeDoObjeto){
                 idIncrementado = idCounter.getContadorId() + 1;
                 idCounter.setContadorId(idIncrementado);
@@ -96,10 +96,13 @@ unsigned long int IdCounterDAO::gerarID(string nomeDoObjeto){
                 break;
             }
         }
+        if (!encontrado) {
+            break; 
+        }
     }
 
     salvarContadores();
-    
+
     if(encontrado){
         return idIncrementado;
     }
