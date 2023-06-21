@@ -90,12 +90,11 @@ void MenuHistoricoPedidosBuscar::buscarPorId(){
     cin >> id;
     cout << endl;
     cout << (pedidosMenuHPB.getPedidoByID(id)) << endl;
-    
+
 };
 
 
 void MenuHistoricoPedidosBuscar::buscarPorStatus(){
-    Status status;
     unsigned short idStatus;
     cout << "Status: " << endl;
     statusMenuHPB.imprimirStatus();
@@ -111,9 +110,7 @@ void MenuHistoricoPedidosBuscar::buscarPorStatus(){
             cout << endl;
         }
 
-    status = statusMenuHPB.getStatusByID(idStatus);
-
-    for (Pedido p : pedidosMenuHPB.getPedidosByStatus(status)){
+    for (Pedido p : pedidosMenuHPB.getPedidosByStatus(idStatus)){
         cout << p << endl;
     }
 

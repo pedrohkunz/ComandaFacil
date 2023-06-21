@@ -1,3 +1,4 @@
-1#Coca#600mL#8
-2#Suco Natural#500mL#25
-3#Agua#500mL#4
+1#Coca#600mL#8.000000
+2#Suco Natural#500mL#25.000000
+3#Agua#500mL#4.000000
+5#Teste#500ml#2.250000

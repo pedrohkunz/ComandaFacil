@@ -1,4 +1,6 @@
 #include <iostream>
+#include <limits>
+#include <string>
 #include "../include/MenuPrincipal.h"
 #include "../include/MenuEstoque.h"
 #include "../include/MenuHistoricoPedidos.h"
@@ -30,13 +32,23 @@ void MenuPrincipal::menu(){
          << "5- Sair" << endl;
 
     cout <<"Qual atividade você deseja realizar? " << endl;
-    cin >> resposta;
+            //Garante que o valor de entrada seja um inteiro
+            while (!(cin >> resposta)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Entrada inválida. Digite o número da atividade que você deseja: ";
+            }
     cout << endl;
 
     //Validação da resposta
     while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5){
         cout <<"Opção inválida, por favor tente novamente: " << endl;
-        cin >> resposta;
+            //Garante que o valor de entrada seja um inteiro
+            while (!(cin >> resposta)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Entrada inválida. Digite o número da atividade que você deseja: ";
+            }
         cout << endl;
     }
 

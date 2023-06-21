@@ -1,58 +1,63 @@
-#include "../include/PedidoDAO.h"
-#include "../include/StatusDAO.h"
-#include "../include/MenuPedidosProcessamento.h"
-#include "../include/MenuPrincipal.h"
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <limits>
+
+#include "../include/PedidoDAO.h"
+#include "../include/StatusDAO.h"
+#include "../include/MenuPedidosProcessamento.h"
+#include "../include/MenuPrincipal.h"
 
 using namespace std;
 
 MenuPedidosProcessamento::MenuPedidosProcessamento(){};
-MenuPrincipal menuPrincipalMenuPP = MenuPrincipal();
-PedidoDAO pedidosMenuPP = PedidoDAO();
-StatusDAO statusDAOMenuPP = StatusDAO();
+MenuPrincipal menuPrincipalProcessamento = MenuPrincipal();
+PedidoDAO pedidosDAO = PedidoDAO();
+StatusDAO statusDAO = StatusDAO();
 
-int iMPP = 0;
 
 void MenuPedidosProcessamento::menuPedidosProcessamento(){
-    unsigned short respostaMenuPP;
-    while(iMPP < 1){
-        //pedidosMenuPP.carregarPedidos();
-        //statusDAOMenuPP.carregarStatus();
-        iMPP++;
-    }
+    unsigned short respostaMenu;
 
-    cout <<"//////////////////////////////////// Menu Pedidos em Processamento ////////////////////////////////////////" << endl;
-    
-    Status status = statusDAOMenuPP.getStatusByID(1);
-    
-    for (Pedido p : pedidosMenuPP.getPedidosByStatus(status)){
-        cout << p << endl;
-    }
-    
+    cout <<"//////////////////////////////////// Pedidos em Processamento ////////////////////////////////////////\n" << endl;
+
+    pedidosDAO.imprimirPedidosByStatus(1);
+
     cout << endl
          << "1- Voltar ao menu principal  |  "
          << "2- Sair" << endl;
-    cin >> respostaMenuPP;
+
+    //Garante que o valor de entrada seja um inteiro
+    while (!(cin >> respostaMenu)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entrada inválida. Apenas números são aceitos: ";
+    }
+
     cout << endl;
 
     //Validação da resposta
-    while(respostaMenuPP != 1 && respostaMenuPP != 2){
+    while(respostaMenu != 1 && respostaMenu != 2){
         cout <<"Opção inválida, por favor tente novamente: " << endl;
-        cin >> respostaMenuPP;
+
+        //Garante que o valor de entrada seja um inteiro
+        while (!(cin >> respostaMenu)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Entrada inválida. Apenas números são aceitos: ";
+        }
         cout << endl;
     }
 
-    switch (respostaMenuPP) {
+    switch (respostaMenu) {
     case 1:
-        menuPrincipalMenuPP.menu();
+        menuPrincipalProcessamento.menu();
         break;
 
     case 2:
         cout << "Saindo..." << endl;
         break;
-    
+
     };
 };

@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 #include "../include/PedidoDAO.h"
 #include "../include/Pedido.h"
@@ -204,10 +205,14 @@ vector<Pedido> PedidoDAO::getAllPedidos(){
 
 
 void PedidoDAO::imprimirPedidos(){
+
+};
+
+void PedidoDAO::imprimirPedidosByStatus(unsigned short statusID){
     carregarPedidos();
-    cout << "ID | Status | Pizzas | Bebidas" << endl;
-    for (auto& objeto : listaPedidos) {
-        cout << objeto << endl;
+
+    for (Pedido pedido : getPedidosByStatus(statusID)) {
+        cout << pedido;
     }
 };
 
@@ -228,22 +233,23 @@ Pedido PedidoDAO::getPedidoByID(unsigned long int id){
 }
 
 
-vector<Pedido> PedidoDAO::getPedidosByStatus(Status status){
+vector<Pedido> PedidoDAO::getPedidosByStatus(unsigned short statusID){
     carregarPedidos();
     bool encontrou = false;
     vector<Pedido> pedidos;
 
     for (Pedido p : listaPedidos){
-        if (p.getStatus() == status){
+        if (p.getStatus().getId() == statusID){
             encontrou = true;
             pedidos.push_back(p);
         }
     }
 
-    return pedidos;
     cout << endl;
-    if (encontrou == false) {
+    if (!encontrou) {
         cout << "Erro: Status Pedido não encontrado." << endl;
+    } else {
+         return pedidos;
     }
 }
 

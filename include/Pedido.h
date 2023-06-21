@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <iomanip>
 #include <string>
 #include <vector>
 #include "Pizza.h"
@@ -19,30 +20,54 @@ class Pedido{
     vector<Bebida> bebidas;
 
     friend ostream& operator<<(ostream& os, const Pedido& objeto) {
-        os << objeto.id << " | "
-           << objeto.status.getNome() << " | " ;
+        //Imprime o id do pedido
+        os << "Pedido " << objeto.id << endl;
+        os << "\n";
 
-          for (Pizza i : objeto.pizzas){
-             os << " ( Id: " << i.getId() << ", "
-                << i.getTamanho().getTamanho() << ", "
-                << "Sabores: ";
-                for (Sabor s : i.getSabores()){
-                os << s.getNome() << " ";
+        //Imprime as pizzas
+        os << "Pizzas: " << endl;
+        os << "\n";
+
+            short contadorPizza = 1;
+            for (Pizza pizza : objeto.pizzas) {
+                 //Imprime o numero da pizza no pedido
+                 os << "Pizza " << contadorPizza++ << " - ";
+
+                 //Imprime o tamanho da pizza
+                 os << "Tamanho: "
+                   << pizza.getTamanho().getTamanho() << " - "
+
+                 //Imprime os sabores da pizza
+                 << "Sabores: ";
+
+                //Variáveis responsáveis por descobrir o final do vetor
+                unsigned short saborCount = pizza.getSabores().size();
+                unsigned short saborIndice = 0;
+
+                for (const Sabor& sabor : pizza.getSabores()) {
+                    os << sabor.getNome();
+
+                    //Garante que a virgula não será impressa na ultima volta
+                    if (saborIndice != saborCount - 1) {
+                      os << ", ";
+                    }
+                    saborIndice++;
                 }
-             os << ")  ";
-          }
+                os << "\n";
+            }
 
-        os << " | ";
-
-          for (Bebida i : objeto.bebidas){
-             os << " ( Id: " << i.getId() << ", "
-                << i.getTipo() << ", "
-                << i.getTamanho() << " ) ";
-          }
+        //Imprime as bebidas
+        os << "\nBebidas: " << endl;
+        os << "\n";
+        for (Bebida bebida : objeto.bebidas) {
+            os << bebida.getTipo() << " "
+               << bebida.getTamanho() << endl;
+        }
+        os << "------------------------------------------------------\n\n";
 
         return os;
     }
-    
+
   public:
     Pedido(unsigned long int id, Status status, vector<Pizza> pizzas, vector<Bebida> bebidas);
     Pedido();

@@ -25,9 +25,11 @@ class PedidoDAO{
 
         void imprimirPedidos();
 
+        void imprimirPedidosByStatus(unsigned short statusID);
+
         Pedido getPedidoByID(unsigned long int id);
 
-        vector<Pedido> getPedidosByStatus(Status status);
+        vector<Pedido> getPedidosByStatus(unsigned short statusID);
 
         vector<Pedido> getPedidosByPizza(unsigned long int idPizza);
 
@@ -41,4 +43,4 @@ class PedidoDAO{
 
 };
 
-#endif 
+#endif
