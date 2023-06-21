@@ -64,10 +64,22 @@ vector<Bebida> BebidaDAO::carregarBebidas(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Bebida i = converteStringParaObjeto(linha);
-        listaBebidas.push_back(i);
+        bool bebidaRepetida = false;
+
+        // Verificar se a bebida já está na lista
+        for (Bebida bebida : listaBebidas) {
+          if (bebida.getId() == i.getId()) {
+            bebidaRepetida = true;
+            break;
+          }
+        }
+
+        // Adicionar a bebida apenas se não estiver repetida
+        if (!bebidaRepetida) {
+          listaBebidas.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }

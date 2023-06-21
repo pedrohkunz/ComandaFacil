@@ -69,7 +69,20 @@ vector<Lote> LoteDAO::carregarLotes(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Lote i = converteStringParaObjeto(linha);
-        listaLotes.push_back(i);
+        bool loteRepetido = false;
+
+        // Verificar se o lote já está na lista
+        for (Lote lote : listaLotes) {
+          if (lote.getId() == i.getId()) {
+            loteRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o lote apenas se não estiver repetido
+        if (!loteRepetido) {
+          listaLotes.push_back(i);
+        }
       }
     }
 
@@ -87,9 +100,9 @@ void LoteDAO::salvarLotes(){
     ofstream arquivo("database/lotes.txt");
     if (arquivo.is_open()) {
         for (Lote lote : listaLotes) {
-            arquivo << to_string(lote.getId()) << "#" 
-                    << to_string(lote.getQuantidade()) << "#" 
-                    << lote.getDataDeValidade() << "#" 
+            arquivo << to_string(lote.getId()) << "#"
+                    << to_string(lote.getQuantidade()) << "#"
+                    << lote.getDataDeValidade() << "#"
                     << to_string(lote.getIngredienteLote().getId()) << endl;
         }
         arquivo.close();
@@ -163,8 +176,8 @@ vector<Lote> LoteDAO::getLotesByIngrediente(unsigned long int idIngrediente){
         if (l.getIngredienteLote() == ingrediente){
             encontrou = true;
             lotes.push_back(l);
-            
-        } 
+
+        }
     }
 
     return lotes;
@@ -173,7 +186,7 @@ vector<Lote> LoteDAO::getLotesByIngrediente(unsigned long int idIngrediente){
     if(encontrou == false) {
         cout << "Erro: Ingrediente Lote não encontrado." << endl;
     }
-    
+
 };
 
 

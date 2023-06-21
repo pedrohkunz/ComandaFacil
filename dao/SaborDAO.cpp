@@ -94,10 +94,22 @@ vector<Sabor> SaborDAO::carregarSabores(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Sabor i = converteStringParaObjeto(linha);
-        listaSabores.push_back(i);
+        bool saborRepetido = false;
+
+        // Verificar se o sabor já está na lista
+        for (Sabor sabor : listaSabores) {
+          if (sabor.getId() == i.getId()) {
+            saborRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o sabor apenas se não estiver repetido
+        if (!saborRepetido) {
+          listaSabores.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }

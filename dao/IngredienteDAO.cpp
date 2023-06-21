@@ -47,34 +47,47 @@ Ingrediente IngredienteDAO::converteStringParaObjeto(string linha){
 }
 
 
-vector<Ingrediente> IngredienteDAO::carregarIngredientes(){
+vector<Ingrediente> IngredienteDAO::carregarIngredientes() {
   fstream arquivo("database/ingredientes.txt");
 
   string linha;
 
   if (arquivo.is_open()) {
     while (getline(arquivo, linha)) {
-      if(!linha.empty()){
+      if (!linha.empty()) {
         Ingrediente i = converteStringParaObjeto(linha);
-        listaIngredientes.push_back(i);
+        bool ingredienteRepetido = false;
+
+        // Verificar se o ingrediente já está na lista
+        for (Ingrediente ingrediente : listaIngredientes) {
+          if (ingrediente.getId() == i.getId()) {
+            ingredienteRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o ingrediente apenas se não estiver repetido
+        if (!ingredienteRepetido) {
+          listaIngredientes.push_back(i);
+        }
       }
     }
 
   } else {
-      cout << "Erro ao abrir o arquivo." << endl;
+    cout << "Erro ao abrir o arquivo." << endl;
   }
 
   arquivo.close();
 
   return listaIngredientes;
-};
+}
 
 
 void IngredienteDAO::salvarIngredientes(){
     ofstream arquivo("database/ingredientes.txt");
     if (arquivo.is_open()) {
         for (Ingrediente ingrediente : listaIngredientes) {
-            arquivo << to_string(ingrediente.getId()) << "#" 
+            arquivo << to_string(ingrediente.getId()) << "#"
                     << ingrediente.getNome() << endl;
         }
         arquivo.close();

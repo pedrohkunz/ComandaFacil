@@ -1,6 +1,6 @@
 0#Bebida
 0#Comanda
-7#Ingrediente
+12#Ingrediente
 0#Lote
 0#Pedido
 0#Pizza

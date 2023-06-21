@@ -1,7 +1,3 @@
-1#Tomate
-2#Calabresa defumada
-3#Queijo
-4#Teste4
-5#Oregano
-6#Frango
-7#ervilha
+10#Molho de tomate
+11#Molho de tomate
+12#Molho de tomate

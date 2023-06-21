@@ -28,9 +28,15 @@ int main() {
     IngredienteDAO ingredientes = IngredienteDAO();
     IdCounterDAO idCounter = IdCounterDAO();
 
-    ingredientes.inserirIngrediente(Ingrediente(idCounter.gerarID("Ingrediente"), "ervilha"));
+    ingredientes.inserirIngrediente(Ingrediente(idCounter.gerarID("Ingrediente"), "Molho de tomate"));
 
-    //ingredientes.imprimirIngredientes();
+    ingredientes.imprimirIngredientes();
+
+    cout<< endl;
+
+    ingredientes.imprimirIngredientes();
+
+
 
 
 }

@@ -76,7 +76,7 @@ Pizza PizzaDAO::converteStringParaObjeto(string linha){
 
         count++;
     }
-  
+
     //Converte as strings para outros tipos de dados
     unsigned long int id = stoi(idString);
     unsigned long int idTamanho = stoi(tamanhoString);
@@ -96,10 +96,22 @@ vector<Pizza> PizzaDAO::carregarPizzas(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Pizza i = converteStringParaObjeto(linha);
-        listaPizzas.push_back(i);
+        bool pizzaRepetida = false;
+
+        // Verificar se o pizza já está na lista
+        for (Pizza pizza : listaPizzas) {
+          if (pizza.getId() == i.getId()) {
+            pizzaRepetida = true;
+            break;
+          }
+        }
+
+        // Adicionar a pizza apenas se não estiver repetida
+        if (!pizzaRepetida) {
+          listaPizzas.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }
@@ -125,7 +137,7 @@ void PizzaDAO::salvarPizzas(){
                 }
             }
 
-            arquivo << to_string(pizza.getId()) << "#" 
+            arquivo << to_string(pizza.getId()) << "#"
                     << to_string(pizza.getTamanho().getId()) << "#"
                     << saboresEmLinha << endl;
         }

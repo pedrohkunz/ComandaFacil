@@ -26,7 +26,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
-      
+
       while (contador < a.size() && a[contador] != '#') {
         vt.push_back(a[contador]);
         contador++;
@@ -102,10 +102,22 @@ vector<Comanda> ComandaDAO::carregarComandas(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Comanda c = converteStringParaObjeto(linha);
-        listaComandas.push_back(c);
+        bool comandaRepetida = false;
+
+        // Verificar se a comanda já está na lista
+        for (Comanda comanda : listaComandas) {
+          if (comanda.getId() == c.getId()) {
+            comandaRepetida = true;
+            break;
+          }
+        }
+
+        // Adicionar a comanda apenas se não estiver repetida
+        if (!comandaRepetida) {
+          listaComandas.push_back(c);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }
@@ -131,11 +143,11 @@ void ComandaDAO::salvarComandas(){
                 }
             }
 
-            arquivo << to_string(comanda.getId()) << "#" 
+            arquivo << to_string(comanda.getId()) << "#"
                     << to_string(comanda.getFormaPagamento()) << "#"
                     << to_string(comanda.getUsuario().getId()) << "#"
                     << pedidosEmLinha;
-                    
+
         }
         arquivo.close();
     } else {
@@ -209,13 +221,13 @@ Comanda ComandaDAO::getComandaByPedido(unsigned long int idPedido){
                 pedido = p;
                 return c;
             }
-        } 
+        }
     }
-    
+
     if(encontrou == false) {
         cout << "Erro: Pedido Comanda não encontrado." << endl;
     }
-    
+
 };
 
 bool ComandaDAO::inserirComanda(Comanda comanda){
@@ -256,7 +268,7 @@ bool ComandaDAO::editarComanda(Comanda comanda, unsigned long int id){
             break;
         }
     }
-  
+
     salvarComandas();
     return encontrou;
 };

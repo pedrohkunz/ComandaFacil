@@ -34,8 +34,8 @@ Usuario UsuarioDAO::converteStringParaObjeto(string linha){
             email = atributo;
         } else if(contadorSharp == 3){
             senha = atributo;
-        } 
- 
+        }
+
 
         contadorSharp++;
         contador++;
@@ -62,10 +62,22 @@ vector<Usuario> UsuarioDAO::carregarUsuarios(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Usuario i = converteStringParaObjeto(linha);
-        listaUsuarios.push_back(i);
+        bool usuarioRepetido = false;
+
+        // Verificar se o usuario já está na lista
+        for (Usuario usuario : listaUsuarios) {
+          if (usuario.getId() == i.getId()) {
+            usuarioRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o usuario apenas se não estiver repetido
+        if (!usuarioRepetido) {
+          listaUsuarios.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }
@@ -79,12 +91,12 @@ vector<Usuario> UsuarioDAO::carregarUsuarios(){
 void UsuarioDAO::salvarUsuarios(){
     ofstream arquivo("database/usuarios.txt");
     if (arquivo.is_open()) {
-        for (Usuario usuario : listaUsuarios) 
-            arquivo << to_string(usuario.getId()) << "#" 
+        for (Usuario usuario : listaUsuarios)
+            arquivo << to_string(usuario.getId()) << "#"
                     << usuario.getNome() << "#"
-                    << usuario.getEmail() << "#" 
+                    << usuario.getEmail() << "#"
                     << usuario.getSenha() << endl;
-        
+
         arquivo.close();
 
     } else {

@@ -56,10 +56,22 @@ vector<Status> StatusDAO::carregarStatus(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Status i = converteStringParaObjeto(linha);
-        listaStatus.push_back(i);
+        bool statusRepetido = false;
+
+        // Verificar se o status já está na lista
+        for (Status status : listaStatus) {
+          if (status.getId() == i.getId()) {
+            statusRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o status apenas se não estiver repetido
+        if (!statusRepetido) {
+          listaStatus.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }
@@ -74,7 +86,7 @@ void StatusDAO::salvarStatus(){
     ofstream arquivo("database/status.txt");
     if (arquivo.is_open()) {
         for (Status status : listaStatus) {
-            arquivo << to_string(status.getId()) << "#" 
+            arquivo << to_string(status.getId()) << "#"
                     << status.getNome() << endl;
         }
         arquivo.close();

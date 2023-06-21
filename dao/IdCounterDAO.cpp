@@ -53,12 +53,24 @@ vector<IdCounter> IdCounterDAO::carregarContadores(){
 
     if (arquivo.is_open()) {
         while (getline(arquivo, linha)) {
-        if(!linha.empty()){
-            IdCounter i = converteStringParaObjeto(linha);
-            listaContadores.push_back(i);
-        }
-        }
+            if(!linha.empty()){
+                IdCounter i = converteStringParaObjeto(linha);
+                bool counterRepetido = false;
 
+                // Verificar se o contador já está na lista
+                for (IdCounter counter : listaContadores) {
+                    if (counter.getNomeDoObjeto() == i.getNomeDoObjeto()) {
+                        counterRepetido = true;
+                        break;
+                    }
+                }
+
+                // Adicionar o contador apenas se não estiver repetido
+                if (!counterRepetido) {
+                    listaContadores.push_back(i);
+                }
+            }
+        }
     } else {
         cout << "Erro ao abrir o arquivo." << endl;
     }
@@ -97,7 +109,7 @@ unsigned long int IdCounterDAO::gerarID(string nomeDoObjeto){
             }
         }
         if (!encontrado) {
-            break; 
+            break;
         }
     }
 

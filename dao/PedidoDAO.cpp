@@ -132,10 +132,22 @@ vector<Pedido> PedidoDAO::carregarPedidos(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         Pedido i = converteStringParaObjeto(linha);
-        listaPedidos.push_back(i);
+        bool pedidoRepetido = false;
+
+        // Verificar se o pedido já está na lista
+        for (Pedido pedido : listaPedidos) {
+          if (pedido.getId() == i.getId()) {
+            pedidoRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o pedido apenas se não estiver repetido
+        if (!pedidoRepetido) {
+          listaPedidos.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }
@@ -220,14 +232,14 @@ vector<Pedido> PedidoDAO::getPedidosByStatus(Status status){
     carregarPedidos();
     bool encontrou = false;
     vector<Pedido> pedidos;
-    
+
     for (Pedido p : listaPedidos){
         if (p.getStatus() == status){
             encontrou = true;
             pedidos.push_back(p);
         }
     }
-    
+
     return pedidos;
     cout << endl;
     if (encontrou == false) {
@@ -240,7 +252,7 @@ vector<Pedido> PedidoDAO::getPedidosByPizza(unsigned long int idPizza){
     carregarPedidos();
     bool encontrou = false;
     vector<Pedido> pedidos;
-    
+
     for (Pedido p : listaPedidos){
         for (Pizza pz : p.getPizzas()){
             if (pz.getId() == idPizza){
@@ -252,7 +264,7 @@ vector<Pedido> PedidoDAO::getPedidosByPizza(unsigned long int idPizza){
 
     return pedidos;
     cout << endl;
-    
+
     if (encontrou == false) {
         cout << "Erro: Pizza Pedido não encontrado." << endl;
     }
@@ -263,7 +275,7 @@ vector<Pedido> PedidoDAO::getPedidosByBebida(unsigned long int idBebida){
     carregarPedidos();
     bool encontrou = false;
     vector<Pedido> pedidos;
-    
+
     for (Pedido p : listaPedidos){
         for (Bebida b : p.getBebidas()){
             if (b.getId() == idBebida){

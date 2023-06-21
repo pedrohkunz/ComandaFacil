@@ -60,10 +60,22 @@ vector<TamanhoPizza> TamanhoPizzaDAO::carregarTamanhos(){
     while (getline(arquivo, linha)) {
       if(!linha.empty()){
         TamanhoPizza i = converteStringParaObjeto(linha);
-        listaTamanhos.push_back(i);
+        bool tamanhoRepetido = false;
+
+        // Verificar se o tamanho já está na lista
+        for (TamanhoPizza tamanho : listaTamanhos) {
+          if (tamanho.getId() == i.getId()) {
+            tamanhoRepetido = true;
+            break;
+          }
+        }
+
+        // Adicionar o tamanho apenas se não estiver repetido
+        if (!tamanhoRepetido) {
+          listaTamanhos.push_back(i);
+        }
       }
     }
-
   } else {
       cout << "Erro ao abrir o arquivo." << endl;
   }
@@ -102,8 +114,8 @@ void TamanhoPizzaDAO::imprimirTamanhos() {
     cout << "-------------------------" << endl;
 
     for (TamanhoPizza tamanho : listaTamanhos) {
-        cout << left << setw(3) << tamanho.getId() << " | " 
-             << setw(8) << tamanho.getTamanho() << " | R$ " 
+        cout << left << setw(3) << tamanho.getId() << " | "
+             << setw(8) << tamanho.getTamanho() << " | R$ "
              << fixed << setprecision(2) << tamanho.getValor() << endl;
     }
 }
