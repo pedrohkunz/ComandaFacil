@@ -9,7 +9,8 @@ class MenuEstoque {
         void menuEstoque();
         void adicionarLote();
         Ingrediente adicionarLoteIngrediente();
-        
+        Ingrediente encontrarIngredientePorNome();
+
 };
 
 #endif

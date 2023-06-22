@@ -122,7 +122,8 @@ vector<Lote> LoteDAO::getAllLotes(){
 
 void LoteDAO::imprimirLotes(){
     carregarLotes();
-    cout << "ID | Quantidade | Data de Validade | Ingrediente" << endl;
+    cout << "\nID | Quantidade | Data de Validade | Ingrediente" << endl;
+    cout << "--------------------------------------------------" << endl;
     for (const auto& objeto : listaLotes) {
         cout << objeto << endl;
     }

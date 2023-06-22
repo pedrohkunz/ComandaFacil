@@ -4,7 +4,6 @@
 using namespace std;
 
 #include "include/MenuPrincipal.h"
-#include "include/ComandaDAO.h"
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);

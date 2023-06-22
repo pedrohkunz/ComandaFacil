@@ -186,3 +186,5 @@ bool StatusDAO::editarStatus(Status status, unsigned long int id){
     salvarStatus();
     return encontrou;
 };
+
+

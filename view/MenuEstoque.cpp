@@ -2,8 +2,8 @@
 #include "../include/LoteDAO.h"
 #include "../include/IngredienteDAO.h"
 #include "../include/MenuEstoque.h"
-#include "../include/MenuEstoqueBuscar.h"
 #include "../include/MenuPrincipal.h"
+#include "../include/IdCounterDAO.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -15,18 +15,17 @@ MenuEstoque::MenuEstoque(){};
 MenuPrincipal menuPrincipalEstoque = MenuPrincipal();
 IngredienteDAO ingredientesMenuEstoque = IngredienteDAO();
 LoteDAO loteMenuEstoque = LoteDAO();
+IdCounterDAO idCounter = IdCounterDAO();
 
 void MenuEstoque::menuEstoque() {
   unsigned short resposta;
-  MenuEstoqueBuscar buscar = MenuEstoqueBuscar();
-  
+
   cout <<"///////////////////////////////////////////// Menu Estoque ////////////////////////////////////////////////" << endl;
 
   cout << "1- Ver todos os itens  |  "
-       << "2- Buscar  |  "
-       << "3- Adicionar lote  |  "
-       << "4- Voltar ao menu principal  |  "
-       << "5- Sair" << endl
+       << "2- Adicionar lote  |  "
+       << "3- Voltar ao menu principal  |  "
+       << "4- Sair" << endl
        << "Qual atividade você deseja realizar? " << endl;
 
   resposta = menuPrincipalEstoque.inputIsInt();
@@ -47,27 +46,22 @@ void MenuEstoque::menuEstoque() {
     this->menuEstoque();
     break;
 
-
   case 2:
-    buscar.menuEstoqueBuscar();
-    this->menuEstoque();
-    break;
-
-  case 3:
     this->adicionarLote();
     this->menuEstoque();
     break;
 
-  case 4:
+  case 3:
     menuPrincipalEstoque.menu();
     break;
-    
-  case 5:
+
+  case 4:
     cout << "Saindo..." << endl;
     break;
 
   }
 }
+
 void MenuEstoque::adicionarLote() {
   unsigned long int idAddLote, quantidadeAddLote, respostaAddLote;
   string dataDeValidadeAddLote;
@@ -76,19 +70,19 @@ void MenuEstoque::adicionarLote() {
 
   cout <<"//////////////////////////////////// Menu Estoque | Adicionar Lote ///////////////////////////////////////" << endl;
 
-  cout << "Digite o ID: " << endl;
-  cin >> idAddLote;
+  idAddLote = idCounter.gerarID("Lote");
+
   cout << endl;
 
   cout << "Digite a quantidade: " << endl;
-  cin >> quantidadeAddLote;
+  quantidadeAddLote = menuPrincipalEstoque.inputIsInt();
   cout << endl;
 
   cout << "Digite a data de validade: " << endl;
   cin >> dataDeValidadeAddLote;
   cout << endl;
 
-  ingredienteAddLote = this->adicionarLoteIngrediente();
+  ingredienteAddLote = adicionarLoteIngrediente();
 
   loteAddLote.setId(idAddLote);
   loteAddLote.setQuantidade(quantidadeAddLote);
@@ -104,70 +98,88 @@ void MenuEstoque::adicionarLote() {
 
 }
 
+Ingrediente MenuEstoque::encontrarIngredientePorNome(){
+    Ingrediente ingredienteEncontrado;
+
+    string nomeIngredienteAddLote;
+    cout << "Digite o nome do ingrediente: " << endl;
+          cin >> nomeIngredienteAddLote;
+          cout << endl;
+
+          bool ingredienteFindNome = false;
+          while(!ingredienteFindNome){
+            for(Ingrediente i : ingredientesMenuEstoque.getAllIngredientes()){
+              if(i.getNome() == nomeIngredienteAddLote){
+                ingredienteEncontrado = i;
+                ingredienteFindNome = true;
+              }
+            }
+
+            if(!ingredienteFindNome){
+              cout << "Ingrediente não encontrado! Insira um novo nome: ";
+              cin >> nomeIngredienteAddLote;
+            }
+          }
+
+          return ingredienteEncontrado;
+}
+
 Ingrediente MenuEstoque::adicionarLoteIngrediente() {
   unsigned long int respostaAddLote, idIngredienteAddLote;
-  string nomeIngredienteAddLote;
+  string nomeNovoIngrediente;
   Ingrediente ingredienteAddLoteIngrediente;
 
   cout << "Ingrediente:" << endl
        << "1- Buscar por nome do ingrediente  |  "
-       << "2- Buscar por ID  do ingrediente  |  "
-       << "3- Adicionar novo ingrediente  |  "
-       << "4- Voltar  |  "
-       << "5- Sair" << endl;
-       cin >> respostaAddLote;
+       << "2- Adicionar novo ingrediente  |  "
+       << "3- Voltar  |  "
+       << "4- Sair" << endl;
+
+       respostaAddLote = menuPrincipalEstoque.inputIsInt();
        cout << endl;
 
-  // Validação da resposta
-    while (respostaAddLote != 1 && respostaAddLote != 2 && respostaAddLote != 3 && respostaAddLote != 4 && respostaAddLote != 5) {
-      cout << "Opção inválida, por favor tente novamente: " << endl;
-      cin >> respostaAddLote;
-      cout << endl;
+    // Validação da resposta
+    while (respostaAddLote != 1 && respostaAddLote != 2 && respostaAddLote != 3 && respostaAddLote != 4) {
+          cout << "Opção inválida, por favor tente novamente: " << endl;
+          respostaAddLote = menuPrincipalEstoque.inputIsInt();
+          cout << endl;
       }
 
       switch (respostaAddLote) {
-      case 1:
-        cout << "Digite o nome do ingrediente: " << endl;
-        cin >> nomeIngredienteAddLote;
-        cout << endl;
-        ingredienteAddLoteIngrediente = ingredientesMenuEstoque.getIngredienteByNome(nomeIngredienteAddLote);
-        return ingredienteAddLoteIngrediente;
+          case 1:
+            ingredienteAddLoteIngrediente = encontrarIngredientePorNome();
 
-      case 2:
-        cout << "Digite o id do ingrediente: " << endl;
-        cin >> idIngredienteAddLote;
-        cout << endl;
-        ingredienteAddLoteIngrediente = ingredientesMenuEstoque.getIngredienteByID(idIngredienteAddLote);
-        return ingredienteAddLoteIngrediente;
+            return ingredienteAddLoteIngrediente;
+            break;
 
-      case 3:
-        cout <<"//////////////////////// Menu Estoque | Adicionar Lote | Adicionar ingrediente ///////////////////////////" << endl;
+          case 2:
+            cout <<"//////////////////////// Menu Estoque | Adicionar Lote | Adicionar ingrediente ///////////////////////////" << endl;
 
-        cout << "Digite o id do ingrediente: " << endl;
-        cin >> idIngredienteAddLote;
-        cout << "Digite o nome do ingrediente: " << endl;
-        cin >> nomeIngredienteAddLote;
-        cout << endl;
-        ingredienteAddLoteIngrediente.setId(idIngredienteAddLote);
-        ingredienteAddLoteIngrediente.setNome(nomeIngredienteAddLote);
+            idIngredienteAddLote = idCounter.gerarID("Ingrediente");
 
-        if(ingredientesMenuEstoque.inserirIngrediente(ingredienteAddLoteIngrediente)){
-          cout << "Ingrediente adicionado com sucesso." << endl;
-        } else {
-          cout << "Erro ao adicionar ingrediente."<< endl;
-          this->adicionarLoteIngrediente();
-        };
-        return ingredienteAddLoteIngrediente;
+            cout << "Digite o nome do ingrediente: " << endl;
+            cin >> nomeNovoIngrediente;
+            cout << endl;
+            ingredienteAddLoteIngrediente.setId(idIngredienteAddLote);
+            ingredienteAddLoteIngrediente.setNome(nomeNovoIngrediente);
 
-      case 4:
-        this->menuEstoque();
-        break;
+            if(ingredientesMenuEstoque.inserirIngrediente(ingredienteAddLoteIngrediente)){
+              cout << "Ingrediente adicionado com sucesso." << endl;
+            } else {
+              cout << "Erro ao adicionar ingrediente."<< endl;
+              this->adicionarLoteIngrediente();
+            };
+            return ingredienteAddLoteIngrediente;
+            break;
 
-      case 5:
-        cout << "Saindo..." << endl;
-        break;
+          case 3:
+            this->menuEstoque();
+            break;
+
+          case 4:
+            cout << "Saindo..." << endl;
+            break;
 
       }
-
 
 }

@@ -2,6 +2,7 @@
 #define LOTE_H_
 
 #include <iostream>
+#include <iomanip>
 #include "Ingrediente.h"
 
 using namespace std;
@@ -14,10 +15,10 @@ class Lote{
         Ingrediente ingrediente;
 
         friend ostream& operator<<(ostream& os, const Lote& objeto) {
-            os << objeto.id << " | "
-               << objeto.quantidade << " | "
-               << objeto.dataDeValidade << " | "
-               << objeto.ingrediente.getNome();
+                os << left << setw(2) << objeto.id << " | "
+                << setw(10) << objeto.quantidade << " | "
+                << setw(16) << objeto.dataDeValidade << " | "
+                << setw(20) << objeto.ingrediente.getNome();
             return os;
         }
     public:

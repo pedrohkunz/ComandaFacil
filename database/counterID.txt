@@ -1,10 +1,10 @@
 0#Bebida
-18#Comanda
-14#Ingrediente
-0#Lote
-14#Pedido
-19#Pizza
+20#Comanda
+16#Ingrediente
+10#Lote
+15#Pedido
+20#Pizza
 0#Sabor
 0#Status
 0#TamanhoPizza
-8#Usuario
+10#Usuario

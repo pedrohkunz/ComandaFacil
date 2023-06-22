@@ -7,6 +7,7 @@
 #include "../include/PedidoDAO.h"
 #include "../include/StatusDAO.h"
 #include "../include/MenuPedidosProcessamento.h"
+
 #include "../include/MenuPrincipal.h"
 
 using namespace std;
@@ -16,9 +17,37 @@ MenuPrincipal menuPrincipalProcessamento = MenuPrincipal();
 PedidoDAO pedidosDAO = PedidoDAO();
 StatusDAO statusDAO = StatusDAO();
 
+void alterarStatusPedido(){
+        unsigned short idPedido;
+
+        cout << "Digite o ID do pedido: ";
+
+        idPedido = menuPrincipalProcessamento.inputIsInt();
+
+        cout << endl;
+
+        bool find = false;
+        while(!find){
+            for(Pedido pedido : pedidosDAO.getPedidosByStatus(1)){
+                if(pedido.getId() == idPedido){
+                    pedidosDAO.editarPedido(Pedido(pedido.getId(), statusDAO.getStatusByID(2), pedido.getPizzas(), pedido.getBebidas()), pedido.getId());
+                    find = true;
+                    break;
+                }
+            }
+
+            if(!find){
+                cout << "Pedido não encontrado, digite um ID válido: ";
+                idPedido = menuPrincipalProcessamento.inputIsInt();
+            }
+        }
+
+        cout << "Status alterado com sucesso!\n" << endl;
+}
+
 
 void MenuPedidosProcessamento::menuPedidosProcessamento(){
-    unsigned short respostaMenu, idPedido, idStatus;
+    unsigned short respostaMenu, idStatus;
     Pedido pedidoProc;
     Status statusProc;
 
@@ -27,7 +56,7 @@ void MenuPedidosProcessamento::menuPedidosProcessamento(){
     pedidosDAO.imprimirPedidosByStatus(1);
 
     cout << endl
-         << "1- Alterar o status do pedido  |  "
+         << "1- Concluir pedido  |  "
          << "2- Voltar ao menu principal  |  "
          << "3- Sair" << endl;
 
@@ -46,23 +75,10 @@ void MenuPedidosProcessamento::menuPedidosProcessamento(){
 
     switch (respostaMenu) {
     case 1:
-        cout << "Digite o ID do pedido: " << endl;
-        cin >> idPedido;
-        cout << endl;
-        pedidoProc = pedidosDAO.getPedidoByID(idPedido);
+        if(!pedidosDAO.getPedidosByStatus(1).empty()){
+            alterarStatusPedido();
+        } 
 
-        statusDAO.imprimirStatus();
-
-        cout << "Digite o ID do novo status do pedido: " << endl;
-        cin >> idStatus;
-        cout << endl;
-        statusProc = statusDAO.getStatusByID(idStatus);
-
-        pedidoProc.setStatus(statusProc);
-        pedidosDAO.removerPedido(idPedido);
-        pedidosDAO.inserirPedido(pedidoProc);
-        
-        cout << "Status alterado com sucesso" << endl;
         menuPedidosProcessamento();
         break;
 
