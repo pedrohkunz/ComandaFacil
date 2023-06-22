@@ -166,11 +166,10 @@ vector<Lote> LoteDAO::getLotesByDataValidade(string dataValidade){
 };
 
 
-vector<Lote> LoteDAO::getLotesByIngrediente(unsigned long int idIngrediente){
+vector<Lote> LoteDAO::getLotesByIngrediente(Ingrediente ingrediente){
     carregarLotes();
     bool encontrou = false;
     vector<Lote> lotes;
-    Ingrediente ingrediente = ingredientesDAOlot.getIngredienteByID(idIngrediente);
 
     for(Lote l : listaLotes){
         if (l.getIngredienteLote() == ingrediente){

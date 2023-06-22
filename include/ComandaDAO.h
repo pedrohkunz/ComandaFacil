@@ -28,6 +28,8 @@ class ComandaDAO{
 
         Comanda getComandaByID(unsigned long int id);
 
+        Comanda getComandaByNumeroMesa(unsigned long int numeroMesa);
+
         vector<Comanda> getComandasByUsuario(unsigned long int idUsuario);
 
         Comanda getComandaByPedido(unsigned long int idPedido);

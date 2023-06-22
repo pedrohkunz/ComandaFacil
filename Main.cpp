@@ -7,8 +7,8 @@ using namespace std;
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-
-    MenuPrincipal menu = MenuPrincipal();
-    menu.menu();
+    MenuPrincipal menuPrincipal = MenuPrincipal();
+    menuPrincipal.menu();
     
+
 }

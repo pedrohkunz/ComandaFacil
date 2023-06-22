@@ -30,7 +30,7 @@ class LoteDAO {
 
         vector<Lote> getLotesByDataValidade(string dataValidade);
 
-        vector<Lote> getLotesByIngrediente(unsigned long int idIngrediente);
+        vector<Lote> getLotesByIngrediente(Ingrediente ingrediente);
 
         bool inserirLote(Lote lote);
 

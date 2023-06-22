@@ -15,29 +15,24 @@ MenuEstoque::MenuEstoque(){};
 MenuPrincipal menuPrincipalEstoque = MenuPrincipal();
 IngredienteDAO ingredientesMenuEstoque = IngredienteDAO();
 LoteDAO loteMenuEstoque = LoteDAO();
-// contadores utilizados para carregar os lotes e os ingredientes apenas uma vez
-int iME = 0, jME = 0;
 
 void MenuEstoque::menuEstoque() {
   unsigned short resposta;
   MenuEstoqueBuscar buscar = MenuEstoqueBuscar();
-  while(iME < 1){
-    //loteMenuEstoque.carregarLotes();
-    iME++;
-  }
-
+  
   cout <<"///////////////////////////////////////////// Menu Estoque ////////////////////////////////////////////////" << endl;
 
   cout << "1- Ver todos os itens  |  "
        << "2- Buscar  |  "
        << "3- Adicionar lote  |  "
-       << "4- Voltar ao menu principal" << endl
+       << "4- Voltar ao menu principal  |  "
+       << "5- Sair" << endl
        << "Qual atividade você deseja realizar? " << endl;
 
   resposta = menuPrincipalEstoque.inputIsInt();
 
   // Validação da resposta
-  while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4) {
+  while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
 
     resposta = menuPrincipalEstoque.inputIsInt();
@@ -66,6 +61,11 @@ void MenuEstoque::menuEstoque() {
   case 4:
     menuPrincipalEstoque.menu();
     break;
+    
+  case 5:
+    cout << "Saindo..." << endl;
+    break;
+
   }
 }
 void MenuEstoque::adicionarLote() {
@@ -73,10 +73,6 @@ void MenuEstoque::adicionarLote() {
   string dataDeValidadeAddLote;
   Ingrediente ingredienteAddLote;
   Lote loteAddLote;
-  while(jME < 1){
-    //ingredientesMenuEstoque.carregarIngredientes();
-    jME++;
-  }
 
   cout <<"//////////////////////////////////// Menu Estoque | Adicionar Lote ///////////////////////////////////////" << endl;
 
@@ -116,12 +112,14 @@ Ingrediente MenuEstoque::adicionarLoteIngrediente() {
   cout << "Ingrediente:" << endl
        << "1- Buscar por nome do ingrediente  |  "
        << "2- Buscar por ID  do ingrediente  |  "
-       << "3- Adicionar novo ingrediente" << endl;
+       << "3- Adicionar novo ingrediente  |  "
+       << "4- Voltar  |  "
+       << "5- Sair" << endl;
        cin >> respostaAddLote;
        cout << endl;
 
   // Validação da resposta
-    while (respostaAddLote != 1 && respostaAddLote != 2 && respostaAddLote != 3) {
+    while (respostaAddLote != 1 && respostaAddLote != 2 && respostaAddLote != 3 && respostaAddLote != 4 && respostaAddLote != 5) {
       cout << "Opção inválida, por favor tente novamente: " << endl;
       cin >> respostaAddLote;
       cout << endl;
@@ -160,6 +158,14 @@ Ingrediente MenuEstoque::adicionarLoteIngrediente() {
           this->adicionarLoteIngrediente();
         };
         return ingredienteAddLoteIngrediente;
+
+      case 4:
+        this->menuEstoque();
+        break;
+
+      case 5:
+        cout << "Saindo..." << endl;
+        break;
 
       }
 

@@ -13,16 +13,10 @@ MenuPrincipal menuPrincipalMenuHP = MenuPrincipal();
 MenuHistoricoPedidosBuscar menuHPB = MenuHistoricoPedidosBuscar();
 MenuHistoricoPedidos::MenuHistoricoPedidos(){};
 PedidoDAO pedidosMenuHP = PedidoDAO();
-int iMHP = 0;
 
 void MenuHistoricoPedidos::menuHistoricoPedidos(){
     unsigned short respostaMenuHP;
-
-    while (iMHP < 1) {
-        //pedidosMenuHP.carregarPedidos();
-        iMHP++;
-    }
-
+    
     cout <<"////////////////////////////////////// Menu Histórico de Pedidos //////////////////////////////////////////" << endl;
 
     cout << endl

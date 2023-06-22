@@ -154,7 +154,8 @@ vector<Sabor> SaborDAO::getAllSabores(){
 };
 
 
-void SaborDAO::imprimirSabores() {
+void SaborDAO::imprimirSabores(){
+    carregarSabores();
     cout <<"ID  | Nome" << endl;;
     cout << "-----------------" << endl;
     for (Sabor sabor : listaSabores) {

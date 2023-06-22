@@ -1,6 +1,7 @@
 #include "../include/Lote.h"
 #include "../include/LoteDAO.h"
 #include "../include/IngredienteDAO.h"
+#include "../include/MenuEstoque.h"
 #include "../include/MenuEstoqueBuscar.h"
 #include "../include/MenuPrincipal.h"
 #include <fstream>
@@ -12,32 +13,29 @@
 using namespace std;
 
 MenuEstoqueBuscar::MenuEstoqueBuscar(){};
+MenuEstoque menuEstoqueMEB = MenuEstoque();
 IngredienteDAO ingredientesMenuEB = IngredienteDAO();
 LoteDAO loteMenuEB = LoteDAO();
 MenuPrincipal menuPrincipalEstoqueBuscar = MenuPrincipal();
-int iMEB = 0;
 
 void MenuEstoqueBuscar::menuEstoqueBuscar(){
   unsigned short resposta;
-  while(iMEB < 1) {
-   // loteMenuEB.carregarLotes();
-    //ingredientesMenuEB.carregarIngredientes();
-    iMEB++;
-  }
 
   cout <<"//////////////////////////////////////// Menu Estoque | Buscar ////////////////////////////////////////////" << endl;
 
   cout << "1- Filtrar lotes  |  "
        << "2- Buscar por ID  |  "
-       << "3- Buscar por data de validade | "
-       << "4- Buscar por ingrediente" << endl
+       << "3- Buscar por data de validade  |  "
+       << "4- Buscar por ingrediente  |  "
+       << "5- Voltar  |  "
+       << "6- Sair" << endl
        << "Qual atividade você deseja realizar?" << endl;
 
   resposta = menuPrincipalEstoqueBuscar.inputIsInt();
   cout << endl;
 
   // Validação da resposta
-  while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4) {
+  while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5 && resposta != 6) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
 
     resposta = menuPrincipalEstoqueBuscar.inputIsInt();
@@ -50,19 +48,24 @@ void MenuEstoqueBuscar::menuEstoqueBuscar(){
     filtrar();
     break;
 
-
   case 2:
     buscarPorId();
     break;
-
 
   case 3:
     buscarPorDataValidade();
     break;
 
-
   case 4:
     buscarPorIngrediente();
+    break;
+
+  case 5:
+    menuEstoqueMEB.menuEstoque();
+    break;
+
+  case 6:
+    cout << "Saindo..." << endl;
     break;
 
   }
@@ -79,8 +82,8 @@ void MenuEstoqueBuscar::buscarPorId(){
     cout << "Digite o ID: " << endl;
     cin >> id;
     cout << endl;
-    cout << move(loteMenuEB.getLoteByID(id)) << endl;
-
+    cout << loteMenuEB.getLoteByID(id) << endl;
+    
 };
 
 
@@ -122,7 +125,7 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
 
             ingrediente = ingredientesMenuEB.getIngredienteByNome(nome);
 
-            for (Lote l : loteMenuEB.getLotesByIngrediente(ingrediente.getId())){
+            for (Lote l : loteMenuEB.getLotesByIngrediente(ingrediente)){
                 cout << l << endl;
             }
 
@@ -133,7 +136,9 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
             cin >> id;
             cout << endl;
 
-            for (Lote l : loteMenuEB.getLotesByIngrediente(id)){
+            ingrediente = ingredientesMenuEB.getIngredienteByID(id);
+            
+            for (Lote l : loteMenuEB.getLotesByIngrediente(ingrediente)){
                 cout << l << endl;
             }
 

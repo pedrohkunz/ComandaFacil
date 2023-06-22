@@ -22,7 +22,7 @@ PedidoDAO pedidosDAOcom = PedidoDAO();
 
 Comanda ComandaDAO::converteStringParaObjeto(string a){
    int contador = 0, contadorSharp = 0;
-    string idString, formaPagamentoString, idUsuarioString, pedidos;
+    string idString, numeroMesaString, nomeCliente, cpfCliente, formaPagamentoString, idUsuarioString, pedidos;
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
@@ -38,23 +38,32 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
       if (contadorSharp == 0) {
             idString = atributo;
       } else if (contadorSharp == 1) {
-            formaPagamentoString = atributo;
+            numeroMesaString = atributo;
       } else if (contadorSharp == 2) {
-            idUsuarioString = atributo;
+            nomeCliente = atributo;
       } else if (contadorSharp == 3) {
+            cpfCliente = atributo;
+      } else if (contadorSharp == 4) {
+            pedidos = atributo;
+      } else if (contadorSharp == 5) {
+            formaPagamentoString = atributo;
+      } else if (contadorSharp == 6) {
+            idUsuarioString = atributo;
+      } else if (contadorSharp == 7) {
             pedidos = atributo;
       }
 
       contadorSharp++;
       contador++;
 
-      if (contadorSharp >= 4) {
+      if (contadorSharp >= 8) {
         break;
       }
     }
 
     //Converte o idString para id inteiro
     unsigned long int id = stoi(idString);
+    unsigned long int numeroMesa = stoi(numeroMesaString);
     unsigned long int formaPagamento = stoi(formaPagamentoString);
     unsigned long int idUsuario = stoi(idUsuarioString);
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
@@ -88,7 +97,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
         count++;
     }
 
-    auto x = Comanda(id, formaPagamento, usuario, vetorPedidos);
+    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamento, usuario, vetorPedidos);
     return x;
 };
 
@@ -144,6 +153,9 @@ void ComandaDAO::salvarComandas(){
             }
 
             arquivo << to_string(comanda.getId()) << "#"
+                    << to_string(comanda.getNumeroMesa()) << "#"
+                    << comanda.getNomeCliente() << "#"
+                    << comanda.getCpfCliente() << "#"
                     << to_string(comanda.getFormaPagamento()) << "#"
                     << to_string(comanda.getUsuario().getId()) << "#"
                     << pedidosEmLinha;
@@ -185,6 +197,21 @@ Comanda ComandaDAO::getComandaByID(unsigned long int id){
     }
     if(encontrou == false) {
         cout << "Erro: ID Comanda não encontrado." << endl;
+    }
+}
+
+Comanda ComandaDAO::getComandaByNumeroMesa(unsigned long int numeroMesa){
+    carregarComandas();
+    bool encontrou = false;
+    for(Comanda c : listaComandas){
+        if(c.getNumeroMesa() == numeroMesa){
+            encontrou = true;
+            return c;
+            break;
+        }
+    }
+    if(encontrou == false) {
+        cout << "Erro: Número da Mesa Comanda não encontrado." << endl;
     }
 }
 

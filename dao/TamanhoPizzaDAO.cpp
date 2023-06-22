@@ -110,6 +110,7 @@ vector<TamanhoPizza> TamanhoPizzaDAO::getAllTamanhos(){
 
 
 void TamanhoPizzaDAO::imprimirTamanhos() {
+    carregarTamanhos();
     cout << "ID  | Tamanho  | Preço" << endl;
     cout << "-------------------------" << endl;
 

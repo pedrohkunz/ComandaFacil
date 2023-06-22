@@ -8,6 +8,7 @@
 #include "TamanhoPizza.h"
 #include "Sabor.h"
 #include "Bebida.h"
+#include "Pedido.h"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ class MenuNovoPedido {
         string escolherCPF();
         TamanhoPizza escolherTamanhoDaPizza();
         vector<Sabor> escolherSabores();
-        vector<Bebida> escolherBebidas();
+        Bebida escolherBebida();
+        Pedido adicionarPedido();
         string formaDePagamento();
 
     public:

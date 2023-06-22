@@ -15,7 +15,6 @@ MenuEstoque menuEstoqueMenuPrincipal = MenuEstoque();
 MenuNovoPedido menuNovoPedido = MenuNovoPedido();
 MenuHistoricoPedidos menuHistoricoPedidosMenuPrincipal= MenuHistoricoPedidos();
 MenuPedidosProcessamento menuPedidosProcessamentoMenuPrincipal= MenuPedidosProcessamento();
-PedidoDAO pedidoDaoMenuPrincipal = PedidoDAO();
 
 
 unsigned short MenuPrincipal::inputIsInt(){
