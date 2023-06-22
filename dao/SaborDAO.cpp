@@ -74,7 +74,6 @@ Sabor SaborDAO::converteStringParaObjeto(string a){
                 break;
             }
         }
-
         vetorIngredientes.push_back(ing);
 
         count++;

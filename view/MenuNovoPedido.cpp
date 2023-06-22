@@ -29,6 +29,7 @@ IdCounterDAO idCounterNovoPedido = IdCounterDAO();
 StatusDAO statusDAONovoPedido = StatusDAO();
 IngredienteDAO ingredienteDAONovoPedido = IngredienteDAO();
 LoteDAO loteDAONovoPedido = LoteDAO();
+UsuarioDAO usuarioDAO = UsuarioDAO();
 Ingrediente ingredNovoPedido;
 Comanda comandaNovoPedido;
 vector<Pedido> pedidos;
@@ -356,17 +357,6 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
                 }
             }
 
-            for (Sabor s: saboresPedido){
-                for (Ingrediente i : s.getIngredientes()){
-                    for (Lote l : loteDAONovoPedido.getLotesByIngrediente(i)){
-
-                        l.setQuantidade(l.getQuantidade() - 10);
-                        loteDAONovoPedido.removerLote(l.getId());
-                        loteDAONovoPedido.inserirLote(l);
-                    }
-                }
-            }
-
             if(!encontrado){
                 cout <<"O sabor digitado não foi encontrado!" << endl;
             }
@@ -421,7 +411,7 @@ void MenuNovoPedido::menuNovaComanda(){
     unsigned short numeroMesa = numeroDaMesa();
     string cpf = escolherCPF();
     string formaDePgto = formaDePagamento();
-    Usuario usuarioComanda = Usuario(idCounterNovoPedido.gerarID("Usuario"), "Garçom x", "garcom@gmail.com", "123");
+    Usuario usuarioComanda = usuarioDAO.getUsuarioByID(1);
 
     vector<Pedido> pedidosComanda;
     pedidosComanda.push_back(adicionarPedido());
