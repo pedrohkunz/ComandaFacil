@@ -17,6 +17,18 @@ MenuHistoricoPedidos menuHistoricoPedidosMenuPrincipal= MenuHistoricoPedidos();
 MenuPedidosProcessamento menuPedidosProcessamentoMenuPrincipal= MenuPedidosProcessamento();
 PedidoDAO pedidoDaoMenuPrincipal = PedidoDAO();
 
+
+unsigned short MenuPrincipal::inputIsInt(){
+    unsigned short resposta;
+    while (!(cin >> resposta)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Entrada inválida. Digite um número por favor: ";
+    }
+
+    return resposta;
+}
+
 void MenuPrincipal::menu(){
     unsigned short resposta;
 
@@ -32,23 +44,14 @@ void MenuPrincipal::menu(){
          << "5- Sair" << endl;
 
     cout <<"Qual atividade você deseja realizar? " << endl;
-            //Garante que o valor de entrada seja um inteiro
-            while (!(cin >> resposta)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Entrada inválida. Digite o número da atividade que você deseja: ";
-            }
+    resposta = inputIsInt();
+
     cout << endl;
 
     //Validação da resposta
     while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5){
         cout <<"Opção inválida, por favor tente novamente: " << endl;
-            //Garante que o valor de entrada seja um inteiro
-            while (!(cin >> resposta)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Entrada inválida. Digite o número da atividade que você deseja: ";
-            }
+        resposta = inputIsInt();
         cout << endl;
     }
 

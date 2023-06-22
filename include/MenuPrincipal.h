@@ -4,6 +4,7 @@
 class MenuPrincipal {
     public:
         MenuPrincipal();
+        unsigned short inputIsInt();
         void menu();
 };
 

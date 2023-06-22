@@ -17,7 +17,7 @@ int iMHP = 0;
 
 void MenuHistoricoPedidos::menuHistoricoPedidos(){
     unsigned short respostaMenuHP;
-    
+
     while (iMHP < 1) {
         //pedidosMenuHP.carregarPedidos();
         iMHP++;
@@ -30,13 +30,15 @@ void MenuHistoricoPedidos::menuHistoricoPedidos(){
          << "2- Buscar  |  "
          << "3- Voltar ao menu principal  |  "
          << "4- Sair" << endl;
-    cin >> respostaMenuHP;
+    respostaMenuHP = menuPrincipalMenuHP.inputIsInt();
     cout << endl;
 
     //Validação da resposta
     while (respostaMenuHP != 1 && respostaMenuHP != 2 && respostaMenuHP != 3 && respostaMenuHP != 4){
         cout <<"Opção inválida, por favor tente novamente: " << endl;
-        cin >> respostaMenuHP;
+
+        respostaMenuHP = menuPrincipalMenuHP.inputIsInt();
+
         cout << endl;
     }
 
@@ -50,15 +52,15 @@ void MenuHistoricoPedidos::menuHistoricoPedidos(){
     case 2:
         menuHPB.menuHistoricoPedidosBuscar();
         break;
-    
+
     case 3:
         menuPrincipalMenuHP.menu();
         break;
-    
+
     case 4:
         cout << "Saindo..." << endl;
         break;
-    
+
     };
 
 }

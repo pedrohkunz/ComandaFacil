@@ -28,12 +28,7 @@ void MenuPedidosProcessamento::menuPedidosProcessamento(){
          << "1- Voltar ao menu principal  |  "
          << "2- Sair" << endl;
 
-    //Garante que o valor de entrada seja um inteiro
-    while (!(cin >> respostaMenu)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida. Apenas números são aceitos: ";
-    }
+    respostaMenu = menuPrincipalProcessamento.inputIsInt();
 
     cout << endl;
 
@@ -41,12 +36,8 @@ void MenuPedidosProcessamento::menuPedidosProcessamento(){
     while(respostaMenu != 1 && respostaMenu != 2){
         cout <<"Opção inválida, por favor tente novamente: " << endl;
 
-        //Garante que o valor de entrada seja um inteiro
-        while (!(cin >> respostaMenu)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada inválida. Apenas números são aceitos: ";
-        }
+        respostaMenu = menuPrincipalProcessamento.inputIsInt();
+
         cout << endl;
     }
 

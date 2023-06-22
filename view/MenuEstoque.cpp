@@ -28,18 +28,20 @@ void MenuEstoque::menuEstoque() {
 
   cout <<"///////////////////////////////////////////// Menu Estoque ////////////////////////////////////////////////" << endl;
 
-  cout << "1- Ver todos os itens  |  " 
+  cout << "1- Ver todos os itens  |  "
        << "2- Buscar  |  "
        << "3- Adicionar lote  |  "
        << "4- Voltar ao menu principal" << endl
        << "Qual atividade você deseja realizar? " << endl;
-  cin >> resposta;
-  cout << endl;
+
+  resposta = menuPrincipal.inputIsInt();
 
   // Validação da resposta
   while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
-    cin >> resposta;
+
+    resposta = menuPrincipal.inputIsInt();
+    
     cout << endl;
   }
 
@@ -77,7 +79,7 @@ void MenuEstoque::adicionarLote() {
   }
 
   cout <<"//////////////////////////////////// Menu Estoque | Adicionar Lote ///////////////////////////////////////" << endl;
-  
+
   cout << "Digite o ID: " << endl;
   cin >> idAddLote;
   cout << endl;
@@ -91,19 +93,19 @@ void MenuEstoque::adicionarLote() {
   cout << endl;
 
   ingredienteAddLote = this->adicionarLoteIngrediente();
-  
+
   loteAddLote.setId(idAddLote);
   loteAddLote.setQuantidade(quantidadeAddLote);
   loteAddLote.setDataDeValidade(dataDeValidadeAddLote);
   loteAddLote.setIngredienteLote(ingredienteAddLote);
-  
+
   if(loteMenuEstoque.inserirLote(loteAddLote)){
     cout << "Lote adicionado com sucesso." << endl;
   } else {
     cout << "Erro ao adicionar lote." << endl;
     adicionarLote();
   }
-  
+
 }
 
 Ingrediente MenuEstoque::adicionarLoteIngrediente() {
@@ -160,6 +162,6 @@ Ingrediente MenuEstoque::adicionarLoteIngrediente() {
         return ingredienteAddLoteIngrediente;
 
       }
-  
+
 
 }

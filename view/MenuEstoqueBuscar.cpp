@@ -2,6 +2,7 @@
 #include "../include/LoteDAO.h"
 #include "../include/IngredienteDAO.h"
 #include "../include/MenuEstoqueBuscar.h"
+#include "../include/MenuPrincipal.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -13,6 +14,7 @@ using namespace std;
 MenuEstoqueBuscar::MenuEstoqueBuscar(){};
 IngredienteDAO ingredientesMenuEB = IngredienteDAO();
 LoteDAO loteMenuEB = LoteDAO();
+MenuPrincipal menuPrincipal = MenuPrincipal();
 int iMEB = 0;
 
 void MenuEstoqueBuscar::menuEstoqueBuscar(){
@@ -31,13 +33,15 @@ void MenuEstoqueBuscar::menuEstoqueBuscar(){
        << "4- Buscar por ingrediente" << endl
        << "Qual atividade você deseja realizar?" << endl;
 
-  cin >> resposta;
+  resposta = menuPrincipal.inputIsInt();
   cout << endl;
 
   // Validação da resposta
   while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
-    cin >> resposta;
+
+    resposta = menuPrincipal.inputIsInt();
+    
     cout << endl;
   }
 
@@ -76,7 +80,7 @@ void MenuEstoqueBuscar::buscarPorId(){
     cin >> id;
     cout << endl;
     cout << move(loteMenuEB.getLoteByID(id)) << endl;
-    
+
 };
 
 
@@ -85,10 +89,10 @@ void MenuEstoqueBuscar::buscarPorDataValidade(){
     cout << "Digite a data de validade: " << endl;
     cin >> data;
     cout << endl;
-    
+
     for (Lote l : loteMenuEB.getLotesByDataValidade(data)){
       cout << l << endl;
-    } 
+    }
 
 };
 
@@ -115,7 +119,7 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
             cout << "Digite o nome do ingrediente: " << endl;
             cin >> nome;
             cout << endl;
-            
+
             ingrediente = ingredientesMenuEB.getIngredienteByNome(nome);
 
             for (Lote l : loteMenuEB.getLotesByIngrediente(ingrediente.getId())){
@@ -128,7 +132,7 @@ void MenuEstoqueBuscar::buscarPorIngrediente(){
             cout << "Digite o id do ingrediente: " << endl;
             cin >> id;
             cout << endl;
-            
+
             for (Lote l : loteMenuEB.getLotesByIngrediente(id)){
                 cout << l << endl;
             }
