@@ -1,4 +1,4 @@
-# ComandaFacil
+# ComandaFácil
 Sistema de Gerenciamento de Pedidos e Estoque de uma Pizzaria
 
 Este é o repositório do projeto final da unidade curricular "Programação de Soluções Computacionais" do curso de Ciência da computação. O objetivo deste projeto é desenvolver um sistema de gerenciamento de pedidos e estoque para uma pizzaria.
