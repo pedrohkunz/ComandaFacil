@@ -12,7 +12,7 @@
 using namespace std;
 
 MenuEstoque::MenuEstoque(){};
-MenuPrincipal menuPrincipal = MenuPrincipal();
+MenuPrincipal menuPrincipalEstoque = MenuPrincipal();
 IngredienteDAO ingredientesMenuEstoque = IngredienteDAO();
 LoteDAO loteMenuEstoque = LoteDAO();
 // contadores utilizados para carregar os lotes e os ingredientes apenas uma vez
@@ -34,14 +34,14 @@ void MenuEstoque::menuEstoque() {
        << "4- Voltar ao menu principal" << endl
        << "Qual atividade você deseja realizar? " << endl;
 
-  resposta = menuPrincipal.inputIsInt();
+  resposta = menuPrincipalEstoque.inputIsInt();
 
   // Validação da resposta
   while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
 
-    resposta = menuPrincipal.inputIsInt();
-    
+    resposta = menuPrincipalEstoque.inputIsInt();
+
     cout << endl;
   }
 
@@ -64,7 +64,7 @@ void MenuEstoque::menuEstoque() {
     break;
 
   case 4:
-    menuPrincipal.menu();
+    menuPrincipalEstoque.menu();
     break;
   }
 }

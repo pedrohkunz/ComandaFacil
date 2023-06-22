@@ -19,7 +19,7 @@ PizzaDAO pizzasMenuHPB = PizzaDAO();
 BebidaDAO bebidasMenuHPB = BebidaDAO();
 PedidoDAO pedidosMenuHPB = PedidoDAO();
 StatusDAO statusMenuHPB = StatusDAO();
-MenuPrincipal menuPrincipal = MenuPrincipal();
+MenuPrincipal menuPrincipalHistorico = MenuPrincipal();
 int iMHPB = 0;
 
 void MenuHistoricoPedidosBuscar::menuHistoricoPedidosBuscar(){
@@ -41,13 +41,13 @@ void MenuHistoricoPedidosBuscar::menuHistoricoPedidosBuscar(){
        << "5- Sair" << endl
        << "Qual atividade você deseja realizar?" << endl;
 
-  resposta = menuPrincipal.inputIsInt();
+  resposta = menuPrincipalHistorico.inputIsInt();
   cout << endl;
 
   // Validação da resposta
   while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
-    resposta = menuPrincipal.inputIsInt();
+    resposta = menuPrincipalHistorico.inputIsInt();
     cout << endl;
   }
 

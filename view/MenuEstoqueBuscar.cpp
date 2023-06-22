@@ -14,7 +14,7 @@ using namespace std;
 MenuEstoqueBuscar::MenuEstoqueBuscar(){};
 IngredienteDAO ingredientesMenuEB = IngredienteDAO();
 LoteDAO loteMenuEB = LoteDAO();
-MenuPrincipal menuPrincipal = MenuPrincipal();
+MenuPrincipal menuPrincipalEstoqueBuscar = MenuPrincipal();
 int iMEB = 0;
 
 void MenuEstoqueBuscar::menuEstoqueBuscar(){
@@ -33,15 +33,15 @@ void MenuEstoqueBuscar::menuEstoqueBuscar(){
        << "4- Buscar por ingrediente" << endl
        << "Qual atividade você deseja realizar?" << endl;
 
-  resposta = menuPrincipal.inputIsInt();
+  resposta = menuPrincipalEstoqueBuscar.inputIsInt();
   cout << endl;
 
   // Validação da resposta
   while (resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
 
-    resposta = menuPrincipal.inputIsInt();
-    
+    resposta = menuPrincipalEstoqueBuscar.inputIsInt();
+
     cout << endl;
   }
 
