@@ -9,6 +9,7 @@ Usuario::Usuario(unsigned long int id, string nome, string email, string senha){
   this->nome = nome;
   this->email = email;
   this->senha = senha;
+  this->isAdmin = false;
 }
 Usuario::Usuario(){};
 
@@ -42,4 +43,20 @@ string Usuario::getSenha() {
 }
 void Usuario::setSenha(string senha){
   this->senha = senha;
+}
+
+
+bool Usuario::getIsAdmin(){
+  return isAdmin;
+}
+void Usuario::setIsAdmin(bool isAdmin){
+  this->isAdmin = isAdmin;
+}
+
+
+bool Usuario::getIsLogged(){
+  return isLogged;
+}
+void Usuario::setIsLogged(bool isLogged){
+  this->isLogged = isLogged;
 }

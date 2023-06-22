@@ -12,6 +12,8 @@ class Usuario {
         string nome;
         string email;
         string senha;
+        bool isAdmin;
+        bool isLogged;
 
         friend ostream& operator<<(ostream& os, const Usuario& objeto) {
         os << objeto.id << " | " 
@@ -36,6 +38,12 @@ class Usuario {
 
         string getSenha();
         void setSenha(string senha);
+
+        bool getIsAdmin();
+        void setIsAdmin(bool isAdmin);
+
+        bool getIsLogged();
+        void setIsLogged(bool isLogged);
 
         bool operator==(const Usuario& usuario) const {
         if (this-> id == usuario.id && this->nome == usuario.nome){
