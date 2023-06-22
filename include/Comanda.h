@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "Pedido.h"
+#include "PedidoDAO.h"
 #include "Usuario.h"
 
 using namespace std;
@@ -21,18 +22,19 @@ private:
     vector<Pedido> pedidos;
 
     friend ostream& operator<<(ostream& os, const Comanda& objeto) {
-        os << objeto.id << " | " 
-           << objeto.numeroMesa << "  |  "
-           << objeto.nomeCliente << "  |  "
-           << objeto.formaPagamento << " | "
-           << objeto.usuario.getNome() << ": " << endl;
-           
+        
+        os << "Comanda n° " << objeto.id << "  |  Número da Mesa: " << objeto.numeroMesa << endl;
+        os << "------------------------------------------------------------" << endl;
+        os << "Nome do Cliente: " << objeto.nomeCliente << "  |  Forma de Pagamento: " << objeto.formaPagamento << endl;
+                      
         int j = 1;
-        for (Pedido i : objeto.pedidos){
-            os << "Pedido " << j << ": " << i << endl;
+        
+        for (Pedido p : objeto.pedidos){
+            os << "Pedido " << j << ": " << p << endl;
             j++;
         }
-
+        
+        os << endl << "Nome funcionário: " << objeto.usuario.getNome() << endl;
         return os;
     }
 

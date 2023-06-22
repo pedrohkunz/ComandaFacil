@@ -178,9 +178,9 @@ vector<Comanda> ComandaDAO::getAllComandas(){
 
 void ComandaDAO::imprimirComandas(){
     carregarComandas();
-    cout << "ID | Forma de Pagamento | Usuário | Pedidos (ID, Pizzas, Bebidas)" << endl;
-    for (auto& objeto : listaComandas) {
-        cout << objeto << endl;
+    
+    for (Comanda c : listaComandas) {
+        cout << c << endl;
     }
 };
 

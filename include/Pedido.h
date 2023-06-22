@@ -20,10 +20,10 @@ class Pedido{
     vector<Bebida> bebidas;
 
     friend ostream& operator<<(ostream& os, const Pedido& objeto) {
-        //Imprime o id do pedido
-        os << "Pedido " << objeto.id << endl;
-        os << "====================================================\n";
-
+        //Imprime o id e o status do pedido
+        os << "Pedido n° " << objeto.id << "  |  Status: " << objeto.status.getNome() << endl;
+        os << "===========================================================\n";
+        
         //Imprime as pizzas
         os << "\nPizzas: " << endl;
         os << "\n";
@@ -56,7 +56,7 @@ class Pedido{
                 os << "\n";
             }
 
-            os <<"\n------------------------------\n";
+            os <<"\n------------------------------------------------------------\n";
 
         //Imprime as bebidas
         os << "\nBebidas: " << endl;
@@ -65,7 +65,7 @@ class Pedido{
             os << bebida.getTipo() << " "
                << bebida.getTamanho() << endl;
         }
-        os << "\n------------------------------\n\n\n";
+        os << "\n------------------------------------------------------------\n\n\n";
 
         return os;
     }

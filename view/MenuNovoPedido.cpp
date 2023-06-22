@@ -12,8 +12,10 @@ using namespace std;
 #include "../include/BebidaDAO.h"
 #include "../include/ComandaDAO.h"
 #include "../include/PedidoDAO.h"
+#include "../include/LoteDAO.h"
 #include "../include/UsuarioDAO.h"
 #include "../include/IdCounterDao.h"
+#include "../include/IngredienteDao.h"
 
 //Construtor
 MenuNovoPedido::MenuNovoPedido(){};
@@ -23,6 +25,9 @@ ComandaDAO comandaDAONovoPedido = ComandaDAO();
 PedidoDAO pedidoDAONovoPedido = PedidoDAO();
 UsuarioDAO usuarioDAONovoPedido = UsuarioDAO();
 IdCounterDAO idCounterNovoPedido = IdCounterDAO();
+IngredienteDAO ingredienteDAONovoPedido = IngredienteDAO();
+LoteDAO loteDAONovoPedido = LoteDAO();
+Ingrediente ingredNovoPedido;
 Comanda comandaNovoPedido;
 vector<Pedido> pedidos;
 Pedido novoPedido;
@@ -266,7 +271,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
 
 
 vector<Sabor> MenuNovoPedido::escolherSabores(){
-    unsigned short quantSabores;
+    unsigned short quantSabores, ingredQuant;
     SaborDAO saborDAO = SaborDAO();
     
     cout <<"////////////////////////////////////// Escolha os sabores da pizza ////////////////////////////////////////" << endl;
@@ -325,6 +330,17 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
                     saboresPedido.push_back(sabor);
                     encontrado = true;
                     break;
+                }
+            }
+
+            for (Sabor s: saboresPedido){
+                for (Ingrediente i : s.getIngredientes()){
+                    for (Lote l : loteDAONovoPedido.getLotesByIngrediente(i)){
+                        
+                        l.setQuantidade(l.getQuantidade() - 10);
+                        loteDAONovoPedido.removerLote(l.getId());
+                        loteDAONovoPedido.inserirLote(l);                        
+                    }
                 }
             }
 

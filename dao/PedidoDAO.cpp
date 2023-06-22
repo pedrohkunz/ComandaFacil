@@ -187,7 +187,7 @@ void PedidoDAO::salvarPedidos(){
             arquivo << to_string(pedido.getId()) << "#"
                     << to_string(pedido.getStatus().getId()) << "#"
                     << pizzasEmLinha << "#"
-                    << bebidasEmLinha;
+                    << bebidasEmLinha << endl;
         }
         arquivo.close();
     } else {
@@ -205,7 +205,11 @@ vector<Pedido> PedidoDAO::getAllPedidos(){
 
 
 void PedidoDAO::imprimirPedidos(){
+    carregarPedidos();
 
+    for (Pedido pedido : listaPedidos) {
+        cout << pedido;
+    }
 };
 
 void PedidoDAO::imprimirPedidosByStatus(unsigned short statusID){
