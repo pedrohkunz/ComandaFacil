@@ -22,10 +22,10 @@ class Pedido{
     friend ostream& operator<<(ostream& os, const Pedido& objeto) {
         //Imprime o id do pedido
         os << "Pedido " << objeto.id << endl;
-        os << "\n";
+        os << "====================================================\n";
 
         //Imprime as pizzas
-        os << "Pizzas: " << endl;
+        os << "\nPizzas: " << endl;
         os << "\n";
 
             short contadorPizza = 1;
@@ -56,6 +56,8 @@ class Pedido{
                 os << "\n";
             }
 
+            os <<"\n------------------------------\n";
+
         //Imprime as bebidas
         os << "\nBebidas: " << endl;
         os << "\n";
@@ -63,7 +65,7 @@ class Pedido{
             os << bebida.getTipo() << " "
                << bebida.getTamanho() << endl;
         }
-        os << "------------------------------------------------------\n\n";
+        os << "\n------------------------------\n\n\n";
 
         return os;
     }
