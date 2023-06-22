@@ -30,13 +30,15 @@ StatusDAO statusDAONovoPedido = StatusDAO();
 IngredienteDAO ingredienteDAONovoPedido = IngredienteDAO();
 LoteDAO loteDAONovoPedido = LoteDAO();
 UsuarioDAO usuarioDAO = UsuarioDAO();
+PizzaDAO pizzaDAONovoPedido = PizzaDAO();
 Ingrediente ingredNovoPedido;
 Comanda comandaNovoPedido;
 vector<Pedido> pedidos;
 vector<Pizza> pedidoPizzas;
-Pizza novaPizza;
+Pizza pedidoNovaPizza;
 vector<Bebida> pedidoBebidas;
 
+// MENU NOVO PEDIDO ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void MenuNovoPedido::menu(){
   unsigned short respostaMNP, numeroMesa;
 
@@ -61,6 +63,7 @@ void MenuNovoPedido::menu(){
   switch (respostaMNP) {
   case 1:
     menuNovaComanda();
+    menuPrincipalNovoPedido.menu();
     break;
 
   case 2:
@@ -86,7 +89,7 @@ void MenuNovoPedido::menu(){
   }
 }
 
-
+// NOME CLIENTE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 string MenuNovoPedido::nomeCliente(){
     string nomeCliente;
 
@@ -106,7 +109,7 @@ string MenuNovoPedido::nomeCliente(){
     return nomeCliente;
 }
 
-
+// NUMERO MESA ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 unsigned short MenuNovoPedido::numeroDaMesa(){
     unsigned short numeroMesa;
 
@@ -132,7 +135,7 @@ unsigned short MenuNovoPedido::numeroDaMesa(){
     return numeroMesa;
 }
 
-
+// CPF ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 string MenuNovoPedido::escolherCPF(){
     unsigned short cpfNota;
     string cpf;
@@ -167,7 +170,7 @@ string MenuNovoPedido::escolherCPF(){
     return cpf;
 }
 
-
+// ADICIONAR PEDIDO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Pedido MenuNovoPedido::adicionarPedido(){
   unsigned short respostaAddPedido;
   bool finalizou = false;
@@ -212,7 +215,7 @@ Pedido MenuNovoPedido::adicionarPedido(){
 
 }
 
-
+// FORMA PAGAMENTO ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 string MenuNovoPedido::formaDePagamento(){
     unsigned short pgto;
     string pagamento;
@@ -244,7 +247,7 @@ string MenuNovoPedido::formaDePagamento(){
     return pagamento;
 };
 
-
+// TAMANHO PIZZA ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
     unsigned short tamanhoPizza;
     TamanhoPizzaDAO tamanhoPizzaDAO = TamanhoPizzaDAO();
@@ -293,7 +296,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
     return tamanhoSelecionado;
 }
 
-
+// SABORES //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 vector<Sabor> MenuNovoPedido::escolherSabores(){
     unsigned short quantSabores, ingredQuant;
     SaborDAO saborDAO = SaborDAO();
@@ -366,15 +369,21 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
      return saboresPedido;
 }
 
-
+// NOVA PIZZA //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Pizza MenuNovoPedido::novaPizza(){
     TamanhoPizza tamanho = escolherTamanhoDaPizza();
     vector<Sabor> sabores = escolherSabores();
     cout <<"\nPizza adicionada com sucesso!\n\n";
-    return Pizza(idCounterNovoPedido.gerarID("Pizza"), tamanho, sabores);
+
+    pedidoNovaPizza.setId(idCounterNovoPedido.gerarID("Pizza"));
+    pedidoNovaPizza.setTamanho(tamanho);
+    pedidoNovaPizza.setSabores(sabores);
+    pizzaDAONovoPedido.inserirPizza(pedidoNovaPizza);
+
+    return pedidoNovaPizza;
 };
 
-
+// ESCOLHER BEBIDA ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Bebida MenuNovoPedido::escolherBebida(){
     BebidaDAO bebidaDAO = BebidaDAO();
 
@@ -405,6 +414,8 @@ Bebida MenuNovoPedido::escolherBebida(){
 
 }
 
+
+// MENU NOVA COMANDA ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void MenuNovoPedido::menuNovaComanda(){
     unsigned long int id = idCounterNovoPedido.gerarID("Comanda");
     string nome = nomeCliente();
@@ -415,7 +426,15 @@ void MenuNovoPedido::menuNovaComanda(){
 
     vector<Pedido> pedidosComanda;
     pedidosComanda.push_back(adicionarPedido());
+    comandaNovoPedido.setId(id);
+    comandaNovoPedido.setNumeroMesa(numeroMesa);
+    comandaNovoPedido.setNomeCliente(nome);
+    comandaNovoPedido.setCpfCliente(cpf);
+    comandaNovoPedido.setFormaPagamento(formaDePgto);
+    comandaNovoPedido.setUsuario(usuarioComanda);
+    comandaNovoPedido.setPedidos(pedidosComanda);
 
-    comandaDAONovoPedido.inserirComanda(Comanda(id, numeroMesa, nome , cpf, formaDePgto, usuarioComanda, pedidosComanda));
+    comandaDAONovoPedido.inserirComanda(comandaNovoPedido);
+    
 
 }

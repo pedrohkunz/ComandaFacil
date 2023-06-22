@@ -44,19 +44,17 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
       } else if (contadorSharp == 3) {
             cpfCliente = atributo;
       } else if (contadorSharp == 4) {
-            pedidos = atributo;
-      } else if (contadorSharp == 5) {
             formaPagamentoString = atributo;
-      } else if (contadorSharp == 6) {
+      } else if (contadorSharp == 5) {
             idUsuarioString = atributo;
-      } else if (contadorSharp == 7) {
+      } else if (contadorSharp == 6) {
             pedidos = atributo;
       }
 
       contadorSharp++;
       contador++;
 
-      if (contadorSharp >= 8) {
+      if (contadorSharp >= 7) {
         break;
       }
     }
@@ -65,6 +63,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     unsigned long  id = stoi(idString);
     unsigned short numeroMesa = stoi(numeroMesaString);
     unsigned long int idUsuario = stoi(idUsuarioString);
+    
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
     //Transforma a string pedidos em um vetor novamente
@@ -157,7 +156,7 @@ void ComandaDAO::salvarComandas(){
                     << comanda.getCpfCliente() << "#"
                     << comanda.getFormaPagamento() << "#"
                     << to_string(comanda.getUsuario().getId()) << "#"
-                    << pedidosEmLinha;
+                    << pedidosEmLinha << endl;
 
         }
         arquivo.close();
