@@ -62,9 +62,8 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     }
 
     //Converte o idString para id inteiro
-    unsigned long int id = stoi(idString);
-    unsigned long int numeroMesa = stoi(numeroMesaString);
-    unsigned long int formaPagamento = stoi(formaPagamentoString);
+    unsigned long  id = stoi(idString);
+    unsigned short numeroMesa = stoi(numeroMesaString);
     unsigned long int idUsuario = stoi(idUsuarioString);
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
@@ -97,7 +96,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
         count++;
     }
 
-    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamento, usuario, vetorPedidos);
+    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamentoString, usuario, vetorPedidos);
     return x;
 };
 
@@ -156,7 +155,7 @@ void ComandaDAO::salvarComandas(){
                     << to_string(comanda.getNumeroMesa()) << "#"
                     << comanda.getNomeCliente() << "#"
                     << comanda.getCpfCliente() << "#"
-                    << to_string(comanda.getFormaPagamento()) << "#"
+                    << comanda.getFormaPagamento() << "#"
                     << to_string(comanda.getUsuario().getId()) << "#"
                     << pedidosEmLinha;
 

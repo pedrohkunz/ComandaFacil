@@ -9,9 +9,9 @@
 using namespace std;
 
 
-Comanda::Comanda(unsigned long int id, unsigned short int numeroMesa, string nomeCliente, 
-                 string cpfCliente, short int formaPagamento, Usuario usuario, vector<Pedido> pedidos){
-  
+Comanda::Comanda(unsigned long int id, unsigned short int numeroMesa, string nomeCliente,
+                 string cpfCliente, string formaPagamento, Usuario usuario, vector<Pedido> pedidos){
+
     this->id = id;
     this->numeroMesa = numeroMesa;
     this->nomeCliente = nomeCliente;
@@ -19,7 +19,7 @@ Comanda::Comanda(unsigned long int id, unsigned short int numeroMesa, string nom
     this->formaPagamento = formaPagamento;
     this->usuario = usuario;
     this->pedidos = pedidos;
- 
+
 }
 Comanda::Comanda(){};
 
@@ -56,10 +56,10 @@ void Comanda::setCpfCliente(string cpfCliente) {
 }
 
 
-short Comanda::getFormaPagamento(){
+string Comanda::getFormaPagamento(){
   return formaPagamento;
 }
-void Comanda::setFormaPagamento(short int formaPagamento){
+void Comanda::setFormaPagamento(string formaPagamento){
   this->formaPagamento = formaPagamento;
 }
 

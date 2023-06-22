@@ -9,6 +9,7 @@
 #include "Sabor.h"
 #include "Bebida.h"
 #include "Pedido.h"
+#include "Pizza.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ class MenuNovoPedido {
         Bebida escolherBebida();
         Pedido adicionarPedido();
         string formaDePagamento();
+        Pizza novaPizza();
+        void menuNovaComanda();
 
     public:
         MenuNovoPedido();

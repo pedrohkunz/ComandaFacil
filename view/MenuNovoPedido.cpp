@@ -8,6 +8,7 @@ using namespace std;
 #include "../include/MenuPrincipal.h"
 #include "../include/TamanhoPizzaDAO.h"
 #include "../include/SaborDAO.h"
+#include "../include/StatusDAO.h"
 #include "../include/PizzaDAO.h"
 #include "../include/BebidaDAO.h"
 #include "../include/ComandaDAO.h"
@@ -25,12 +26,12 @@ ComandaDAO comandaDAONovoPedido = ComandaDAO();
 PedidoDAO pedidoDAONovoPedido = PedidoDAO();
 UsuarioDAO usuarioDAONovoPedido = UsuarioDAO();
 IdCounterDAO idCounterNovoPedido = IdCounterDAO();
+StatusDAO statusDAONovoPedido = StatusDAO();
 IngredienteDAO ingredienteDAONovoPedido = IngredienteDAO();
 LoteDAO loteDAONovoPedido = LoteDAO();
 Ingrediente ingredNovoPedido;
 Comanda comandaNovoPedido;
 vector<Pedido> pedidos;
-Pedido novoPedido;
 vector<Pizza> pedidoPizzas;
 Pizza novaPizza;
 vector<Bebida> pedidoBebidas;
@@ -40,37 +41,25 @@ void MenuNovoPedido::menu(){
 
   cout <<"/////////////////////////////////////////// Menu Novo Pedido //////////////////////////////////////////////" << endl;
 
-  cout << "1- Nova Comanda  |  " 
+  cout << "1- Nova Comanda  |  "
        << "2- Escolher comanda aberta  |  "
        << "3- Voltar ao menu principal  |  "
        << "4- Sair" << endl
        << "Qual atividade você deseja realizar? " << endl;
-  cin >> respostaMNP;
+
+  respostaMNP = menuPrincipalNovoPedido.inputIsInt();
   cout << endl;
 
   // Validação da resposta
   while (respostaMNP != 1 && respostaMNP != 2 && respostaMNP != 3 && respostaMNP != 4) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
-    cin >> respostaMNP;
+    respostaMNP = menuPrincipalNovoPedido.inputIsInt();
     cout << endl;
   }
 
   switch (respostaMNP) {
   case 1:
-    comandaNovoPedido.setId(idCounterNovoPedido.gerarID("Comanda"));
-    comandaNovoPedido.setNumeroMesa(numeroDaMesa());
-    comandaNovoPedido.setNomeCliente(nomeCliente());
-    comandaNovoPedido.setCpfCliente(escolherCPF());
-    comandaNovoPedido.setFormaPagamento(1);
-    comandaNovoPedido.setUsuario(usuarioDAONovoPedido.getUsuarioByID(1));
-    novoPedido = adicionarPedido();
-    pedidos.push_back(novoPedido);
-    cout << "pedido adicionado com sucesso4" << endl;
-    comandaNovoPedido.setPedidos(pedidos);
-    cout << comandaNovoPedido;
-    comandaDAONovoPedido.inserirComanda(comandaNovoPedido);
-    cout << "comanda gerada com sucesso" << endl;
-    menuPrincipalNovoPedido.menu();
+    menuNovaComanda();
     break;
 
   case 2:
@@ -96,9 +85,10 @@ void MenuNovoPedido::menu(){
   }
 }
 
+
 string MenuNovoPedido::nomeCliente(){
     string nomeCliente;
-    
+
     cout <<"////////////////////////////////////// Preencha os dados do cliente ///////////////////////////////////////" << endl;
 
     cout << "Digite o nome do cliente: " << endl;
@@ -179,52 +169,85 @@ string MenuNovoPedido::escolherCPF(){
 
 Pedido MenuNovoPedido::adicionarPedido(){
   unsigned short respostaAddPedido;
+  bool finalizou = false;
+  vector<Pizza> pizzasPedido;
+  vector<Bebida> bebidasPedido;
 
-  cout << "1- Adicionar Pizza  |  " 
-       << "2- Adicionar Bebida  |  "
-       << "3- Concluir comanda" << endl
-       << "Qual atividade você deseja realizar? " << endl;
+  while(!finalizou){
+        cout << "1- Adicionar Pizza  |  "
+             << "2- Adicionar Bebida  |  "
+             << "3- Concluir pedido" << endl
+             << "Qual atividade você deseja realizar? " << endl;
 
-  cin >> respostaAddPedido;
-  cout << endl;
+        respostaAddPedido = menuPrincipalNovoPedido.inputIsInt();
+        cout << endl;
 
-  while (respostaAddPedido != 1 && respostaAddPedido != 2 && respostaAddPedido != 3) {
-    cout << "Opção inválida, por favor tente novamente: " << endl;
-    cin >> respostaAddPedido;
-    cout << endl;
+        while (respostaAddPedido != 1 && respostaAddPedido != 2 && respostaAddPedido != 3) {
+            cout << "Opção inválida, por favor tente novamente: " << endl;
+            respostaAddPedido = menuPrincipalNovoPedido.inputIsInt();
+            cout << endl;
+        }
+
+        switch (respostaAddPedido) {
+        case 1:
+            pizzasPedido.push_back(novaPizza());
+            break;
+
+        case 2:
+            bebidasPedido.push_back(escolherBebida());
+            break;
+
+        case 3:
+            Pedido pedido = Pedido(idCounterNovoPedido.gerarID("Pedido"), statusDAONovoPedido.getStatusByID(1), pizzasPedido, bebidasPedido);
+            pedidoDAONovoPedido.inserirPedido(pedido);
+            cout << "Pedido criado com sucesso!\n";
+            finalizou = true;
+            return pedido;
+            break;
+
+        }
   }
 
-  switch (respostaAddPedido) {
-  case 1:
-    novaPizza.setId(idCounterNovoPedido.gerarID("Pizza"));
-    novaPizza.setTamanho(escolherTamanhoDaPizza());
-    novaPizza.setSabores(escolherSabores());
-    pedidoPizzas.push_back(novaPizza);
-    adicionarPedido();
 
-  case 2:
-    pedidoBebidas.push_back(escolherBebida());
-    adicionarPedido();
-
-  case 3:
-    cout << "pedido adicionado com sucesso1" << endl;
-    novoPedido.setPizzas(pedidoPizzas);
-    cout << "pedido adicionado com sucesso2" << endl;
-    novoPedido.setBebidas(pedidoBebidas);
-    cout << "pedido adicionado com sucesso3" << endl;
-    return novoPedido;
-    break;
-    
-  }
-
-  
 }
+
+
+string MenuNovoPedido::formaDePagamento(){
+    unsigned short pgto;
+    string pagamento;
+
+    cout << "Qual a forma de pagamento?" << endl;
+    cout << "1- Dinheiro | 2- Cartão | 3- Pix" << endl;
+    pgto = menuPrincipalNovoPedido.inputIsInt();
+    cout << endl;
+
+    //Verifica se a resposta em relação ao CPF está válida
+    while(pgto != 1 && pgto != 2 && pgto != 3){
+        cout << "Insira um método de pagamento válido: " << endl;
+        pgto = menuPrincipalNovoPedido.inputIsInt();
+        cout << endl;
+    }
+
+    switch(pgto){
+        case 1:
+            pagamento = "Dinheiro";
+            break;
+        case 2:
+            pagamento = "Cartão";
+            break;
+        case 3:
+            pagamento = "Pix";
+            break;
+    }
+
+    return pagamento;
+};
 
 
 TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
     unsigned short tamanhoPizza;
     TamanhoPizzaDAO tamanhoPizzaDAO = TamanhoPizzaDAO();
-    
+
     cout <<"////////////////////////////////////// Escolha o tamanho da pizza /////////////////////////////////////////" << endl;
     cout << endl;
 
@@ -273,7 +296,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
 vector<Sabor> MenuNovoPedido::escolherSabores(){
     unsigned short quantSabores, ingredQuant;
     SaborDAO saborDAO = SaborDAO();
-    
+
     cout <<"////////////////////////////////////// Escolha os sabores da pizza ////////////////////////////////////////" << endl;
 
     cout <<"Quantos sabores o cliente deseja? " << endl;
@@ -336,10 +359,10 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
             for (Sabor s: saboresPedido){
                 for (Ingrediente i : s.getIngredientes()){
                     for (Lote l : loteDAONovoPedido.getLotesByIngrediente(i)){
-                        
+
                         l.setQuantidade(l.getQuantidade() - 10);
                         loteDAONovoPedido.removerLote(l.getId());
-                        loteDAONovoPedido.inserirLote(l);                        
+                        loteDAONovoPedido.inserirLote(l);
                     }
                 }
             }
@@ -354,6 +377,14 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
 }
 
 
+Pizza MenuNovoPedido::novaPizza(){
+    TamanhoPizza tamanho = escolherTamanhoDaPizza();
+    vector<Sabor> sabores = escolherSabores();
+    cout <<"\nPizza adicionada com sucesso!\n\n";
+    return Pizza(idCounterNovoPedido.gerarID("Pizza"), tamanho, sabores);
+};
+
+
 Bebida MenuNovoPedido::escolherBebida(){
     BebidaDAO bebidaDAO = BebidaDAO();
 
@@ -364,9 +395,9 @@ Bebida MenuNovoPedido::escolherBebida(){
     cout << endl;
 
     unsigned short id;
-        
+
     cout << "Digite o ID da bebida desejada: " << endl;
-    cin >> id;
+    id = menuPrincipalNovoPedido.inputIsInt();
     cout << endl;
 
     bool encontrou = false;
@@ -384,3 +415,17 @@ Bebida MenuNovoPedido::escolherBebida(){
 
 }
 
+void MenuNovoPedido::menuNovaComanda(){
+    unsigned long int id = idCounterNovoPedido.gerarID("Comanda");
+    string nome = nomeCliente();
+    unsigned short numeroMesa = numeroDaMesa();
+    string cpf = escolherCPF();
+    string formaDePgto = formaDePagamento();
+    Usuario usuarioComanda = Usuario(idCounterNovoPedido.gerarID("Usuario"), "Garçom x", "garcom@gmail.com", "123");
+
+    vector<Pedido> pedidosComanda;
+    pedidosComanda.push_back(adicionarPedido());
+
+    comandaDAONovoPedido.inserirComanda(Comanda(id, numeroMesa, nome , cpf, formaDePgto, usuarioComanda, pedidosComanda));
+
+}

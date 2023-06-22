@@ -8,9 +8,6 @@ using namespace std;
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    //MenuPrincipal menuPrincipal = MenuPrincipal();
-    //menuPrincipal.menu();
-    ComandaDAO comandas = ComandaDAO();
-    comandas.imprimirComandas();
-
-    }
+    MenuPrincipal menuPrincipal = MenuPrincipal();
+    menuPrincipal.menu();
+}

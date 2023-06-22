@@ -115,6 +115,8 @@ vector<Bebida> BebidaDAO::getAllBebidas(){
 
 
 void BebidaDAO::imprimirBebidas(){
+    carregarBebidas();
+    
     cout << "ID | Tipo           | Tamanho  | Valor" << endl;
     cout << "------------------------------------" << endl;
     for (Bebida bebida : listaBebidas) {
