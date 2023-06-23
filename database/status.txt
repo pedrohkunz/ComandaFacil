@@ -1,2 +1,4 @@
 1#Em processamento
 2#Concluido
+3#Aberta
+4#Fechada

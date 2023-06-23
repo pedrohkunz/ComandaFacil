@@ -26,9 +26,13 @@ class ComandaDAO{
 
         void imprimirComandas();
 
+        void imprimirComandasByStatus(unsigned short idStatus);
+
         Comanda getComandaByID(unsigned long int id);
 
         Comanda getComandaByNumeroMesa(unsigned long int numeroMesa);
+
+        vector<Comanda> getComandasByStatus(unsigned short idStatus);
 
         vector<Comanda> getComandasByUsuario(unsigned long int idUsuario);
 

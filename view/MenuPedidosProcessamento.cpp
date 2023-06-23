@@ -26,17 +26,17 @@ void alterarStatusPedido(){
 
         cout << endl;
 
-        bool find = false;
-        while(!find){
+        bool encontrou = false;
+        while(!encontrou){
             for(Pedido pedido : pedidosDAO.getPedidosByStatus(1)){
                 if(pedido.getId() == idPedido){
                     pedidosDAO.editarPedido(Pedido(pedido.getId(), statusDAO.getStatusByID(2), pedido.getPizzas(), pedido.getBebidas()), pedido.getId());
-                    find = true;
+                    encontrou = true;
                     break;
                 }
             }
 
-            if(!find){
+            if(!encontrou){
                 cout << "Pedido não encontrado, digite um ID válido: ";
                 idPedido = menuPrincipalProcessamento.inputIsInt();
             }

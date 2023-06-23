@@ -10,7 +10,7 @@ Status::Status(int id, string nome){
 Status::Status(){};
 
 
-int Status::getId() {
+int Status::getId() const {
   return id;
 }
 void Status::setId(unsigned long int id) {

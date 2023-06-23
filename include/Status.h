@@ -21,7 +21,7 @@ class Status{
     Status(int id, string nome);
     Status();
 
-    int getId();
+    int getId() const;
     void setId(unsigned long int id);
     
     string getNome() const;

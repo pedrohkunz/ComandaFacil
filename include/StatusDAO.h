@@ -22,7 +22,9 @@ class StatusDAO {
 
         vector<Status> getAllStatus();
 
-        void imprimirStatus();
+        void imprimirStatusPedidos();
+
+        void imprimirStatusComandas();
 
         Status getStatusByID(unsigned long int id);
 

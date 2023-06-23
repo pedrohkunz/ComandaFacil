@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Pedido.h"
 #include "PedidoDAO.h"
 #include "Usuario.h"
 
@@ -18,14 +17,15 @@ private:
     string nomeCliente;
     string cpfCliente;
     string formaPagamento;
+    Status status;
     Usuario usuario;
     vector<Pedido> pedidos;
 
     friend ostream& operator<<(ostream& os, const Comanda& objeto) {
 
-        os << "Comanda n° " << objeto.id << "  |  Número da Mesa: " << objeto.numeroMesa << endl;
+        os << "Comanda n° " << objeto.id << "  |  Status: " << objeto.status.getNome() << "  |  Mesa: " << objeto.numeroMesa << endl;
         os << "------------------------------------------------------------" << endl;
-        os << "Nome do Cliente: " << objeto.nomeCliente << "  |  Forma de Pagamento: " << objeto.formaPagamento << endl;
+        os << "Nome do Cliente: " << objeto.nomeCliente << "  |  Forma de Pagamento: " << objeto.formaPagamento << endl << endl;
 
         int j = 1;
 
@@ -44,6 +44,7 @@ public:
             string nomeCliente,
             string cpfCliente,
             string formaPagamento,
+            Status status,
             Usuario usuario,
             vector<Pedido> pedidos);
 
@@ -63,6 +64,9 @@ public:
 
     string getFormaPagamento();
     void setFormaPagamento(string formaPagamento);
+
+    Status getStatus();
+    void setStatus(Status status);
 
     Usuario getUsuario();
     void setUsuario(Usuario usuario);

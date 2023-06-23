@@ -8,7 +8,5 @@ using namespace std;
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     MenuLogin menuLogin = MenuLogin();
-
     menuLogin.menuLogin();
 }
-

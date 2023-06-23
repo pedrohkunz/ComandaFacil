@@ -10,13 +10,15 @@ using namespace std;
 
 
 Comanda::Comanda(unsigned long int id, unsigned short int numeroMesa, string nomeCliente,
-                 string cpfCliente, string formaPagamento, Usuario usuario, vector<Pedido> pedidos){
+                 string cpfCliente, string formaPagamento, Status status,
+                 Usuario usuario, vector<Pedido> pedidos){
 
     this->id = id;
     this->numeroMesa = numeroMesa;
     this->nomeCliente = nomeCliente;
     this->cpfCliente = cpfCliente;
     this->formaPagamento = formaPagamento;
+    this->status = status;
     this->usuario = usuario;
     this->pedidos = pedidos;
 
@@ -61,6 +63,14 @@ string Comanda::getFormaPagamento(){
 }
 void Comanda::setFormaPagamento(string formaPagamento){
   this->formaPagamento = formaPagamento;
+}
+
+
+Status Comanda::getStatus(){
+    return status;
+}
+void Comanda::setStatus(Status status){
+    this->status = status;
 }
 
 

@@ -1,21 +1,22 @@
 #include <iostream>
 #include <limits>
 #include <string>
-#include "../include/MenuPrincipal.h"
-#include "../include/MenuEstoque.h"
-#include "../include/MenuHistoricoPedidos.h"
-#include "../include/MenuPedidosProcessamento.h"
-#include "../include/MenuNovoPedido.h"
-#include "../include/PedidoDAO.h"
 #include "../include/MenuLogin.h"
+#include "../include/MenuPrincipal.h"
+#include "../include/MenuNovoPedido.h"
+#include "../include/MenuGerenciarComandas.h"
+#include "../include/MenuPedidosProcessamento.h"
+#include "../include/MenuHistoricoPedidos.h"
+#include "../include/MenuEstoque.h"
 
 using namespace std;
 
 MenuPrincipal::MenuPrincipal(){};
-MenuEstoque menuEstoqueMenuPrincipal = MenuEstoque();
 MenuNovoPedido menuNovoPedido = MenuNovoPedido();
-MenuHistoricoPedidos menuHistoricoPedidosMenuPrincipal= MenuHistoricoPedidos();
+MenuGerenciarComandas menuGerenciarComandasMenuPrincipal = MenuGerenciarComandas();
 MenuPedidosProcessamento menuPedidosProcessamentoMenuPrincipal= MenuPedidosProcessamento();
+MenuHistoricoPedidos menuHistoricoPedidosMenuPrincipal= MenuHistoricoPedidos();
+MenuEstoque menuEstoqueMenuPrincipal = MenuEstoque();
 
 
 unsigned short MenuPrincipal::inputIsInt(){
@@ -39,10 +40,11 @@ void MenuPrincipal::menu(){
 
     cout << endl
          << "1- Novo pedido  |  "
-         << "2- Pedidos em processamento  |  "
-         << "3- Histórico de pedidos  |  "
-         << "4- Estoque  |  "
-         << "5- Sair" << endl;
+         << "2- Gerenciar comandas  |  "
+         << "3- Pedidos em processamento  |  "
+         << "4- Histórico de pedidos  |  "
+         << "5- Estoque  |  "
+         << "6- Sair" << endl;
 
     cout <<"Qual atividade você deseja realizar? " << endl;
     resposta = inputIsInt();
@@ -50,8 +52,8 @@ void MenuPrincipal::menu(){
     cout << endl;
 
     //Validação da resposta
-    while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5){
-        cout <<"Opção inválida, por favor tente novamente: " << endl;
+    while(resposta != 1 && resposta != 2 && resposta != 3 && resposta != 4 && resposta != 5 && resposta != 6){
+        cout << "Opção inválida, por favor tente novamente: " << endl;
         resposta = inputIsInt();
         cout << endl;
     }
@@ -62,18 +64,22 @@ void MenuPrincipal::menu(){
         break;
 
     case 2:
-        menuPedidosProcessamentoMenuPrincipal.menuPedidosProcessamento();
+        menuGerenciarComandasMenuPrincipal.menuGerenciarComandas();
         break;
 
     case 3:
-        menuHistoricoPedidosMenuPrincipal.menuHistoricoPedidos();
+        menuPedidosProcessamentoMenuPrincipal.menuPedidosProcessamento();
         break;
 
     case 4:
-        menuEstoqueMenuPrincipal.menuEstoque();
+        menuHistoricoPedidosMenuPrincipal.menuHistoricoPedidos();
         break;
 
     case 5:
+        menuEstoqueMenuPrincipal.menuEstoque();
+        break;
+
+    case 6:
         cout << "Saindo..." << endl;
         break;
     }

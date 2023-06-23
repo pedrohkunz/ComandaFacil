@@ -104,11 +104,24 @@ vector<Status> StatusDAO::getAllStatus(){
 };
 
 
-void StatusDAO::imprimirStatus(){
+void StatusDAO::imprimirStatusPedidos(){
     carregarStatus();
     cout << "ID | Nome" << endl;
     for (const auto& objeto : listaStatus) {
+        if (objeto.getId() == 1 || objeto.getId() == 2){
         cout << objeto << endl;
+        }
+    }
+};
+
+
+void StatusDAO::imprimirStatusComandas(){
+    carregarStatus();
+    cout << "ID | Nome" << endl;
+    for (const auto& objeto : listaStatus) {
+        if (objeto.getId() == 3 || objeto.getId() == 4){
+        cout << objeto << endl;
+        }
     }
 };
 

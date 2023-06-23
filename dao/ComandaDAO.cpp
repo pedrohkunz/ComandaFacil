@@ -4,11 +4,9 @@
 #include <string>
 
 #include "../include/ComandaDAO.h"
-#include "../include/Comanda.h"
 #include "../include/PedidoDAO.h"
-#include "../include/Pedido.h"
 #include "../include/UsuarioDAO.h"
-#include "../include/Usuario.h"
+#include "../include/StatusDAO.h"
 
 using namespace std;
 
@@ -17,12 +15,14 @@ ComandaDAO::ComandaDAO(){};
 
 UsuarioDAO usuariosDAOcom = UsuarioDAO();
 PedidoDAO pedidosDAOcom = PedidoDAO();
+StatusDAO statusDAOcom = StatusDAO();
 
 //Métodos que acessam diretamente o arquivo pedidos.txt
 
 Comanda ComandaDAO::converteStringParaObjeto(string a){
    int contador = 0, contadorSharp = 0;
-    string idString, numeroMesaString, nomeCliente, cpfCliente, formaPagamentoString, idUsuarioString, pedidos;
+    string idString, numeroMesaString, nomeCliente, cpfCliente,
+           formaPagamentoString, idStatusString, idUsuarioString, pedidos;
 
     for (int i = 0; i < a.size(); i++) {
       vector<char> vt;
@@ -46,15 +46,17 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
       } else if (contadorSharp == 4) {
             formaPagamentoString = atributo;
       } else if (contadorSharp == 5) {
-            idUsuarioString = atributo;
+            idStatusString = atributo;
       } else if (contadorSharp == 6) {
+            idUsuarioString = atributo;
+      } else if (contadorSharp == 7) {
             pedidos = atributo;
       }
 
       contadorSharp++;
       contador++;
 
-      if (contadorSharp >= 7) {
+      if (contadorSharp >= 8) {
         break;
       }
     }
@@ -63,7 +65,9 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     unsigned long  id = stoi(idString);
     unsigned short numeroMesa = stoi(numeroMesaString);
     unsigned long int idUsuario = stoi(idUsuarioString);
+    unsigned long int idStatus = stoi(idStatusString);
 
+    Status status = statusDAOcom.getStatusByID(idStatus);
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
     //Transforma a string pedidos em um vetor novamente
@@ -95,7 +99,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
         count++;
     }
 
-    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamentoString, usuario, vetorPedidos);
+    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamentoString, status, usuario, vetorPedidos);
     return x;
 };
 
@@ -155,6 +159,7 @@ void ComandaDAO::salvarComandas(){
                     << comanda.getNomeCliente() << "#"
                     << comanda.getCpfCliente() << "#"
                     << comanda.getFormaPagamento() << "#"
+                    << to_string(comanda.getStatus().getId()) << "#"
                     << to_string(comanda.getUsuario().getId()) << "#"
                     << pedidosEmLinha << endl;
 
@@ -183,6 +188,15 @@ void ComandaDAO::imprimirComandas(){
 };
 
 
+void ComandaDAO::imprimirComandasByStatus(unsigned short idStatus){
+    carregarComandas();
+
+    for (Comanda c : getComandasByStatus(idStatus)) {
+        cout << c << endl;
+    }
+};
+
+
 Comanda ComandaDAO::getComandaByID(unsigned long int id){
     carregarComandas();
     bool encontrou = false;
@@ -196,7 +210,8 @@ Comanda ComandaDAO::getComandaByID(unsigned long int id){
     if(encontrou == false) {
         cout << "Erro: ID Comanda não encontrado." << endl;
     }
-}
+};
+
 
 Comanda ComandaDAO::getComandaByNumeroMesa(unsigned long int numeroMesa){
     carregarComandas();
@@ -233,6 +248,28 @@ vector<Comanda> ComandaDAO::getComandasByUsuario(unsigned long int idUsuario){
     }
 };
 
+
+vector<Comanda> ComandaDAO::getComandasByStatus(unsigned short int idStatus){
+    carregarComandas();
+    bool encontrou = false;
+    vector<Comanda> comandas;
+    Status status = statusDAOcom.getStatusByID(idStatus);
+
+    for (Comanda c : listaComandas){
+        if (c.getStatus().getId() == status.getId()){
+            encontrou = true;
+            comandas.push_back(c);
+        }
+    }
+
+    return comandas;
+    cout << endl;
+    if (encontrou == false) {
+        cout << "Erro: Status Comanda não encontrado." << endl;
+    }
+};
+
+
 Comanda ComandaDAO::getComandaByPedido(unsigned long int idPedido){
     carregarComandas();
     bool encontrou = false;
@@ -254,6 +291,7 @@ Comanda ComandaDAO::getComandaByPedido(unsigned long int idPedido){
     }
 
 };
+
 
 bool ComandaDAO::inserirComanda(Comanda comanda){
     carregarComandas();

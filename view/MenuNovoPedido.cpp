@@ -78,7 +78,7 @@ void MenuNovoPedido::menu(){
     comandaDAONovoPedido.removerComanda(idComanda);
     comandaDAONovoPedido.inserirComanda(comandaNovoPedido);
 
-    cout << "Pedido adicionado com sucesso!1" << endl;
+    cout << "Pedido adicionado com sucesso!" << endl;
     menuPrincipalNovoPedido.menu();
     break;
 
@@ -184,6 +184,7 @@ Pedido MenuNovoPedido::adicionarPedido(){
         respostaAddPedido = menuPrincipalNovoPedido.inputIsInt();
         cout << endl;
 
+        //Validação da resposta
         while (respostaAddPedido != 1 && respostaAddPedido != 2 && respostaAddPedido != 3) {
             cout << "Opção inválida, por favor tente novamente: " << endl;
             respostaAddPedido = menuPrincipalNovoPedido.inputIsInt();
@@ -358,7 +359,8 @@ Sabor MenuNovoPedido::verificarSabor(unsigned short id){
     for (Ingrediente i : saborEscolhido.getIngredientes()){
         disponivel = false;
         unsigned short loteIndice = 0;
-        
+
+        // Procura os lotes que contêm o ingrediente
         for (Lote l : loteDAONovoPedido.getLotesByIngrediente(i)){
             unsigned short loteCount = loteDAONovoPedido.getLotesByIngrediente(i).size();
             cout << loteCount << endl << loteIndice << endl;
@@ -378,7 +380,7 @@ Sabor MenuNovoPedido::verificarSabor(unsigned short id){
             loteIndice++;
         }       
     }
-    cout << encontrou << " " << disponivel << endl;
+    // Apenas retorna o ingrediente se ele está disponível
     if(encontrou && disponivel){
         for (Lote l : lotesEscolhidos){
             l.setQuantidade((l.getQuantidade() - 10));
@@ -386,6 +388,11 @@ Sabor MenuNovoPedido::verificarSabor(unsigned short id){
             loteDAONovoPedido.inserirLote(l);
         }
         return saborEscolhido;
+
+    } else {
+        cout << "Sabor indisponível. Por favor, escolha outro sabor: " << endl;
+        idSabor = menuPrincipalNovoPedido.inputIsInt();
+        verificarSabor(idSabor); 
     }
                            
 }
