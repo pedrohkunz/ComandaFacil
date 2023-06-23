@@ -3,10 +3,12 @@
 
 using namespace std;
 
-#include "include/MenuPrincipal.h"
+#include "include/MenuLogin.h"
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    MenuPrincipal menuPrincipal = MenuPrincipal();
-    menuPrincipal.menu();
+    MenuLogin menuLogin = MenuLogin();
+
+    menuLogin.menuLogin();
 }
+

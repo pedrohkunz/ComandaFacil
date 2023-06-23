@@ -458,6 +458,6 @@ void MenuNovoPedido::menuNovaComanda(){
     comandaNovoPedido.setPedidos(pedidosComanda);
 
     comandaDAONovoPedido.inserirComanda(comandaNovoPedido);
-    
+
 
 }

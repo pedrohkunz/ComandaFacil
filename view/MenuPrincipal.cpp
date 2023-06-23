@@ -7,6 +7,7 @@
 #include "../include/MenuPedidosProcessamento.h"
 #include "../include/MenuNovoPedido.h"
 #include "../include/PedidoDAO.h"
+#include "../include/MenuLogin.h"
 
 using namespace std;
 

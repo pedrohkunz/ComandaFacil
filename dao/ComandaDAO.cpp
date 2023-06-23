@@ -63,7 +63,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     unsigned long  id = stoi(idString);
     unsigned short numeroMesa = stoi(numeroMesaString);
     unsigned long int idUsuario = stoi(idUsuarioString);
-    
+
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
     //Transforma a string pedidos em um vetor novamente
@@ -176,7 +176,7 @@ vector<Comanda> ComandaDAO::getAllComandas(){
 
 void ComandaDAO::imprimirComandas(){
     carregarComandas();
-    
+
     for (Comanda c : listaComandas) {
         cout << c << endl;
     }
@@ -220,7 +220,7 @@ vector<Comanda> ComandaDAO::getComandasByUsuario(unsigned long int idUsuario){
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
     for (Comanda c : listaComandas){
-        if (c.getUsuario() == usuario){
+        if (c.getUsuario().getId() == usuario.getId()){
             encontrou = true;
             comandas.push_back(c);
         }

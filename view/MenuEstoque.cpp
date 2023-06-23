@@ -4,6 +4,7 @@
 #include "../include/MenuEstoque.h"
 #include "../include/MenuPrincipal.h"
 #include "../include/IdCounterDAO.h"
+#include "../include/MenuLogin.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -47,8 +48,13 @@ void MenuEstoque::menuEstoque() {
     break;
 
   case 2:
-    this->adicionarLote();
-    this->menuEstoque();
+    if(userLogado.getIsAdmin() == true){
+      this->adicionarLote();
+      this->menuEstoque();
+    } else {
+      cout <<"\nApenas administradores podem adicionar lotes\n\n";
+      this->menuEstoque();
+    }
     break;
 
   case 3:

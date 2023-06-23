@@ -31,6 +31,8 @@ class UsuarioDAO {
         bool criarUsuario(Usuario usuario);
 
         bool removerUsuario(unsigned long int id);
+
+
 };
 
 #endif
