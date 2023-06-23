@@ -23,6 +23,7 @@ unsigned short MenuPrincipal::inputIsInt(){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Entrada inválida. Digite um número por favor: ";
+        this->inputIsInt();
     }
 
     return resposta;

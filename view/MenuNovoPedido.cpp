@@ -29,8 +29,8 @@ IdCounterDAO idCounterNovoPedido = IdCounterDAO();
 StatusDAO statusDAONovoPedido = StatusDAO();
 IngredienteDAO ingredienteDAONovoPedido = IngredienteDAO();
 LoteDAO loteDAONovoPedido = LoteDAO();
-UsuarioDAO usuarioDAO = UsuarioDAO();
 PizzaDAO pizzaDAONovoPedido = PizzaDAO();
+SaborDAO saborDAONovoPedido = SaborDAO();
 Ingrediente ingredNovoPedido;
 Comanda comandaNovoPedido;
 vector<Pedido> pedidos;
@@ -40,7 +40,7 @@ vector<Bebida> pedidoBebidas;
 
 // MENU NOVO PEDIDO ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void MenuNovoPedido::menu(){
-  unsigned short respostaMNP, numeroMesa;
+  unsigned short respostaMNP, idComanda;
 
   cout <<"/////////////////////////////////////////// Menu Novo Pedido //////////////////////////////////////////////" << endl;
 
@@ -67,14 +67,18 @@ void MenuNovoPedido::menu(){
     break;
 
   case 2:
-    cout << "Digite o número da mesa: " << endl;
-    cin >> numeroMesa;
+    cout << "Digite o ID da comanda: " << endl;
+    cin >> idComanda;
     cout << endl;
 
-    comandaNovoPedido = comandaDAONovoPedido.getComandaByNumeroMesa(numeroMesa);
+    comandaNovoPedido = comandaDAONovoPedido.getComandaByID(idComanda);
     pedidos = comandaNovoPedido.getPedidos();
     pedidos.push_back(adicionarPedido());
-    cout << "pedido adicionado com sucesso" << endl;
+    comandaNovoPedido.setPedidos(pedidos);
+    comandaDAONovoPedido.removerComanda(idComanda);
+    comandaDAONovoPedido.inserirComanda(comandaNovoPedido);
+
+    cout << "Pedido adicionado com sucesso!1" << endl;
     menuPrincipalNovoPedido.menu();
     break;
 
@@ -111,28 +115,22 @@ string MenuNovoPedido::nomeCliente(){
 
 // NUMERO MESA ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 unsigned short MenuNovoPedido::numeroDaMesa(){
-    unsigned short numeroMesa;
+    unsigned short idComanda;
 
     cout << "Digite o número da mesa: " << endl;
 
     //Garante que o valor de entrada seja um inteiro
-    while (!(cin >> numeroMesa)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida. Apenas números são aceitos: " << endl;
-    }
+    idComanda = menuPrincipalNovoPedido.inputIsInt();
+    cout << endl;
 
     //Valida se o número é menor que zero ou maior que 100
-    while(numeroMesa < 0 || numeroMesa > 100){
+    while(idComanda < 0 || idComanda > 100){
         cout << "Número inválido. Digite um número entre 0 e 100: " << endl;
-        while (!(cin >> numeroMesa)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada inválida. Apenas números são aceitos: " << endl;
-        }
+        idComanda = menuPrincipalNovoPedido.inputIsInt();
+        cout << endl;
     }
 
-    return numeroMesa;
+    return idComanda;
 }
 
 // CPF ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -262,17 +260,13 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
     cout <<"Qual tamanho de pizza o cliente deseja? " << endl;
 
     //Garante que o valor de entrada seja um inteiro
-    while (!(cin >> tamanhoPizza)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida. Digite o ID de um tamanho: " << endl;
-    }
+    tamanhoPizza = menuPrincipalNovoPedido.inputIsInt();
 
     //Procura o Tamanho na base de dados com base no id
     TamanhoPizza tamanhoSelecionado;
     bool encontrou = false;
 
-    //Verifica se o tamanho foi encontrado no vetor, caso não pedirá um novo tamanho
+    //Verifica se o tamanho foi encontrado no vetor, e, caso não, pedirá um novo tamanho
     while (!encontrou) {
         for (TamanhoPizza tamanho : tamanhoPizzaDAO.getAllTamanhos()) {
             if (tamanho.getId() == tamanhoPizza) {
@@ -284,12 +278,7 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
 
         if (!encontrou) {
             cout << "O tamanho selecionado não existe, insira um ID de tamanho válido: " << endl;
-            //Garante que o valor de entrada seja um inteiro
-            while (!(cin >> tamanhoPizza)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Entrada inválida. Digite o ID de um tamanho: " << endl;
-            }
+            escolherTamanhoDaPizza();
         }
     }
 
@@ -299,18 +288,14 @@ TamanhoPizza MenuNovoPedido::escolherTamanhoDaPizza(){
 // SABORES //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 vector<Sabor> MenuNovoPedido::escolherSabores(){
     unsigned short quantSabores, ingredQuant;
-    SaborDAO saborDAO = SaborDAO();
+    Sabor saborNovoPedido;
 
     cout <<"////////////////////////////////////// Escolha os sabores da pizza ////////////////////////////////////////" << endl;
 
     cout <<"Quantos sabores o cliente deseja? " << endl;
 
     //Garante que o valor de entrada seja um inteiro
-    while (!(cin >> quantSabores)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida. Apenas números são aceitos: ";
-    }
+    quantSabores = menuPrincipalNovoPedido.inputIsInt();
 
 
     //Valida a quantidade de sabores
@@ -320,54 +305,92 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
         } else if(quantSabores > 4){
             cout <<"A quantidade máxima de sabores é 4, insira uma quantidade válida: " << endl;
         }
-
         //Garante que o valor de entrada seja um inteiro
-        while (!(cin >> quantSabores)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada inválida. Apenas números são aceitos: " << endl;
-        }
+        quantSabores = menuPrincipalNovoPedido.inputIsInt();
     }
 
     cout << endl;
 
     //Imprime sabores
-    saborDAO.imprimirSabores();
+    saborDAONovoPedido.imprimirSabores();
     cout << endl;
 
     //Armazena os sabores escolhidos em um vetor
     vector<Sabor> saboresPedido;
-    for(int i= 0; i< quantSabores; i++){
+    for (int i= 0; i< quantSabores; i++){
         unsigned short s;
 
-        bool encontrado = false;
-        while(encontrado == false) {
-            cout <<"Escolha o sabor " << i+1 <<": " << endl;
+        cout << "Escolha o sabor " << i + 1 << ": " << endl;
 
-            //Garante que o valor de entrada seja um inteiro
-            while (!(cin >> s)) {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Entrada inválida. Digite o ID de um sabor: " << endl;
-            }
+        //Garante que o valor de entrada seja um inteiro
+        s = menuPrincipalNovoPedido.inputIsInt();
+        saboresPedido.push_back(verificarSabor(s));
 
-            //Procura o sabor selecionado na base de dados
-            for(Sabor sabor : saborDAO.getAllSabores()){
-                if(sabor.getId() == s){
-                    saboresPedido.push_back(sabor);
-                    encontrado = true;
-                    break;
-                }
-            }
-
-            if(!encontrado){
-                cout <<"O sabor digitado não foi encontrado!" << endl;
-            }
         }
-    }
+    
 
      return saboresPedido;
 }
+
+// VERIFICAR SABOR //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Sabor MenuNovoPedido::verificarSabor(unsigned short id){
+    unsigned short idSabor;
+    Sabor saborEscolhido;
+    vector<Lote> lotesEscolhidos;
+    bool encontrou = false;
+    bool disponivel = false;
+
+
+    for(Sabor s : saborDAONovoPedido.getAllSabores()){
+        if (s.getId() == id){
+            encontrou = true;
+            saborEscolhido = s;
+            break;
+        }
+    }
+    if (!encontrou){
+        cout << "O sabor digitado não foi encontrado! Por favor, escolha outro sabor: " << endl;
+        idSabor = menuPrincipalNovoPedido.inputIsInt();
+        verificarSabor(idSabor);
+    }
+
+    //Verifica se tem ingredientes em quantidade suficiente para o sabor ser escolhido
+    for (Ingrediente i : saborEscolhido.getIngredientes()){
+        disponivel = false;
+        unsigned short loteIndice = 0;
+        
+        for (Lote l : loteDAONovoPedido.getLotesByIngrediente(i)){
+            unsigned short loteCount = loteDAONovoPedido.getLotesByIngrediente(i).size();
+            cout << loteCount << endl << loteIndice << endl;
+            int quantIngrediente = l.getQuantidade();
+
+            if (quantIngrediente >= 10){
+                disponivel = true;
+                lotesEscolhidos.push_back(l);
+                break;
+
+            } else if (loteIndice == (loteCount - 1)){
+                cout << "Sabor indisponível. Por favor, escolha outro sabor: " << endl;
+                idSabor = menuPrincipalNovoPedido.inputIsInt();
+                verificarSabor(idSabor);    
+            } 
+            
+            loteIndice++;
+        }       
+    }
+    cout << encontrou << " " << disponivel << endl;
+    if(encontrou && disponivel){
+        for (Lote l : lotesEscolhidos){
+            l.setQuantidade((l.getQuantidade() - 10));
+            loteDAONovoPedido.removerLote(l.getId());
+            loteDAONovoPedido.inserirLote(l);
+        }
+        return saborEscolhido;
+    }
+                           
+}
+
+
 
 // NOVA PIZZA //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Pizza MenuNovoPedido::novaPizza(){
@@ -422,7 +445,7 @@ void MenuNovoPedido::menuNovaComanda(){
     unsigned short numeroMesa = numeroDaMesa();
     string cpf = escolherCPF();
     string formaDePgto = formaDePagamento();
-    Usuario usuarioComanda = usuarioDAO.getUsuarioByID(1);
+    Usuario usuarioComanda = usuarioDAONovoPedido.getUsuarioByID(1);
 
     vector<Pedido> pedidosComanda;
     pedidosComanda.push_back(adicionarPedido());

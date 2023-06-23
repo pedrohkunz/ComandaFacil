@@ -20,6 +20,7 @@ class MenuNovoPedido {
         string escolherCPF();
         TamanhoPizza escolherTamanhoDaPizza();
         vector<Sabor> escolherSabores();
+        Sabor verificarSabor(unsigned short id);
         Bebida escolherBebida();
         Pedido adicionarPedido();
         string formaDePagamento();
