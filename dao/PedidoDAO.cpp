@@ -251,7 +251,7 @@ vector<Pedido> PedidoDAO::getPedidosByStatus(unsigned short statusID){
 
     cout << endl;
     if (!encontrou) {
-        cout << "Nenhum pedido em processamento encontrado!\n" << endl;
+        cout << "Nenhum pedido encontrado!\n" << endl;
     } else {
          return pedidos;
     }

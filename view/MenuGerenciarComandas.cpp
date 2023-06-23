@@ -19,18 +19,17 @@ void MenuGerenciarComandas::menuGerenciarComandas(){
   unsigned short respostaMGC, idComanda;
 
   cout <<"/////////////////////////////////////// Menu Gerenciar Comandas ///////////////////////////////////////////" << endl;
-  
+
   cout << "1- Histórico de comandas  |  "
-       << "2- Ver todas as comandas abertas  |  "
-       << "3- Voltar ao menu principal  |  "
-       << "4- Sair" << endl
+       << "2- Voltar ao menu principal  |  "
+       << "3- Sair" << endl
        << "Qual atividade você deseja realizar? " << endl;
 
   respostaMGC = menuPrincipalGerenciarComandas.inputIsInt();
   cout << endl;
 
   // Validação da resposta
-  while (respostaMGC != 1 && respostaMGC != 2 && respostaMGC != 3 && respostaMGC != 4) {
+  while (respostaMGC != 1 && respostaMGC != 2 && respostaMGC != 3) {
     cout << "Opção inválida, por favor tente novamente: " << endl;
     respostaMGC = menuPrincipalGerenciarComandas.inputIsInt();
     cout << endl;
@@ -44,18 +43,13 @@ void MenuGerenciarComandas::menuGerenciarComandas(){
     break;
 
   case 2:
-    gerenciarComandasAbertas();
-    menuGerenciarComandas();
-    break;
-
-  case 3:
     menuPrincipalGerenciarComandas.menu();
     break;
 
-  case 4:
+  case 3:
     cout << "Saindo..." << endl;
     break;
-  
+
   }
 }
 
@@ -72,7 +66,7 @@ void MenuGerenciarComandas::gerenciarComandasAbertas(){
        << "2- Voltar ao menu principal  |  "
        << "3- Sair" << endl;
   cout <<"Qual atividade você deseja realizar? " << endl;
-  
+
   idComanda = menuPrincipalGerenciarComandas.inputIsInt();
   cout << endl;
 
@@ -83,7 +77,7 @@ void MenuGerenciarComandas::gerenciarComandasAbertas(){
     idComanda= menuPrincipalGerenciarComandas.inputIsInt();
     cout << endl;
   }
-  
+
 
   switch (idComanda) {
   case 1:

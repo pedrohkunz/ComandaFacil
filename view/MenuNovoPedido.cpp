@@ -14,6 +14,7 @@ using namespace std;
 #include "../include/ComandaDAO.h"
 #include "../include/PedidoDAO.h"
 #include "../include/LoteDAO.h"
+#include "../include/MenuLogin.h"
 #include "../include/UsuarioDAO.h"
 #include "../include/IdCounterDao.h"
 #include "../include/IngredienteDao.h"
@@ -31,6 +32,7 @@ IngredienteDAO ingredienteDAONovoPedido = IngredienteDAO();
 LoteDAO loteDAONovoPedido = LoteDAO();
 PizzaDAO pizzaDAONovoPedido = PizzaDAO();
 SaborDAO saborDAONovoPedido = SaborDAO();
+
 Ingrediente ingredNovoPedido;
 Comanda comandaNovoPedido;
 vector<Pedido> pedidos;
@@ -328,75 +330,65 @@ vector<Sabor> MenuNovoPedido::escolherSabores(){
         saboresPedido.push_back(verificarSabor(s));
 
         }
-    
+
 
      return saboresPedido;
 }
 
 // VERIFICAR SABOR //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Sabor MenuNovoPedido::verificarSabor(unsigned short id){
+Sabor MenuNovoPedido::verificarSabor(unsigned short id) {
     unsigned short idSabor;
     Sabor saborEscolhido;
     vector<Lote> lotesEscolhidos;
     bool encontrou = false;
     bool disponivel = false;
 
-
-    for(Sabor s : saborDAONovoPedido.getAllSabores()){
-        if (s.getId() == id){
+    for (Sabor s : saborDAONovoPedido.getAllSabores()) {
+        if (s.getId() == id) {
             encontrou = true;
             saborEscolhido = s;
             break;
         }
     }
-    if (!encontrou){
-        cout << "O sabor digitado não foi encontrado! Por favor, escolha outro sabor: " << endl;
+
+    if (!encontrou) {
+        cout << "O sabor digitado não foi encontrado! Por favor, escolha outro sabor:" << endl;
         idSabor = menuPrincipalNovoPedido.inputIsInt();
-        verificarSabor(idSabor);
+        return verificarSabor(idSabor);
     }
 
-    //Verifica se tem ingredientes em quantidade suficiente para o sabor ser escolhido
-    for (Ingrediente i : saborEscolhido.getIngredientes()){
+    for (Ingrediente i : saborEscolhido.getIngredientes()) {
         disponivel = false;
         unsigned short loteIndice = 0;
+        vector<Lote> lotesDoIngrediente = loteDAONovoPedido.getLotesByIngrediente(i);
 
-        // Procura os lotes que contêm o ingrediente
-        for (Lote l : loteDAONovoPedido.getLotesByIngrediente(i)){
-            unsigned short loteCount = loteDAONovoPedido.getLotesByIngrediente(i).size();
-            cout << loteCount << endl << loteIndice << endl;
+        for (Lote l : lotesDoIngrediente) {
             int quantIngrediente = l.getQuantidade();
 
-            if (quantIngrediente >= 10){
+            if (quantIngrediente >= 10) {
                 disponivel = true;
                 lotesEscolhidos.push_back(l);
                 break;
+            }
 
-            } else if (loteIndice == (loteCount - 1)){
-                cout << "Sabor indisponível. Por favor, escolha outro sabor: " << endl;
-                idSabor = menuPrincipalNovoPedido.inputIsInt();
-                verificarSabor(idSabor);    
-            } 
-            
             loteIndice++;
-        }       
-    }
-    // Apenas retorna o ingrediente se ele está disponível
-    if(encontrou && disponivel){
-        for (Lote l : lotesEscolhidos){
-            l.setQuantidade((l.getQuantidade() - 10));
-            loteDAONovoPedido.removerLote(l.getId());
-            loteDAONovoPedido.inserirLote(l);
         }
-        return saborEscolhido;
 
-    } else {
-        cout << "Sabor indisponível. Por favor, escolha outro sabor: " << endl;
-        idSabor = menuPrincipalNovoPedido.inputIsInt();
-        verificarSabor(idSabor); 
+        if (!disponivel) {
+            cout << "Sabor indisponível por falta de ingredientes. Por favor, escolha outro sabor:" << endl;
+            idSabor = menuPrincipalNovoPedido.inputIsInt();
+            return verificarSabor(idSabor);
+        }
     }
-                           
-}
 
+    for (Lote l : lotesEscolhidos) {
+        l.setQuantidade(l.getQuantidade() - 10);
+        loteDAONovoPedido.removerLote(l.getId());
+        loteDAONovoPedido.inserirLote(l);
+    }
+
+    return saborEscolhido;
+}
 
 
 // NOVA PIZZA //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -452,7 +444,7 @@ void MenuNovoPedido::menuNovaComanda(){
     unsigned short numeroMesa = numeroDaMesa();
     string cpf = escolherCPF();
     string formaDePgto = formaDePagamento();
-    Usuario usuarioComanda = usuarioDAONovoPedido.getUsuarioByID(1);
+    Usuario usuarioComanda = usuarioDAONovoPedido.getUsuarioByNome(userLogado.getNome());
 
     vector<Pedido> pedidosComanda;
     pedidosComanda.push_back(adicionarPedido());

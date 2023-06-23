@@ -67,7 +67,13 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
     unsigned long int idUsuario = stoi(idUsuarioString);
     unsigned long int idStatus = stoi(idStatusString);
 
-    Status status = statusDAOcom.getStatusByID(idStatus);
+    Status statusPedido;
+    for(Status s : statusDAOcom.getAllStatus()){
+        if(s.getId() == idStatus){
+            s = statusPedido;
+        }
+    }
+
     Usuario usuario = usuariosDAOcom.getUsuarioByID(idUsuario);
 
     //Transforma a string pedidos em um vetor novamente
@@ -99,7 +105,7 @@ Comanda ComandaDAO::converteStringParaObjeto(string a){
         count++;
     }
 
-    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamentoString, status, usuario, vetorPedidos);
+    auto x = Comanda(id, numeroMesa, nomeCliente, cpfCliente, formaPagamentoString, statusPedido, usuario, vetorPedidos);
     return x;
 };
 
@@ -251,9 +257,16 @@ vector<Comanda> ComandaDAO::getComandasByUsuario(unsigned long int idUsuario){
 
 vector<Comanda> ComandaDAO::getComandasByStatus(unsigned short int idStatus){
     carregarComandas();
+    statusDAOcom.carregarStatus();
     bool encontrou = false;
     vector<Comanda> comandas;
-    Status status = statusDAOcom.getStatusByID(idStatus);
+    Status status;
+
+    for(Status st : statusDAOcom.getAllStatus()){
+        if(st.getId() == idStatus){
+            st = status;
+        }
+    }
 
     for (Comanda c : listaComandas){
         if (c.getStatus().getId() == status.getId()){

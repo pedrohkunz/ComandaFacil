@@ -48,13 +48,8 @@ void MenuEstoque::menuEstoque() {
     break;
 
   case 2:
-    if(userLogado.getIsAdmin() == true){
       this->adicionarLote();
       this->menuEstoque();
-    } else {
-      cout <<"\nApenas administradores podem adicionar lotes\n\n";
-      this->menuEstoque();
-    }
     break;
 
   case 3:
